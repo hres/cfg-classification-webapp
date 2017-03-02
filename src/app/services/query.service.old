@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import { CfgItem } from '../dtos/cfgitem';
+import { CFGITEMS } from './mock-data';
+
+@Injectable()
+export class QueryService {
+
+	constructor() { }
+
+	getData(): Promise<CfgItem[]>{
+		return Promise.resolve(CFGITEMS);
+	}
+}
