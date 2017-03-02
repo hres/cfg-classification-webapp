@@ -47,6 +47,7 @@ export class MainInterfaceComponent implements OnInit {
 	}
 
 	getGridData():void{
+		//todo remove
 		//this.queryService.getData().then(
 			//myarray => {this.gridOptions.api.setRowData(myarray);
 			//this.gridOptions.api.sizeColumnsToFit();}
