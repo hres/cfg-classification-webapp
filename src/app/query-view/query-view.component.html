@@ -2,6 +2,9 @@
 	<h1>Query Form</h1>
 	<form (ngSubmit)="onSubmit()" #queryForm="ngForm">
 		{{diagnostic}}
+		<button name="rollUp"
+		  routerLink="/main" type="submit" class="btn btn-success" [disabled]="!queryForm.form.valid">Search</button>
+	
 		<div>
 			<div class="form-horizontal">
 				<div class="form-group col-sm-4">
@@ -139,8 +142,6 @@
 				</div>
 			</fieldset>
 		</div>
-		<button name="rollUp"
-		  routerLink="/main" type="submit" class="btn btn-success" [disabled]="!queryForm.form.valid">Submit</button>
-	</form>
+</form>
 </div>
 
