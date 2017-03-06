@@ -10,7 +10,7 @@ Building this project requires the following.
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
-Once the above are installed in the project root run.
+Once the above are installed, navigate to project root and run the following.
 
 	npm install
 
