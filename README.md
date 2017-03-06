@@ -1,11 +1,12 @@
-# CfgClassificationWebapp
+# Cfg Classification Webapp
 
 This project is the user interface for the CFG-Classification IP346b initiative.  It is an Angular front end that interfaces with Java Rest services.
 
 
 ## Build
 
-Building this project requires the following:
+Building this project requires the following.
+
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
