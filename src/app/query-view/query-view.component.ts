@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CfgRequest } from '../dtos/cfg-request';
 
 @Component({
-	moduleId: module.id,
 	selector: 'query-view',
 	templateUrl: './query-view.component.html',
 	styleUrls: ['./query-view.component.css']

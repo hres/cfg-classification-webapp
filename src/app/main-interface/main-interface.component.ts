@@ -19,11 +19,16 @@ export class MainInterfaceComponent implements OnInit {
 			enableSorting: true
 		};
 		this.gridOptions.columnDefs=[
-			{
-				headerName: "Name",
-				field: "name",
-				width: 100
-			},
+			//{
+				//headerName: "Name",
+				//field: "name",
+				//width: 100
+			//},
+			//{
+				//headerName: "Sub Group",
+				//field: "subGroup",
+				//width: 100
+			//}
 			{
 				headerName: "Cfg Code",
 				field: "cfgCode",
@@ -48,16 +53,16 @@ export class MainInterfaceComponent implements OnInit {
 
 	getGridData():void{
 		//todo temporary remove
-		//this.queryService.getData().then(
-			//myarray => {this.gridOptions.api.setRowData(myarray);
-			//this.gridOptions.api.sizeColumnsToFit();}
-		//);
-		this.queryService.getGroups().subscribe(
-			(res) => {
-				this.gridOptions.api.setRowData(res);
-			},
-			(err) =>{
-				console.log(err);
-			});
+		this.queryService.getData().then(
+			myarray => {this.gridOptions.api.setRowData(myarray);
+			this.gridOptions.api.sizeColumnsToFit();}
+		);
+		//this.queryService.getGroups().subscribe(
+			//(res) => {
+				//this.gridOptions.api.setRowData(res);
+			//},
+			//(err) =>{
+				//console.log(err);
+			//});
 	}
 }
