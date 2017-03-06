@@ -10,10 +10,8 @@ Building this project requires the following.
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
-Once the above are installed the following additional node packages must be added to project.
+Once the above are installed in the project root run.
 
-	-ng2-restangular
-	-ag-grid
-	-ag-grid-angular
+	npm install
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.  The contents of this folder is what needs to be made available at https://lam-dev.hres.ca/cfg-classification-webapp/
