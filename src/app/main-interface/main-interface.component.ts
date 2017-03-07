@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GridOptions } from "ag-grid";
+import { GridOptions } from 'ag-grid';
 import { CfgItem } from '../dtos/cfgitem';
 import { QueryService } from '../services/query.service';
 
@@ -9,6 +9,7 @@ import { QueryService } from '../services/query.service';
 	styleUrls: ['./main-interface.component.css'],
 	providers: [QueryService]
 })
+
 export class MainInterfaceComponent implements OnInit {
 	private gridOptions: GridOptions;
 	gridData: CfgItem[];
@@ -18,17 +19,13 @@ export class MainInterfaceComponent implements OnInit {
 			enableFilter: true,
 			enableSorting: true
 		};
+		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
-			//{
-				//headerName: "Name",
-				//field: "name",
-				//width: 100
-			//},
-			//{
-				//headerName: "Sub Group",
-				//field: "subGroup",
-				//width: 100
-			//}
+			{
+				headerName: "Name",
+				field: "name",
+				width: 100
+			},
 			{
 				headerName: "Cfg Code",
 				field: "cfgCode",
@@ -52,17 +49,13 @@ export class MainInterfaceComponent implements OnInit {
 	}
 
 	getGridData():void{
-		//todo temporary remove
-		this.queryService.getData().then(
-			myarray => {this.gridOptions.api.setRowData(myarray);
-			this.gridOptions.api.sizeColumnsToFit();}
-		);
-		//this.queryService.getGroups().subscribe(
-			//(res) => {
-				//this.gridOptions.api.setRowData(res);
-			//},
-			//(err) =>{
-				//console.log(err);
-			//});
+		this.queryService.getGroups().subscribe(
+			(res) => {
+				this.gridOptions.api.setRowData(res);
+				this.gridOptions.api.sizeColumnsToFit();
+			},
+			(err) =>{
+				console.log(err);
+			});
 	}
 }
