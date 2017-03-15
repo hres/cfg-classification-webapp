@@ -11,4 +11,8 @@ export class CfgRequest {
 	missing: string[];
 	commitBeginDate: Date;
 	commitEndDate: Date;
+	comments: string;
+	lastUpdateFilter: string[];
+	lastUpdateDateBegin: Date;
+	lastUpdateDateEnd: Date;
 }

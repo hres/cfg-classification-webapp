@@ -22,8 +22,18 @@ export class MainInterfaceComponent implements OnInit {
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			{
+				headerName: "Type",
+				field: "foodRecipeType",
+				width: 100
+			},
+			{
 				headerName: "Name",
 				field: "name",
+				width: 100
+			},
+			{
+				headerName: "CNF Code",
+				field: "cnfCode",
 				width: 100
 			},
 			{
@@ -33,7 +43,7 @@ export class MainInterfaceComponent implements OnInit {
 			},
 			{
 				headerName: "Added Sodium",
-				field: "addedSodium",
+				field: "containsAddedSodium",
 				width: 100
 			},
 			{

@@ -1,12 +1,17 @@
 <div class="container">
-	<h1>Query Form</h1>
 	<form (ngSubmit)="onSubmit()" #queryForm="ngForm">
 		{{diagnostic}}
-		<button name="rollUp"
-		  routerLink="/main" type="submit" class="btn btn-success" [disabled]="!queryForm.form.valid">Search</button>
-	
 		<div>
-			<div class="form-horizontal">
+			<label class="breadcrumb-root">Datasets</label> > Create Production Dataset
+			<div style="float:right">
+				<button name="search" class="btn btn-success" [disabled]="!queryForm.form.valid">Search</button>
+				<!--routerLink="/main" -->
+				<button name="reset" class="btn">Reset</button>
+				<button name="cancel" class="btn">Cancel</button>
+			</div>
+		</div>
+		<div>
+			<div class="form-horizontal" style="width: 100%">
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="dataSourceCmb">Data Source</label>
 					<select class="form-control" id="dataSourceCmb" required
@@ -28,37 +33,70 @@
 						Name is required
 					</div>
 				</div>
-				<div class="form-group row col-sm-4">
+				<div class="form-group col-sm-4">
 					<div class="col-6"><label class="col-6" for="code">Food/Recipe Code</label></div>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" name="code" [(ngModel)]="cfgRequest.code">
 				</div>
-			</div>
-			<div>
-				<label class="control-label">Commit Date</label>
-				<input type="date"> - <input type="date">
 			</div>
 			<div class="form-horizontal">
-				<div class="col-4">	
-					<label class="col-4" for="subCode">Sub Group Code</label>
-				</div>
-				<input class="form-control col-3" type="text" id="subCode">
+				<label class="control-label" for="commitDateBegin">Commit Date</label>
+				<input id="commitDateBegin" type="date" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
+				<input type="date" name="commitDateEnd" [(ngModel)]="cfgRequest.commitDateEnd">
+				<label class="control-label" for="cnfCode">CNF Code:</label>
+				<input id="cfgCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
 			</div>
-			<div [hidden]="source.value=='Food'" class="form-group">
-				<label class="control-label" for="rollUpDownCmb">Recipe:</label>
-				<select class="form-control" id="rollUpDownCmb"
-								 [(ngModel)]="cfgRequest.rollUp"
-								 name="rollUp">
-					<option *ngFor="let rollUp of rollUpDown" [value]="rollUp">{{rollUp}}</option>
-				</select>
+			<div class="form-horizontal">
+				<div class="col-sm-4"> 	
+					<label for="subCode">Sub Group Code</label>
+					<input class="form-control" type="text" id="subCode" style="width: 60px" name="subGroupCode" [(ngModel)]="cfgRequest.subGroupCode">
+				</div>
+				<div class="col-sm-4 form-vertical">
+					<label class="control-label" for="tierCmb">CFG Tier:</label>
+					<select class="form-control" id="tierCmb"
+								  [(ngModel)]="cfgRequest.cfgTier"
+								  name="cfgTier">
+						<option *ngFor="let tier of cfgTiers" [ngValue]="tier">{{tier.name}}</option>
+					</select>
+				</div>
+				<div [hidden]="source.value=='Food'" class="col-sm-4 form-group">
+					<label class="control-label" for="rollUpDownCmb">Recipe:</label>
+					<select class="form-control" id="rollUpDownCmb"
+								  [(ngModel)]="cfgRequest.rollUp"
+								  name="rollUp">
+						<option value="0"></option>
+						<option *ngFor="let rollUp of rollUpDown" [ngValue]="rollUp">{{rollUp.name}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div class="container form-group form-horizontal">
-			<fieldset class="well col-sm-6">
+			<fieldset class="well col-sm-4">
 				<legend class="well-legend">Contains Added</legend>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Sodium</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label">Sodium</label>
+					<select class="form-control" id="addedSodiumDdl"
+								  [(ngModel)]="addedSodium"
+								  name="addedSodium">
+						<option value=""></option>
+						<option [ngValue]="true">Yes</option>
+						<option [ngValue]="false">No</option>
+					</select>
+				</div>
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-md-10" >Sugar</label>
+					<div class="col-md-2">
+						<select class="form-control" id="addedSugarDdl"
+								   [(ngModel)]="addedSugar"
+								   name="addedSodium">
+							<option value="true">Yes</option>
+							<option value="false">No</option>
+						</select>
+					</div>
+				</div>
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-sm-9" style="text-align: left">Fat</label>
+					<div class="col-sm-3">
+						<select class="form-control" style="width:60px" 
 								   [(ngModel)]="addedSodium"
 								   name="addedSodium">
 							<option value="true">Yes</option>
@@ -66,82 +104,78 @@
 						</select>
 					</div>
 				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Sugar</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-sm-9" style="text-align:left">Transfat</label>
+					<div class="col-sm-3">
+						<select class="form-control"  style="width:60px" 
+									[(ngModel)]="addedSodium"
+									name="addedSodium">
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
 					</div>
 				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Fat</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-sm-9" style="text-align:left">Caffeine</label>
+					<div class="col-sm-3">
+						<select class="form-control"   style="width:60px" 
+									 [(ngModel)]="addedSodium"
+									 name="addedSodium">
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
 					</div>
 				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Transfat</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-sm-9" style="text-align:left">Free Sugars</label>
+					<div class="col-sm-3">
+						<select class="form-control"  style="width:60px" 
+									[(ngModel)]="addedSodium"
+									name="addedSodium">
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
 					</div>
 				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Caffeine</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
-						</select>
-					</div>
-				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Free Sugars</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
-						</select>
-					</div>
-				</div>
-				<div class="container form-group form-horizontal">
-					<label class="control-label col-sm-3" for="addedSodiumDdl">Sugar Substitute</label>
-					<div class="col-sm-4">
-						<select class="form-control" id="addedSodiumDdl"
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
+				<div class="container form-group form-horizontal" style="width: 100%">
+					<label class="control-label col-sm-9" style="text-align:left">Sugar Substitute</label>
+					<div class="col-sm-3">
+						<select class="form-control"  style="width:60px" 
+									[(ngModel)]="addedSodium"
+									name="addedSodium">
 							<option value="true">Yes</option>
 							<option value="false">No</option>
 						</select>
 					</div>
 				</div>
 			</fieldset>
-			<fieldset class="well col-sm-6">
+			<fieldset class="well col-sm-8">
 				<legend class="well-legend">Missing Values</legend>
 				<div class="checkbox" *ngFor="let item of missingValues">
 					<label class="center-block">
-						<input type="checkbox">{{item}}
+						<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
 					</label>
 				</div>
 			</fieldset>
 		</div>
-</form>
+		<div class="form-horizontal" style="width: 100%">
+			<div class="form-group col-sm-4">
+				<label for="comment">Comments:</label>
+				<textarea id="comment" class="form-control" style="width:100%;height:100%" name="comments" [(ngModel)]="cfgRequest.comments"></textarea>
+			</div>
+			<fieldset class="well col-sm-8">
+				<legend class="well-legend">Last Updated Date From
+					<input type="date" name="lastUpdateDateBegin" [(ngModel)]="cfgRequest.lastUpdateDateBegin">
+					<input type="date" name="lastUpdateDateEnd" [(ngModel)]="cfgRequest.lastUpdateDateEnd">
+				</legend>
+				<div class="checkbox" *ngFor="let item of lastUpdateValues">
+					<label class="center-block">
+						<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
+					</label>
+				</div>
+			</fieldset>
+		</div>
+
+	</form>
 </div>
 
