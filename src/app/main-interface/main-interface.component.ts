@@ -7,12 +7,13 @@ import { QueryService } from '../services/query.service';
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [QueryService]
+	providers: []
 })
 
 export class MainInterfaceComponent implements OnInit {
 	private gridOptions: GridOptions;
 	gridData: CfgItem[];
+
 
 	constructor(private queryService: QueryService) {
 		this.gridOptions={
@@ -59,7 +60,7 @@ export class MainInterfaceComponent implements OnInit {
 	}
 
 	getGridData():void{
-		this.queryService.getGroups().subscribe(
+		this.queryService.search().subscribe(
 			(res) => {
 				this.gridOptions.api.setRowData(res);
 				this.gridOptions.api.sizeColumnsToFit();

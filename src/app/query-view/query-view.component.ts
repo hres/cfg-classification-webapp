@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { CfgRequest } from '../dtos/cfg-request';
 import { Router } from '@angular/router';
+import { QueryService } from '../services/query.service';
 
 @Component({
 	selector: 'query-view',
 	templateUrl: './query-view.component.html',
-	styleUrls: ['./query-view.component.css']
+	styleUrls: ['./query-view.component.css'],
+	providers: []
 })
 
 export class QueryViewComponent {
@@ -18,7 +20,7 @@ export class QueryViewComponent {
 	private addedCaffeine:boolean;
 	private addedSugarSub:boolean;
 
-	constructor(private router: Router) { }
+	constructor(private router: Router, private queryService: QueryService) { }
 
 	// TODO:  This will have to be pulled in
 	dataSource=['Food', 'Recipe', 'Both'];
@@ -117,7 +119,9 @@ export class QueryViewComponent {
 		this.cfgRequest.missing = this.getMissingValues();
 		this.cfgRequest.lastUpdateFilter = this.getLastUpdateValues();
 
-		this.router.navigate(['/main', this.cfgRequest]);
+		this.queryService.cfgRequest = this.cfgRequest;
+
+		this.router.navigate(['/main']);
 	}
 
 	getMissingValues():string[]{
