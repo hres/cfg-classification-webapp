@@ -1,6 +1,6 @@
 export class CfgRequest {
 
-	source: string;
+	source: number = 0;
 	name: string;
 	code: number;
 	subGroupCode: number;
@@ -9,8 +9,8 @@ export class CfgRequest {
 	rollUp: number;
 	containsAdded: string[];
 	missing: string[];
-	commitBeginDate: Date;
-	commitEndDate: Date;
+	commitDateBegin: Date;
+	commitDateEnd: Date;
 	comments: string;
 	lastUpdateFilter: string[];
 	lastUpdateDateBegin: Date;

@@ -56,10 +56,10 @@ export class MainInterfaceComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.getGridData();
+		this.search();
 	}
 
-	getGridData():void{
+	search():void{
 		this.queryService.search().subscribe(
 			(res) => {
 				this.gridOptions.api.setRowData(res);

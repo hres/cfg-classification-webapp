@@ -13,17 +13,21 @@ import { QueryService } from '../services/query.service';
 export class QueryViewComponent {
 
 	cfgRequest = new CfgRequest();
-	private addedSodium:boolean;
-	private addedSugar:boolean;
-	private addedFat:boolean;
-	private addedTransFat:boolean;
-	private addedCaffeine:boolean;
-	private addedSugarSub:boolean;
+	private addedSodium:number;
+	private addedSugar:number;
+	private addedFat:number;
+	private addedTransFat:number;
+	private addedCaffeine:number;
+	private addedSugarSub:number;
 
 	constructor(private router: Router, private queryService: QueryService) { }
 
 	// TODO:  This will have to be pulled in
-	dataSource=['Food', 'Recipe', 'Both'];
+	dataSource=[
+		{id: 1, name:'Food'},
+	   	{id: 2, name:'Recipe'},
+		{id: 0, name:'Both'}
+	];
 	cfgTiers=[
 		{id: 1, name: 1},
 		{id: 2, name: 2},
@@ -33,10 +37,18 @@ export class QueryViewComponent {
 		{id: -1, name: '(Custom)'}
 	];
 	rollUpDown=[
+		{id: 0, name: ''},
 		{id: 1, name: 'Rolled Up'},
 		{id: 2, name: 'Rolled Down'},
 		{id: 3, name: 'Rolled Up/Down'}
 	];
+
+	containsAdded=[
+		{id: 0, name: ''},
+		{id: 1, name: 'Yes'},
+		{id: 2, name: 'No'}
+	];
+
 	missingValues=[
 		{id:'refAmount', name:'Reference Amount', value:false},
 		{id:'cfgServing', name:'CFG Serving', value:false},
@@ -73,48 +85,39 @@ export class QueryViewComponent {
 		{id:'sugarSubstitute', name:'Contains Sugar Substitutes', value:false}
 	];
 
-
-
-	// TODO: Remove this 
-	get diagnostic() {return JSON.stringify(this.addedSodium);}
-
-	showRollUp():boolean{
-		return false; 
-	}
-
 	onSubmit(){
 		//build containsAdded boolean array
 		this.cfgRequest.containsAdded = [];
 		// contains added sodium
-		if (this.addedSodium == true)
-			this.cfgRequest.containsAdded.push("sodium=true");
-		else if(this.addedSodium == false)
-			this.cfgRequest.containsAdded.push("sodium=false");
+		if (this.addedSodium == 1)
+			this.cfgRequest.containsAdded.push("sodium=true,");
+		else if(this.addedSodium == 2)
+			this.cfgRequest.containsAdded.push("sodium=false,");
 		//contains added sugar
-		if (this.addedSugar == true)
-			this.cfgRequest.containsAdded.push("sugar=true");
-		else if(this.addedSugar == false)
-			this.cfgRequest.containsAdded.push("sugar=false");
+		if (this.addedSugar == 1)
+			this.cfgRequest.containsAdded.push("sugar=true,");
+		else if(this.addedSugar == 2)
+			this.cfgRequest.containsAdded.push("sugar=false,");
 		//contains added fat
-		if (this.addedFat == true)
-			this.cfgRequest.containsAdded.push("fat=true");
-		else if(this.addedFat == false)
-			this.cfgRequest.containsAdded.push("fat=false");
+		if (this.addedFat == 1)
+			this.cfgRequest.containsAdded.push("fat=true,");
+		else if(this.addedFat == 2)
+			this.cfgRequest.containsAdded.push("fat=false,");
 		//contains added transfat
-		if (this.addedTransFat == true)
-			this.cfgRequest.containsAdded.push("transfat=true");
-		else if(this.addedTransFat == false)
-			this.cfgRequest.containsAdded.push("transfat=false");
+		if (this.addedTransFat == 1)
+			this.cfgRequest.containsAdded.push("transfat=true,");
+		else if(this.addedTransFat == 2)
+			this.cfgRequest.containsAdded.push("transfat=false,");
 		// contains added caffeine
-		if (this.addedCaffeine == true)
-			this.cfgRequest.containsAdded.push("caffeine=true");
-		else if(this.addedCaffeine == false)
-			this.cfgRequest.containsAdded.push("caffeine=false");
+		if (this.addedCaffeine == 1)
+			this.cfgRequest.containsAdded.push("caffeine=true,");
+		else if(this.addedCaffeine == 2)
+			this.cfgRequest.containsAdded.push("caffeine=false,");
 		// contains added sugar substitute
-		if (this.addedSugarSub == true)
-			this.cfgRequest.containsAdded.push("sugarSubstitute=true");
-		else if(this.addedSugarSub == false)
-			this.cfgRequest.containsAdded.push("sugarSubstitute=false");
+		if (this.addedSugarSub == 1)
+			this.cfgRequest.containsAdded.push("sugarSubstitute=true,");
+		else if(this.addedSugarSub == 2)
+			this.cfgRequest.containsAdded.push("sugarSubstitute=false,");
 
 		this.cfgRequest.missing = this.getMissingValues();
 		this.cfgRequest.lastUpdateFilter = this.getLastUpdateValues();

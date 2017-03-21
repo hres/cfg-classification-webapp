@@ -1,6 +1,5 @@
 <div class="container">
 	<form (ngSubmit)="onSubmit()" #queryForm="ngForm">
-		{{diagnostic}}
 		<div>
 			<label class="breadcrumb-root">Datasets</label> > Create Production Dataset
 			<div style="float:right">
@@ -14,16 +13,15 @@
 			<div class="form-horizontal" style="width: 100%">
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="dataSourceCmb">Data Source</label>
-					<select class="form-control" id="dataSourceCmb" required
+					<select class="form-control" id="dataSourceCmb"
 								  [(ngModel)]="cfgRequest.source"
-								  name="source"
-		  #source="ngModel">
-						<option *ngFor="let source of dataSource" [value]="source">{{source}}</option>
+								  name="source">
+						<option *ngFor="let source of dataSource" [ngValue]="source.id">{{source.name}}</option>
 					</select>
 				</div>
 				<div class="form-group col-sm-4">
 					<label for="name">Food/Recipe Name</label>
-					<input type="text" class="form-control" id="name" required
+					<input type="text" class="form-control" id="name"
 											 [(ngModel)]="cfgRequest.name"
 											 name="name"
 			#name="ngModel"
@@ -40,7 +38,7 @@
 			</div>
 			<div class="form-horizontal">
 				<label class="control-label" for="commitDateBegin">Commit Date</label>
-				<input id="commitDateBegin" type="date" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
+				<input type="date" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
 				<input type="date" name="commitDateEnd" [(ngModel)]="cfgRequest.commitDateEnd">
 				<label class="control-label" for="cnfCode">CNF Code:</label>
 				<input id="cfgCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
@@ -55,16 +53,15 @@
 					<select class="form-control" id="tierCmb"
 								  [(ngModel)]="cfgRequest.cfgTier"
 								  name="cfgTier">
-						<option *ngFor="let tier of cfgTiers" [ngValue]="tier">{{tier.name}}</option>
+						<option *ngFor="let tier of cfgTiers" [ngValue]="tier.id">{{tier.name}}</option>
 					</select>
 				</div>
-				<div [hidden]="source.value=='Food'" class="col-sm-4 form-group">
+				<div [hidden]="cfgRequest.source==1" class="col-sm-4 form-group">
 					<label class="control-label" for="rollUpDownCmb">Recipe:</label>
 					<select class="form-control" id="rollUpDownCmb"
 								  [(ngModel)]="cfgRequest.rollUp"
 								  name="rollUp">
-						<option value="0"></option>
-						<option *ngFor="let rollUp of rollUpDown" [ngValue]="rollUp">{{rollUp.name}}</option>
+						<option *ngFor="let rollUp of rollUpDown" [ngValue]="rollUp.id">{{rollUp.name}}</option>
 					</select>
 				</div>
 			</div>
@@ -74,33 +71,29 @@
 				<legend class="well-legend">Contains Added</legend>
 				<div class="container form-group form-horizontal" style="width: 100%">
 					<label class="control-label">Sodium</label>
-					<select class="form-control" id="addedSodiumDdl"
-								  [(ngModel)]="addedSodium"
+					<select class="form-control" 
+								  [(ngModel)]="addedSodium" 
 								  name="addedSodium">
-						<option value=""></option>
-						<option [ngValue]="true">Yes</option>
-						<option [ngValue]="false">No</option>
+						<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 					</select>
 				</div>
 				<div class="container form-group form-horizontal" style="width: 100%">
 					<label class="control-label col-md-10" >Sugar</label>
 					<div class="col-md-2">
-						<select class="form-control" id="addedSugarDdl"
+						<select class="form-control" 
 								   [(ngModel)]="addedSugar"
-								   name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+								   name="addedSugar">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 						</select>
 					</div>
 				</div>
 				<div class="container form-group form-horizontal" style="width: 100%">
 					<label class="control-label col-sm-9" style="text-align: left">Fat</label>
 					<div class="col-sm-3">
-						<select class="form-control" style="width:60px" 
-								   [(ngModel)]="addedSodium"
-								   name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+						<select class="form-control" style="width:65px" 
+								   [(ngModel)]="addedFat"
+								   name="addedFat">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 						</select>
 					</div>
 				</div>
@@ -108,10 +101,9 @@
 					<label class="control-label col-sm-9" style="text-align:left">Transfat</label>
 					<div class="col-sm-3">
 						<select class="form-control"  style="width:60px" 
-									[(ngModel)]="addedSodium"
-									name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+									[(ngModel)]="addedTransFat"
+									name="addedTransFat">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 						</select>
 					</div>
 				</div>
@@ -119,21 +111,9 @@
 					<label class="control-label col-sm-9" style="text-align:left">Caffeine</label>
 					<div class="col-sm-3">
 						<select class="form-control"   style="width:60px" 
-									 [(ngModel)]="addedSodium"
-									 name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
-						</select>
-					</div>
-				</div>
-				<div class="container form-group form-horizontal" style="width: 100%">
-					<label class="control-label col-sm-9" style="text-align:left">Free Sugars</label>
-					<div class="col-sm-3">
-						<select class="form-control"  style="width:60px" 
-									[(ngModel)]="addedSodium"
-									name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+									 [(ngModel)]="addedCaffeine"
+									 name="addedCaffeine">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 						</select>
 					</div>
 				</div>
@@ -141,10 +121,9 @@
 					<label class="control-label col-sm-9" style="text-align:left">Sugar Substitute</label>
 					<div class="col-sm-3">
 						<select class="form-control"  style="width:60px" 
-									[(ngModel)]="addedSodium"
-									name="addedSodium">
-							<option value="true">Yes</option>
-							<option value="false">No</option>
+									[(ngModel)]="addedSugarSub"
+									name="addedSugarSub">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
 						</select>
 					</div>
 				</div>
