@@ -1,9 +1,12 @@
-<div class="container" style="height: 100%;">
-	<div style="height: 40px;">
-		<div class="right"> 
+<div class="container-fluid" style="height: 100%;">
+	<div style="height: 40px;" class="row">
+		<div class="col-sm-6">
+			<button class="btn-success" (click)=onSaveClick()>Save</button>
+		</div>
+		<div class="col-sm-6 right"> 
 			Submit to CFG Admin for validation:
-			<button (click)="goBack()">Submit</button>
-			<button routerLink="/query">Quit</button>
+			<button class="btn-primary" (click)="goBack()">Submit</button>
+			<button class="btn-info" routerLink="/query">Quit</button>
 		</div>
 	</div>
 	<div style="height: 400px;">

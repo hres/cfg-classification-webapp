@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { CfgItem } from '../dtos/cfgitem';
 import { QueryService } from '../services/query.service';
+import { SaveViewComponent } from '../save-view/save-view.component';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 @Component({
 	selector: 'app-main-interface',
@@ -15,7 +17,7 @@ export class MainInterfaceComponent implements OnInit {
 	gridData: CfgItem[];
 
 
-	constructor(private queryService: QueryService) {
+	constructor(private queryService: QueryService, private dialog: MdDialog) {
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true
@@ -259,5 +261,13 @@ export class MainInterfaceComponent implements OnInit {
 			(err) =>{
 				console.log(err);
 			});
+	}
+
+	selectionOption: string;
+	onSaveClick(){
+		let dialogRef = this.dialog.open(SaveViewComponent);
+		dialogRef.afterClosed().subscribe(result => {
+			this.selectionOption = result;
+		});
 	}
 }
