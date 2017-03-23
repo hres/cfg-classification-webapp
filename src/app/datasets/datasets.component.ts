@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
+import { DatasetsService } from '../services/datasets.service';
 
 @Component({
 	selector: 'app-datasets',
@@ -11,7 +12,7 @@ export class DatasetsComponent implements OnInit {
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
 		
-	constructor() {
+	constructor(private datasetsService: DatasetsService) {
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true

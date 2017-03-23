@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CfgItem } from '../dtos/cfgitem';
-import { CFGITEMS } from './mock-data';
 import { Restangular } from 'ng2-restangular';
 import { CfgRequest } from '../dtos/cfg-request';
 
@@ -10,10 +9,6 @@ export class QueryService {
 	cfgRequest:CfgRequest;
 
 	constructor(private restangular:Restangular){ }
-
-	getData(): Promise<CfgItem[]>{
-		return Promise.resolve(CFGITEMS);
-	}
 
 	search(){
 		let queryString = "fm/service/datasets/search?";

@@ -1,5 +1,5 @@
 export class Dataset{
-	id: string;
+	id: number;
 	data:string[];
 	name: string;
 	owner: string;
