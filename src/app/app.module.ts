@@ -52,6 +52,7 @@ export function restangular(RestangularProvider){
 	RestangularModule.forRoot(restangular),
 	MaterialModule
   ],
+  entryComponents: [SaveViewComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { CfgItem } from '../dtos/cfgitem';
 import { QueryService } from '../services/query.service';
+import { SaveService } from '../services/save.service';
 import { SaveViewComponent } from '../save-view/save-view.component';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 
 @Component({
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: []
+	providers: [SaveService]
 })
 
 export class MainInterfaceComponent implements OnInit {
@@ -17,7 +18,7 @@ export class MainInterfaceComponent implements OnInit {
 	gridData: CfgItem[];
 
 
-	constructor(private queryService: QueryService, private dialog: MdDialog) {
+	constructor(private queryService: QueryService, private saveService: SaveService, private dialog: MdDialog) {
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true
@@ -27,7 +28,7 @@ export class MainInterfaceComponent implements OnInit {
 			{
 				headerName: "Type",
 				field: "foodRecipeType",
-				width: 100
+				width: 200
 			},
 			{
 			 	headerName: "Food/Recipe Code",
@@ -35,9 +36,10 @@ export class MainInterfaceComponent implements OnInit {
 				width: 100
 			},
 			{
+				editable: true,
 				headerName: "Food/Recipe Name",
 				field: "name",
-				width: 100
+				width: 300
 			},
 			{
 				headerName: "CFG Code",
@@ -252,9 +254,11 @@ export class MainInterfaceComponent implements OnInit {
 		this.search();
 	}
 
+	dataset:any;	
 	search():void{
 		this.queryService.search().subscribe(
 			(res) => {
+				this.dataset=res;
 				this.gridOptions.api.setRowData(res);
 				this.gridOptions.api.sizeColumnsToFit();
 			},
@@ -263,11 +267,26 @@ export class MainInterfaceComponent implements OnInit {
 			});
 	}
 
-	selectionOption: string;
 	onSaveClick(){
-		let dialogRef = this.dialog.open(SaveViewComponent);
+		let config = new MdDialogConfig();
+		config.width = '600px';
+
+		let dialogRef = this.dialog.open(SaveViewComponent, config);
 		dialogRef.afterClosed().subscribe(result => {
-			this.selectionOption = result;
+			if (result == "save"){
+				this.saveDataset(dialogRef.componentInstance.datasetName, dialogRef.componentInstance.datasetComments);
+			}
 		});
+	}
+
+	saveDataset(datasetName:string, datasetComments:string){
+		console.log(this.gridOptions.api.getModel);
+		this.saveService.save(datasetName, datasetComments, this.dataset).subscribe(
+			(res) => {
+				console.log(res);
+			},
+			(err) => {
+				console.log(err);
+			});
 	}
 }
