@@ -1,0 +1,13 @@
+<h1 md-dialog-title>Save a Dataset</h1>
+<div md-dialog-content>
+	<div class="row">
+		<label>Dataset Name:</label>
+		<input class="form-control" [(ngModel)]="datasetName" name="datasetName">
+	</div>
+	<label for="commment">Comments:</label>
+	<textarea class="form-control" style="height:250px;" [(ngModel)]="datasetComments" name="datasetComments"></textarea>
+</div>
+<div md-dialog-actions>
+	<button md-button (click)="dialogRef.close('save')">Save</button>
+	<button md-button (click)="dialogRef.close('cancel')">Cancel</button>
+</div>

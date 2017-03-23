@@ -11,8 +11,13 @@ import { AppComponent } from './app.component';
 import { MainInterfaceComponent } from './main-interface/main-interface.component';
 import { QueryViewComponent } from './query-view/query-view.component';
 import { SaveViewComponent } from './save-view/save-view.component';
+import { DatasetsComponent } from './datasets/datasets.component';
 
 const appRoutes:Routes=[
+	{
+		path:'datasets',
+		component: DatasetsComponent
+	},
 	{
 		path:'main',
 	   	component: MainInterfaceComponent,
@@ -25,7 +30,7 @@ const appRoutes:Routes=[
 	},
 	{
 		path: '',
-		redirectTo: '/query',
+		redirectTo: '/datasets',
 		pathMatch: 'full'
 	}
 ];
@@ -37,6 +42,7 @@ export function restangular(RestangularProvider){
 @NgModule({
   declarations: [
     AppComponent,
+	DatasetsComponent,
     MainInterfaceComponent,
     QueryViewComponent,
     SaveViewComponent
@@ -44,7 +50,7 @@ export function restangular(RestangularProvider){
   imports: [
     BrowserModule,
 	AgGridModule.withComponents(
-		[MainInterfaceComponent]
+		[MainInterfaceComponent,DatasetsComponent]
 	),
     FormsModule,
     HttpModule,
