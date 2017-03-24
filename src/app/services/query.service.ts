@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { CfgItem } from '../dtos/cfgitem';
 import { Restangular } from 'ng2-restangular';
 import { CfgRequest } from '../dtos/cfg-request';
 
