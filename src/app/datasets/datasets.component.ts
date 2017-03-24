@@ -6,7 +6,8 @@ import { DatasetsService } from '../services/datasets.service';
 @Component({
 	selector: 'app-datasets',
 	templateUrl: './datasets.component.html',
-	styleUrls: ['./datasets.component.css']
+	styleUrls: ['./datasets.component.css'],
+	providers: [DatasetsService]
 })
 export class DatasetsComponent implements OnInit {
 	private gridOptions: GridOptions;
@@ -21,22 +22,22 @@ export class DatasetsComponent implements OnInit {
 			{
 				headerName: "Name",
 				field: "name",
-				width: 300
+				width: 200
 			},
 			{
 				headerName: "Owner",
 				field: "owner",
-				width: 200
+				width: 110
 			},
 			{
 				headerName: "Status",
 				field: "status",
-				width: 200
+				width: 150
 			},
 			{
 				headerName: "Comments",
 				field: "comments",
-				width: 400
+				width: 250
 			},
 			{
 				headerName: "Last Update Date",
@@ -51,6 +52,18 @@ export class DatasetsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		//this.datasetsService.getDatasets().subscribe(
+			//(res) => {
+				//console.log(res);
+			//},
+			//(err) => {
+				//console.log(err);
+			//});
+		this.datasetsService.getDatasets().then(datasets =>{
+			this.gridOptions.api.setRowData(datasets);
+			this.gridOptions.api.sizeColumnsToFit();
+			
+		});
 	}
 
 }

@@ -11,7 +11,7 @@ export class QueryService {
 	constructor(private restangular:Restangular){ }
 
 	search(){
-		let queryString = "fm/service/datasets/search?";
+		let queryString = "cfg-task-service/service/datasets/search?";
 
 		//set source
 		if(this.cfgRequest.source == 1)
