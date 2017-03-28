@@ -90,34 +90,34 @@ export class QueryViewComponent {
 		this.cfgRequest.containsAdded = [];
 		// contains added sodium
 		if (this.addedSodium == 1)
-			this.cfgRequest.containsAdded.push("sodium=true,");
+			this.cfgRequest.containsAdded.push("sodium=true");
 		else if(this.addedSodium == 2)
-			this.cfgRequest.containsAdded.push("sodium=false,");
+			this.cfgRequest.containsAdded.push("sodium=false");
 		//contains added sugar
 		if (this.addedSugar == 1)
-			this.cfgRequest.containsAdded.push("sugar=true,");
+			this.cfgRequest.containsAdded.push("sugar=true");
 		else if(this.addedSugar == 2)
-			this.cfgRequest.containsAdded.push("sugar=false,");
+			this.cfgRequest.containsAdded.push("sugar=false");
 		//contains added fat
 		if (this.addedFat == 1)
-			this.cfgRequest.containsAdded.push("fat=true,");
+			this.cfgRequest.containsAdded.push("fat=true");
 		else if(this.addedFat == 2)
-			this.cfgRequest.containsAdded.push("fat=false,");
+			this.cfgRequest.containsAdded.push("fat=false");
 		//contains added transfat
 		if (this.addedTransFat == 1)
-			this.cfgRequest.containsAdded.push("transfat=true,");
+			this.cfgRequest.containsAdded.push("transfat=true");
 		else if(this.addedTransFat == 2)
-			this.cfgRequest.containsAdded.push("transfat=false,");
+			this.cfgRequest.containsAdded.push("transfat=false");
 		// contains added caffeine
 		if (this.addedCaffeine == 1)
-			this.cfgRequest.containsAdded.push("caffeine=true,");
+			this.cfgRequest.containsAdded.push("caffeine=true");
 		else if(this.addedCaffeine == 2)
-			this.cfgRequest.containsAdded.push("caffeine=false,");
+			this.cfgRequest.containsAdded.push("caffeine=false");
 		// contains added sugar substitute
 		if (this.addedSugarSub == 1)
-			this.cfgRequest.containsAdded.push("sugarSubstitute=true,");
+			this.cfgRequest.containsAdded.push("sugarSubstitute=true");
 		else if(this.addedSugarSub == 2)
-			this.cfgRequest.containsAdded.push("sugarSubstitute=false,");
+			this.cfgRequest.containsAdded.push("sugarSubstitute=false");
 
 		this.cfgRequest.missing = this.getMissingValues();
 		this.cfgRequest.lastUpdateFilter = this.getLastUpdateValues();

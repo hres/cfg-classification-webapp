@@ -52,24 +52,16 @@ export class QueryService {
 
 		// set containsAdded
 		if (this.cfgRequest.containsAdded.length > 0){
-			queryString += "&containsAdded=[";
-
 			for (let item of this.cfgRequest.containsAdded){
-				queryString += item;
+				queryString += "&containsAdded=" + item;
 			}
-
-			queryString += "]";
 		}
 
 		// set missing values
 		if (this.cfgRequest.missing.length > 0){
-			queryString += "&missing=[";
-
 			for (let item of this.cfgRequest.missing){
-				queryString += item + ",";
+				queryString += "&missing=" + item;
 			}
-
-			queryString += "]"
 		}
 
 		// set comments
@@ -82,19 +74,13 @@ export class QueryService {
 			queryString += "&lastUpdateDateBegin=" + this.cfgRequest.lastUpdateDateBegin;
 			queryString += "&lastUpdateDateEnd=" + this.cfgRequest.lastUpdateDateEnd;
 
-			queryString += "&lastUpdateFilter=[";
-
 			for (let item of this.cfgRequest.lastUpdateFilter){
-				queryString += item + ",";
+				queryString += "&lastUpdateFilter=" + item;
 			}
-
-			queryString += "]";
 		}
 
 		queryString = queryString.replace(/\?\&/g, "?");
-		queryString = queryString.replace(/,]/g, "]");
 
-		//let element = this.restangular.one("fm/service/datasets/search?data-source=0&food-recipe-name=&food-recipe-code=&commit-date-from=&commit-date-to=&cnf-code=&subgroup-code=&cfg-tier=4&recipe=0&sodium=0&sugar=0&fat=0&transfat=0&caffeine=0&free-sugars=0&sugar-substitutes=0&comments=&last-update-date-From=&last-update-date-To=").get();
 		let element = this.restangular.one(queryString).get();
 
 		return element;
