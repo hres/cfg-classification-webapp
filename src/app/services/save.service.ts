@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Restangular } from 'ng2-restangular';
 
-@Injectable()
+	@Injectable()
 export class SaveService {
 
 	constructor(private restangular:Restangular) { }
 
 	save(name:string, comments:string, data:any){
-		let saveEndpoint = "fm/service/datasets";
+		let saveEndpoint = "cfg-task-service/service/datasets";
 
-		let element = this.restangular.one(saveEndpoint).post(data);
-		
-		return element;
+		let restObj = this.restangular.all(saveEndpoint);
+	
+		let request:any = {};
+		request.name = name;
+		request.comments = comments;
+		request.data = data;
+
+		// [elem, path, params, headers]
+		return restObj.customPOST(request,undefined, undefined, {'Content-Type': 'application/json'});
 	}
 }
