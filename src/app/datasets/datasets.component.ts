@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
 import { DatasetsService } from '../services/datasets.service';
@@ -9,10 +9,13 @@ import { DatasetsService } from '../services/datasets.service';
 	styleUrls: ['./datasets.component.css'],
 	providers: [DatasetsService]
 })
-export class DatasetsComponent implements OnInit {
+export class DatasetsComponent implements OnInit, AfterContentChecked {
+	@ViewChild('agGrid')agGrid;any
+
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
-		
+	height=200;
+
 	constructor(private datasetsService: DatasetsService) {
 		this.gridOptions={
 			enableFilter: true,
@@ -63,7 +66,15 @@ export class DatasetsComponent implements OnInit {
 			this.gridOptions.api.setRowData(datasets);
 			this.gridOptions.api.sizeColumnsToFit();
 			
+
 		});
+	}
+
+	ngAfterContentChecked(){
+		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
+			// the 110 below is hardcoded for now, it is the header height + the element padding-top
+			this.height = 110 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
+		}
 	}
 
 }

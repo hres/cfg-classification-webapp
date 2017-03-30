@@ -20,9 +20,10 @@
 			<button name="new" class="btn-primary" routerLink="/query">New</button>
 		</div>
 	</div>
-	<div style="height: 400px;width:auto;padding-top:80px;">
+	<div [style.height.px]="height" style="width:auto;padding-top:80px;">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
-															  [gridOptions]="gridOptions">
+				[gridOptions]="gridOptions"
+				>
 		</ag-grid-angular>
 	</div>
 </div>
