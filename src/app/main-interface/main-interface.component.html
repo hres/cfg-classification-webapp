@@ -9,7 +9,7 @@
 			<button class="btn-info" routerLink="/query">Quit</button>
 		</div>
 	</div>
-	<div style="height: 80vh;width:2000px;">
+	<div [style.height.px]="height">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
 															  [gridOptions]="gridOptions">
 		</ag-grid-angular>

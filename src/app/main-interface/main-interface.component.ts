@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
@@ -12,8 +12,11 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 	providers: [SaveService]
 })
 
-export class MainInterfaceComponent implements OnInit {
+export class MainInterfaceComponent implements OnInit, AfterContentChecked {
+	@ViewChild('agGrid')agGrid:any;
+
 	private gridOptions: GridOptions;
+	height=200;
 
 	constructor(private queryService: QueryService, private saveService: SaveService, private dialog: MdDialog) {
 		this.gridOptions={
@@ -330,5 +333,11 @@ export class MainInterfaceComponent implements OnInit {
 			(err) => {
 				console.log(err);
 			});
+	}
+
+	ngAfterContentChecked(){
+		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
+			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
+		}
 	}
 }
