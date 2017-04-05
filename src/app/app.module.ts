@@ -36,7 +36,7 @@ const appRoutes:Routes=[
 ];
 
 export function restangular(RestangularProvider){
-	RestangularProvider.setBaseUrl('http://localhost:8080/');
+	RestangularProvider.setBaseUrl('http://10.148.179.205:8080/');
 }
 
 @NgModule({

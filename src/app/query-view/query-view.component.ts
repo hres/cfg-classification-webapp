@@ -50,22 +50,22 @@ export class QueryViewComponent {
 	];
 
 	missingValues=[
-		{id:'refAmount', name:'Reference Amount', value:false},
-		{id:'cfgServing', name:'CFG Serving', value:false},
-		{id:'tier4Serving', name:'Tier 4 Serving', value:false},
-		{id:'energy', name:'Energy', value:false},
-		{id:'cnfCode', name:'CNF Code', value:false},
-		{id:'rollUp', name:'Recipe Roll Up/Down', value:false},
-		{id:'sodiumPer100g', name:'Sodium per 100g', value:false},
-		{id:'sugarPer100g', name:'Sugar per 100g', value:false},
-		{id:'fatPer100g', name:'Fat per 100g', value:false},
-		{id:'transfatPer100g', name:'TransFat per 100g', value:false},
-		{id:'satFatPer100g', name:'SatFat per 100g', value:false},
-		{id:'addedSodium', name:'Contains Added Sodium', value:false},
-		{id:'addedSugar', name:'Contains Added Sugar', value:false},
-		{id:'addedTransfat', name:'Contains Added Transfat', value:false},
-		{id:'caffeine', name:'Contains Caffeine', value:false},
-		{id:'sugarSubstitute', name:'Contains Sugar Substitutes', value:false}
+		{id:'missingRefAmount', name:'refAmount', desc:'Reference Amount', value:false},
+		{id:'missingCfgServing', name:'cfgServing', desc:'CFG Serving', value:false},
+		{id:'missingTier4Serving', name:'tier4Serving', desc:'Tier 4 Serving', value:false},
+		{id:'missingEnergy', name:'energy', desc:'Energy', value:false},
+		{id:'missingCnfCode', name:'cnfCode', desc:'CNF Code', value:false},
+		{id:'missingRollUp', name:'rollUp', desc:'Recipe Roll Up/Down', value:false},
+		{id:'missingSodiumPer100g', name:'sodiumPer100g', desc:'Sodium per 100g', value:false},
+		{id:'missingSugarPer100g', name:'sugarPer100g', desc:'Sugar per 100g', value:false},
+		{id:'missingFatPer100g', name:'fatPer100g', desc:'Fat per 100g', value:false},
+		{id:'missingTransfatPer100g', name:'transfatPer100g', desc:'TransFat per 100g', value:false},
+		{id:'missingSatFatPer100g', name:'satFatPer100g', desc:'SatFat per 100g', value:false},
+		{id:'missingAddedSodium', name:'addedSodium', desc:'Contains Added Sodium', value:false},
+		{id:'missingAddedSugar', name:'addedSugar', desc:'Contains Added Sugar', value:false},
+		{id:'missingAddedTransfat', name:'addedTransfat', desc:'Contains Added Transfat', value:false},
+		{id:'missingCaffeine', name:'caffeine', desc:'Contains Caffeine', value:false},
+		{id:'missingSugarSubstitute', name:'sugarSubstitute', desc:'Contains Sugar Substitutes', value:false}
 	];
 
 	lastUpdateValues=[
@@ -132,7 +132,7 @@ export class QueryViewComponent {
 
 		for (let item of this.missingValues){
 			if(item.value)
-				missing.push(item.id);
+				missing.push(item.name);
 		}
 
 		return missing;
