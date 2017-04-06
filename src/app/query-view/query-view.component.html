@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<form (ngSubmit)="onSubmit()" #queryForm="ngForm">
-		<div>
+		<div class="row">
 			<label class="breadcrumb-root">Datasets</label> > Create Production Dataset
 			<div style="float:right">
 				<button name="search" class="btn btn-primary" [disabled]="!queryForm.form.valid">Search</button>
@@ -9,73 +9,70 @@
 				<button name="cancel" class="btn" routerLink="/datasets">Cancel</button>
 			</div>
 		</div>
-		<div>
-			<div class="form-horizontal" style="width: 100%">
-				<div class="col-md-4 form-group">
-					<label for="dataSourceCmb">Data Source</label>
-					<select class="form-control" id="dataSourceCmb"
+		<div class="row">
+			<div class="col-md-4 form-group" style="margin-right:0;">
+				<label for="dataSourceCmb">Data Source</label>
+				<select class="form-control" id="dataSourceCmb"
 							   [(ngModel)]="cfgRequest.source"
 							   name="source">
-						<option *ngFor="let source of dataSource" [ngValue]="source.id">{{source.name}}</option>
-					</select>
-				</div>
-				<div class="form-group col-md-4">
-					<label for="name">Food/Recipe Name</label>
-					<input type="text" class="form-control" id="name"
+					<option *ngFor="let source of dataSource" [ngValue]="source.id">{{source.name}}</option>
+				</select>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="name">Food/Recipe Name</label>
+				<input type="text" class="form-control" id="name"
 											 [(ngModel)]="cfgRequest.name"
 											 name="name"
 											#name="ngModel"
 											#spy>
-					<div [hidden]="name.valid || name.pristine"	class="alert alert-danger">
+				<div [hidden]="name.valid || name.pristine"	class="alert alert-danger">
 						Name is required
-					</div>
-				</div>
-				<div class="form-group col-md-4">
-					<label for="code">Food/Recipe Code</label>
-					<input type="text" class="form-control" name="code" [(ngModel)]="cfgRequest.code">
 				</div>
 			</div>
-			<div class="form-horizontal">
-				<div class="col-md-6 form-inline form-group">
-					<label for="commitDateBegin">Commit Date<span class="datepicker-format">(<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
-					<div>
-						<input class="form-control" type="date" id="commitDateBegin" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
-						<input class="form-control" type="date" name="commitDateEnd" [(ngModel)]="cfgRequest.commitDateEnd">
-					</div>
-				</div>
-				<div class="col-md-2 form-group">
-				</div>
-				<div class="col-md-4 form-group">
-					<label class="control-label" for="cnfCode">CNF Code:</label>
-					<input id="cnfCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
-				</div>
-			</div>
-			<div class="form-horizontal">
-				<div class="col-md-4 form-group"> 	
-					<label for="subCode">Sub Group Code</label>
-					<input class="form-control" type="text" id="subCode" style="width: 60px" name="subGroupCode" [(ngModel)]="cfgRequest.subGroupCode">
-				</div>
-
-				<div class="col-md-4 form-vertical form-group">
-					<label class="control-label" for="tierCmb">CFG Tier:</label>
-					<select class="form-control" id="tierCmb"
-								  [(ngModel)]="cfgRequest.cfgTier"
-								  name="cfgTier">
-						<option *ngFor="let tier of cfgTiers" [ngValue]="tier.id">{{tier.name}}</option>
-					</select>
-				</div>
-				<div [hidden]="cfgRequest.source==1" class="col-md-4 form-group">
-					<label class="control-label" for="rollUpDownCmb">Recipe:</label>
-					<select class="form-control" id="rollUpDownCmb"
-								  [(ngModel)]="cfgRequest.rollUp"
-								  name="rollUp">
-						<option *ngFor="let rollUp of rollUpDown" [ngValue]="rollUp.id">{{rollUp.name}}</option>
-					</select>
-				</div>
+			<div class="form-group col-md-4">
+				<label for="code">Food/Recipe Code</label>
+				<input type="text" class="form-control" name="code" [(ngModel)]="cfgRequest.code">
 			</div>
 		</div>
-		<div class="form-horizontal">
-			<div class="form-group form-vertical col-md-4">
+		<div class="row">
+			<div class="col-md-6 form-inline form-group" style="margin-right:0;">
+				<label for="commitDateBegin">Commit Date<span class="datepicker-format">(<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
+				<div>
+					<input class="form-control" type="date" id="commitDateBegin" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
+					<input class="form-control" type="date" name="commitDateEnd" [(ngModel)]="cfgRequest.commitDateEnd">
+				</div>
+			</div>
+			<div class="col-md-2 form-group">
+			</div>
+			<div class="col-md-4 form-group">
+				<label class="control-label" for="cnfCode">CNF Code:</label>
+				<input id="cnfCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 form-group" style="margin-right:0;"> 	
+				<label for="subCode">Sub Group Code</label>
+				<input class="form-control" type="text" id="subCode" style="width: 60px" name="subGroupCode" [(ngModel)]="cfgRequest.subGroupCode">
+			</div>
+			<div class="col-md-4 form-vertical form-group">
+				<label class="control-label" for="tierCmb">CFG Tier:</label>
+				<select class="form-control" id="tierCmb"
+							  [(ngModel)]="cfgRequest.cfgTier"
+							  name="cfgTier">
+					<option *ngFor="let tier of cfgTiers" [ngValue]="tier.id">{{tier.name}}</option>
+				</select>
+			</div>
+			<div [hidden]="cfgRequest.source==1" class="col-md-4 form-group">
+				<label class="control-label" for="rollUpDownCmb">Recipe:</label>
+				<select class="form-control" id="rollUpDownCmb"
+							  [(ngModel)]="cfgRequest.rollUp"
+							  name="rollUp">
+					<option *ngFor="let rollUp of rollUpDown" [ngValue]="rollUp.id">{{rollUp.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group form-vertical col-md-4" style="margin-right:0;">
 				<label>Contains</label>
 				<fieldset class="well">
 					<div class="container form-group form-horizontal" style="width: 100%">
@@ -161,40 +158,42 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-horizontal" style="width: 100%">
-			<div class="form-group col-md-4">
+		<div class="row">
+			<div class="form-group col-md-4" style="margin-right:0;">
 				<label for="comment">Comments:</label>
-				<textarea id="comment" class="form-control" style="width:100%;height:100%" name="comments" [(ngModel)]="cfgRequest.comments"></textarea>
+				<textarea id="comment" class="form-control" style="width:100%;height:195px;" name="comments" [(ngModel)]="cfgRequest.comments"></textarea>
 			</div>
-			<div class="well col-md-8">
-				<div>
-					<label class="control-label">Last Updated Date</label>
-					<input class="form-control" style="float:right;" type="date" name="lastUpdateDateBegin" [(ngModel)]="cfgRequest.lastUpdateDateBegin">
-					<input class="form-control" style="float:right;" type="date" name="lastUpdateDateEnd" [(ngModel)]="cfgRequest.lastUpdateDateEnd">
-				</div>
-				<div>
-					<div class="form-vertical col-md-4">
-						<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
-							<label *ngIf="i<5">
-								<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
-							</label>
+			<div class="form-group col-md-8">
+				<fieldset class="well">
+					<div>
+						<label class="control-label">Last Updated Date</label>
+						<input class="form-control" style="float:right;" type="date" name="lastUpdateDateBegin" [(ngModel)]="cfgRequest.lastUpdateDateBegin">
+						<input class="form-control" style="float:right;" type="date" name="lastUpdateDateEnd" [(ngModel)]="cfgRequest.lastUpdateDateEnd">
+					</div>
+					<div>
+						<div class="form-vertical col-md-4">
+							<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
+								<label *ngIf="i<5">
+									<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
+								</label>
+							</div>
+						</div>
+						<div class="form-vertical col-md-4">
+							<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
+								<label *ngIf="i>=5&&i<10" class="center-block">
+									<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
+								</label>
+							</div>
+						</div>
+						<div class="form-vertical col-md-4">
+							<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
+								<label *ngIf="i>=10" class="center-block">
+									<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
+								</label>
+							</div>
 						</div>
 					</div>
-					<div class="form-vertical col-md-4">
-						<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
-							<label *ngIf="i>=5&&i<10" class="center-block">
-								<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
-							</label>
-						</div>
-					</div>
-					<div class="form-vertical col-md-4">
-						<div class="checkbox" *ngFor="let item of lastUpdateValues;let i=index">
-							<label *ngIf="i>=10" class="center-block">
-								<input type="checkbox" name="{{item.id}}" [(ngModel)]=item.value>{{item.name}}
-							</label>
-						</div>
-					</div>
-				</div>
+				</fieldset>	
 			</div>
 		</div>
 
