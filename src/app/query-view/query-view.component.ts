@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CfgRequest } from '../dtos/cfg-request';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { QueryService } from '../services/query.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { QueryService } from '../services/query.service';
 	providers: []
 })
 
-export class QueryViewComponent {
+export class QueryViewComponent implements OnInit{
 
 	cfgRequest = new CfgRequest();
 	private addedSodium:number;
@@ -20,7 +20,9 @@ export class QueryViewComponent {
 	private addedCaffeine:number;
 	private addedSugarSub:number;
 
-	constructor(private router: Router, private queryService: QueryService) { }
+	private env:string;
+	
+	constructor(private router: Router, private queryService: QueryService, private route:ActivatedRoute) { }
 
 	// TODO:  This will have to be pulled in
 	dataSource=[
@@ -124,7 +126,7 @@ export class QueryViewComponent {
 
 		this.queryService.cfgRequest = this.cfgRequest;
 
-		this.router.navigate(['/main']);
+		this.router.navigate(['/main', this.env]);
 	}
 
 	getMissingValues():string[]{
@@ -148,4 +150,11 @@ export class QueryViewComponent {
 
 		return lastUpdateValues;
 	}
+	
+	ngOnInit():void{
+		this.route.params.subscribe(params =>{
+			this.env = params['env'];
+		});
+	}
+
 }

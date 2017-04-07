@@ -15,6 +15,12 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
 	height=200;
+	private env:string='prod';
+
+	private environments=[
+		{name:'prod', desc:'Production'},
+		{name:'sandbox', desc:'Sandbox'}
+	];
 
 	constructor(private datasetsService: DatasetsService) {
 		this.gridOptions={
@@ -55,19 +61,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
-		//this.datasetsService.getDatasets().subscribe(
-			//(res) => {
-				//console.log(res);
-			//},
-			//(err) => {
-				//console.log(err);
-			//});
-		this.datasetsService.getDatasets().then(datasets =>{
-			this.gridOptions.api.setRowData(datasets);
-			this.gridOptions.api.sizeColumnsToFit();
-			
-
-		});
+		this.onEnvChange();
 	}
 
 	ngAfterContentChecked(){
@@ -77,4 +71,18 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
+	onEnvChange(){
+		this.datasetsService.getDatasets(this.env).subscribe(
+			(res) => {
+				this.gridOptions.api.setRowData(res);
+			},
+			(err) => {
+				console.log(err);
+			});
+			//this.datasetsService.getDatasets().then(datasets =>{
+			//this.gridOptions.api.setRowData(datasets);
+			//this.gridOptions.api.sizeColumnsToFit();
+		//});
+
+	}
 }

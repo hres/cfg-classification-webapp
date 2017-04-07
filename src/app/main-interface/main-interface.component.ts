@@ -4,6 +4,7 @@ import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-main-interface',
@@ -17,8 +18,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	height=200;
+	private env:string = "prod";
 
-	constructor(private queryService: QueryService, private saveService: SaveService, private dialog: MdDialog) {
+	constructor(private queryService: QueryService,
+				private saveService: SaveService,
+				private dialog: MdDialog,
+				private route:ActivatedRoute) {
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true,
@@ -297,6 +302,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	ngOnInit() {
 		this.search();
+		this.route.params.subscribe(params =>{
+			this.env = params['env'];
+		})
 	}
 
 	dataset:any;	
@@ -326,7 +334,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	saveDataset(datasetName:string, datasetComments:string){
 		console.log(this.gridOptions.api.getModel);
-		this.saveService.save(datasetName, datasetComments, this.dataset).subscribe(
+		this.saveService.save(datasetName, datasetComments, this.dataset, this.env).subscribe(
 			(res) => {
 				console.log(res);
 			},

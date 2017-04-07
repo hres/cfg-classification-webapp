@@ -6,7 +6,7 @@
 		<div class="col-sm-6 right"> 
 			Submit to CFG Admin for validation:
 			<button class="btn-primary" (click)="goBack()">Submit</button>
-			<button class="btn-info" routerLink="/query">Quit</button>
+			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
 	</div>
 	<div [style.height.px]="height">

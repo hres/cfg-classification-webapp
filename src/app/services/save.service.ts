@@ -6,7 +6,7 @@ export class SaveService {
 
 	constructor(private restangular:Restangular) { }
 
-	save(name:string, comments:string, data:any){
+	save(name:string, comments:string, data:any, env:string){
 		let saveEndpoint = "cfg-task-service/service/datasets";
 
 		let restObj = this.restangular.all(saveEndpoint);
@@ -15,6 +15,7 @@ export class SaveService {
 		request.name = name;
 		request.comments = comments;
 		request.data = data;
+		request.env = env;
 
 		// [elem, path, params, headers]
 		return restObj.customPOST(request,undefined, undefined, {'Content-Type': 'application/json'});

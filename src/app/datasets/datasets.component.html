@@ -10,14 +10,13 @@
 		</div>
 		<div class="col-sm-4">
 			<label>Environment:</label>
-			<select class="form-control" style="width:200px">
-				<option>Production</option>
-				<option>Sandbox</option>
+			<select class="form-control" style="width:200px" [(ngModel)]="env" name="env" (change)="onEnvChange()">
+				<option *ngFor="let env of environments" [ngValue]="env.name">{{env.desc}}</option>
 			</select>
 		</div>
 		<div class="col-sm-4">
 			<label>Create new datset:</label>
-			<button name="new" class="btn-primary" routerLink="/query">New</button>
+			<button name="new" class="btn-primary" [routerLink]="['/query', env]">New</button>
 		</div>
 	</div>
 	<div [style.height.px]="height" style="width:auto;padding-top:80px;">

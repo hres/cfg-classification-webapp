@@ -19,14 +19,14 @@ const appRoutes:Routes=[
 		component: DatasetsComponent
 	},
 	{
-		path:'main',
+		path:'main/:env',
 	   	component: MainInterfaceComponent,
    		data: {breadcrumb: 'mybreadcrumb'}
 	},
 	{
-		path: 'query',
+		path: 'query/:env',
 	   	component: QueryViewComponent,
-		data: {title: 'My Query Title'}
+		data: {env: 'My Query Title'}
 	},
 	{
 		path: '',
