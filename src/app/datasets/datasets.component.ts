@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
 import { DatasetsService } from '../services/datasets.service';
+import { DatasetsActionComponent } from './datasets-action/datasets-action.component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-datasets',
@@ -9,6 +11,7 @@ import { DatasetsService } from '../services/datasets.service';
 	styleUrls: ['./datasets.component.css'],
 	providers: [DatasetsService]
 })
+
 export class DatasetsComponent implements OnInit, AfterContentChecked {
 	@ViewChild('agGrid')agGrid;any
 
@@ -22,8 +25,9 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		{name:'sandbox', desc:'Sandbox'}
 	];
 
-	constructor(private datasetsService: DatasetsService) {
-		this.gridOptions={
+	constructor(private datasetsService: DatasetsService, private router:Router) {
+		this.gridOptions = <GridOptions>{
+			context:{componentParent:this},
 			enableFilter: true,
 			enableSorting: true
 		};
@@ -54,7 +58,9 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				width: 250
 			},
 			{
+				cellRendererFramework: DatasetsActionComponent,
 				headerName: "Action",
+				field: "id",
 				width: 100
 			}
 		]	
@@ -68,6 +74,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			// the 110 below is hardcoded for now, it is the header height + the element padding-top
 			this.height = 110 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
+			this.gridOptions.api.sizeColumnsToFit();
 		}
 	}
 
@@ -75,14 +82,14 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.datasetsService.getDatasets(this.env).subscribe(
 			(res) => {
 				this.gridOptions.api.setRowData(res);
+				this.gridOptions.api.sizeColumnsToFit();
 			},
 			(err) => {
 				console.log(err);
 			});
-			//this.datasetsService.getDatasets().then(datasets =>{
-			//this.gridOptions.api.setRowData(datasets);
-			//this.gridOptions.api.sizeColumnsToFit();
-		//});
+	}
 
+	public openDataset(datasetId:string){
+		this.router.navigate(['/main', datasetId]);
 	}
 }

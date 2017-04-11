@@ -12,6 +12,8 @@ import { MainInterfaceComponent } from './main-interface/main-interface.componen
 import { QueryViewComponent } from './query-view/query-view.component';
 import { SaveViewComponent } from './save-view/save-view.component';
 import { DatasetsComponent } from './datasets/datasets.component';
+import { DatasetsActionComponent } from './datasets/datasets-action/datasets-action.component';
+import { NumericEditorComponent } from './main-interface/numeric-editor/numeric-editor.component';
 
 const appRoutes:Routes=[
 	{
@@ -19,9 +21,8 @@ const appRoutes:Routes=[
 		component: DatasetsComponent
 	},
 	{
-		path:'main/:env',
+		path:'main/:id',
 	   	component: MainInterfaceComponent,
-   		data: {breadcrumb: 'mybreadcrumb'}
 	},
 	{
 		path: 'query/:env',
@@ -36,7 +37,7 @@ const appRoutes:Routes=[
 ];
 
 export function restangular(RestangularProvider){
-	RestangularProvider.setBaseUrl('http://10.148.179.205:8080/');
+	RestangularProvider.setBaseUrl('http://localhost:8080/');
 }
 
 @NgModule({
@@ -45,12 +46,19 @@ export function restangular(RestangularProvider){
 	DatasetsComponent,
     MainInterfaceComponent,
     QueryViewComponent,
-    SaveViewComponent
+    SaveViewComponent,
+    DatasetsActionComponent,
+    NumericEditorComponent
   ],
   imports: [
     BrowserModule,
 	AgGridModule.withComponents(
-		[MainInterfaceComponent,DatasetsComponent]
+		[
+			MainInterfaceComponent,
+			DatasetsComponent,
+			DatasetsActionComponent,
+			NumericEditorComponent
+		]
 	),
     FormsModule,
     HttpModule,

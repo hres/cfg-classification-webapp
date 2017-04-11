@@ -2,15 +2,17 @@ import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core
 import { GridOptions } from 'ag-grid';
 import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
+import { OpenService } from '../services/open.service';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 
 @Component({
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService]
+	providers: [SaveService, OpenService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -19,29 +21,34 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	height=200;
 	private env:string = "prod";
+	private datasetId:string;
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
+				private openService: OpenService,
 				private dialog: MdDialog,
 				private route:ActivatedRoute) {
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true,
-			headerHeight: 48
+			headerHeight: 48,
+			enableColResize: true
 		};
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			{
 				headerName: "Type",
 				field: "type",
-				width: 200,
-				minWidth: 150
+				minWidth: 65,
+				width: 65,
 			},
 			{
 			 	headerName: "Food/Recipe Code",
 				field: "cnfCode",
+				cellEditorFramework: NumericEditorComponent,
+				editable: true,
 				width: 100,
-				minWidth: 150,
+				minWidth: 100,
 			},
 			{
 				editable: true,
@@ -301,23 +308,40 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
-		this.search();
 		this.route.params.subscribe(params =>{
-			this.env = params['env'];
+			this.datasetId = params['id'];
 		})
+
+		if(this.datasetId != 'prod'){
+			this.openService.open(this.datasetId).subscribe(
+				(res) => {
+					this.setDataset(res[0].data);
+
+				},
+				(err) => {
+					console.log(err);
+				}
+			)
+		}else{
+			this.search();
+		}	
 	}
 
 	dataset:any;	
 	search():void{
 		this.queryService.search().subscribe(
 			(res) => {
-				this.dataset=res;
-				this.gridOptions.api.setRowData(res);
-				this.gridOptions.api.sizeColumnsToFit();
+				this.setDataset(res);
 			},
 			(err) =>{
 				console.log(err);
 			});
+	}
+
+	private	setDataset(dataset:any){
+		this.dataset=dataset;
+		this.gridOptions.api.setRowData(dataset);
+		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	onSaveClick(){
