@@ -36,9 +36,8 @@ const appRoutes:Routes=[
 	}
 ];
 
-export function restangular(RestangularProvider){
-	RestangularProvider.setBaseUrl('http://localhost:8080/');
-}
+// Do your Restangular default settings here
+export function restangularConfigFactory(RestangularProvider){}
 
 @NgModule({
   declarations: [
@@ -63,7 +62,7 @@ export function restangular(RestangularProvider){
     FormsModule,
     HttpModule,
 	RouterModule.forRoot(appRoutes),
-	RestangularModule.forRoot(restangular),
+	RestangularModule.forRoot(restangularConfigFactory),
 	MaterialModule
   ],
   entryComponents: [SaveViewComponent],
