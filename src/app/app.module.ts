@@ -14,6 +14,7 @@ import { SaveViewComponent } from './save-view/save-view.component';
 import { DatasetsComponent } from './datasets/datasets.component';
 import { DatasetsActionComponent } from './datasets/datasets-action/datasets-action.component';
 import { NumericEditorComponent } from './main-interface/numeric-editor/numeric-editor.component';
+import { BooleanEditorComponent } from './main-interface/boolean-editor/boolean-editor.component';
 
 const appRoutes:Routes=[
 	{
@@ -47,7 +48,8 @@ export function restangularConfigFactory(RestangularProvider){}
     QueryViewComponent,
     SaveViewComponent,
     DatasetsActionComponent,
-    NumericEditorComponent
+    NumericEditorComponent,
+    BooleanEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ export function restangularConfigFactory(RestangularProvider){}
 			MainInterfaceComponent,
 			DatasetsComponent,
 			DatasetsActionComponent,
-			NumericEditorComponent
+			NumericEditorComponent,
+			BooleanEditorComponent
 		]
 	),
     FormsModule,

@@ -7,6 +7,7 @@ import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
+import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 
 @Component({
 	selector: 'app-main-interface',
@@ -46,12 +47,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 			 	headerName: "Food/Recipe Code",
 				field: "cnfCode",
-				cellEditorFramework: NumericEditorComponent,
 				width: 100,
 				minWidth: 100,
 			},
 			{
-				editable: true,
 				headerName: "Food/Recipe Name",
 				field: "name",
 				width: 300,
@@ -60,6 +59,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "CFG Code",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "cfgCode",
 				width: 100,
 				minWidth: 150
@@ -79,6 +79,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sodium Amount (per 100g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "sodiumAmountPer100g",
 				width: 100,
 				minWidth: 150
@@ -88,7 +89,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				field: "sodiumImputationReference",
 				width: 100,
-				minWidth: 150
+				minWidth: 220
 			},
 			{
 				headerName: "Sodium Imputation Last Update",
@@ -99,6 +100,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sugar Amount (per 100g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "sugarAmountPer100g",
 				width: 100,
 				minWidth: 150
@@ -119,6 +121,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "TransFat Amount (per 100g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "transfatAmountPer100g",
 				width: 100,
 				minWidth: 150
@@ -140,6 +143,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "SatFat Amount (per 100g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "satfatAmountPer100g",
 				width: 100,
 				minWidth: 150
@@ -160,9 +164,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Sodium",
 				editable: true,
+				cellEditorFramework: BooleanEditorComponent,
 				field: "containsAddedSodium",
 				width: 100,
-				minWidth: 150
+				minWidth: 190
 			},
 			{
 				headerName: "Contains Added Sodium Last Update Date",
@@ -251,6 +256,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Reference Amount (g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "referenceAmountG",
 				width: 100,
 				minWidth: 150
@@ -271,6 +277,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food Guide Serving (g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "foodGuideServingG",
 				width: 100,
 				minWidth: 150
@@ -291,6 +298,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Tier 4 Serving (g)",
 				editable: true,
+				cellEditorFramework: NumericEditorComponent,
 				field: "tier4ServingG",
 				width: 100,
 				minWidth: 150
