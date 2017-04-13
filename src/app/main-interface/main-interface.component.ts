@@ -28,6 +28,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				private openService: OpenService,
 				private dialog: MdDialog,
 				private route:ActivatedRoute) {
+
 		this.gridOptions={
 			enableFilter: true,
 			enableSorting: true,
@@ -46,7 +47,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			 	headerName: "Food/Recipe Code",
 				field: "cnfCode",
 				cellEditorFramework: NumericEditorComponent,
-				editable: true,
 				width: 100,
 				minWidth: 100,
 			},
@@ -59,6 +59,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "CFG Code",
+				editable: true,
 				field: "cfgCode",
 				width: 100,
 				minWidth: 150
@@ -77,12 +78,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sodium Amount (per 100g)",
+				editable: true,
 				field: "sodiumAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Sodium Imputation Reference",
+				editable: true,
 				field: "sodiumImputationReference",
 				width: 100,
 				minWidth: 150
@@ -95,12 +98,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sugar Amount (per 100g)",
+				editable: true,
 				field: "sugarAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Sugar Imputation Reference",
+				editable: true,
 				field: "sugarImputationReference",
 				width: 100,
 				minWidth: 150
@@ -113,12 +118,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "TransFat Amount (per 100g)",
+				editable: true,
 				field: "transfatAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Transfat Imputation Reference",
+				editable: true,
 				field: "transfatImputationReference",
 				width: 100,
 				minWidth: 150
@@ -132,12 +139,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "SatFat Amount (per 100g)",
+				editable: true,
 				field: "satfatAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "SatFat Imputation Reference",
+				editable: true,
 				field: "satfatImputationReference",
 				width: 100,
 				minWidth: 150
@@ -150,6 +159,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sodium",
+				editable: true,
 				field: "containsAddedSodium",
 				width: 100,
 				minWidth: 150
@@ -162,6 +172,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sugar",
+				editable: true,
 				field: "containsAddedSugar",
 				width: 100,
 				minWidth: 150
@@ -174,6 +185,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Free Sugars",
+				editable: true,
 				field: "containsFreeSugars",
 				width: 100,
 				minWidth: 150
@@ -186,6 +198,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Fat",
+				editable: true,
 				field: "containsAddedFat",
 				width: 100,
 				minWidth: 150
@@ -198,6 +211,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Added TransFat",
+				editable: true,
 				field: "containsAddedTransfat",
 				width: 100,
 				minWidth: 150
@@ -210,6 +224,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Caffeine",
+				editable: true,
 				field: "containsCaffeine",
 				width: 100,
 				minWidth: 150
@@ -222,6 +237,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Sugar Substitutes",
+				editable: true,
 				field: "containsSugarSubstitutes",
 				width: 100,
 				minWidth: 150
@@ -234,12 +250,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Reference Amount (g)",
+				editable: true,
 				field: "referenceAmountG",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Reference Amount (measure)",
+				editable: true,
 				field: "referenceAmountMeasure",
 				width: 100,
 				minWidth: 150
@@ -252,12 +270,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Food Guide Serving (g)",
+				editable: true,
 				field: "foodGuideServingG",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Food Guide Serving (measure)",
+				editable: true,
 				field: "foodGuideServingMeasure",
 				width: 100,
 				minWidth: 150
@@ -270,12 +290,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Tier 4 Serving (g)",
+				editable: true,
 				field: "tier4ServingG",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Tier 4 Serving (measure)",
+				editable: true,
 				field: "tier4ServingMeasure",
 				width: 100,
 				minWidth: 150
@@ -288,6 +310,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Rolled Up",
+				editable: true,
 				field: "rolledUp",
 				width: 100,
 				minWidth: 150
