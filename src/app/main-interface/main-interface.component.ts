@@ -47,8 +47,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 			 	headerName: "Food/Recipe Code",
 				field: "cnfCode",
-				width: 100,
-				minWidth: 100,
+				width: 112,
+				minWidth: 112,
 			},
 			{
 				headerName: "Food/Recipe Name",
@@ -61,20 +61,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				cellEditorFramework: NumericEditorComponent,
 				field: "cfgCode",
-				width: 100,
-				minWidth: 150
+				width: 90,
+				minWidth: 90
 			},
 			{
 				headerName: "CFG Code Last Update",
 				field: "cfgCodeUpdateDate",
 				width: 100,
-				minWidth: 150
+				minWidth: 120
 			},
 			{
 				headerName: "Energy (Kcal)",
 				field: "energyKcal",
 				width: 100,
-				minWidth: 150
+				minWidth: 110
 			},
 			{
 				headerName: "Sodium Amount (per 100g)",
@@ -82,14 +82,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				field: "sodiumAmountPer100g",
 				width: 100,
-				minWidth: 150
+				minWidth: 125
 			},
 			{
 				headerName: "Sodium Imputation Reference",
 				editable: true,
 				field: "sodiumImputationReference",
 				width: 100,
-				minWidth: 220
+				minWidth: 141
 			},
 			{
 				headerName: "Sodium Imputation Last Update",
@@ -173,7 +173,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Added Sodium Last Update Date",
 				field: "containsAddedSodiumUpdateDate",
 				width: 100,
-				minWidth: 150
+				minWidth: 170
 			},
 			{
 				headerName: "Contains Added Sugar",
