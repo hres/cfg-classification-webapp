@@ -61,6 +61,6 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	private isKeyPressedNumeric(event): boolean {
 		var charCode = this.getCharCodeFromEvent(event);
 		var charStr = String.fromCharCode(charCode);
-		return this.isCharNumeric(charStr);
+		return this.isCharNumeric(charStr) || charCode == 8;
 	}
 }
