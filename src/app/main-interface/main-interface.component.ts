@@ -8,6 +8,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
+import { StringEditorComponent } from './string-editor/string-editor.component';
 
 @Component({
 	selector: 'app-main-interface',
@@ -58,8 +59,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "CFG Code",
+				cellRenderer: this.getNumValue,
 				editable: true,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getCellStyle,
 				field: "cfgCode",
 				width: 90,
 				minWidth: 90
@@ -78,8 +81,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sodium Amount (per 100g)",
+				cellRenderer: this.getNumValue,
 				editable: true,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getCellStyle,
 				field: "sodiumAmountPer100g",
 				width: 100,
 				minWidth: 125
@@ -87,6 +92,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sodium Imputation Reference",
 				editable: true,
+				cellEditorFramework: StringEditorComponent,
 				field: "sodiumImputationReference",
 				width: 100,
 				minWidth: 141
@@ -402,5 +408,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
 		}
+	}
+
+	getCellStyle(param:any):any{
+		if(param.value < 0){
+			return {backgroundColor: '#FFBFBC'};
+		}		
+	}
+	
+	getNumValue(param:any):any{
+		return param.value < 0 ? param.value*-1:param.value;
 	}
 }

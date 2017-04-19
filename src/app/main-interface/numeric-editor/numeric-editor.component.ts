@@ -2,7 +2,7 @@ import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/
 import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 
 @Component({
-	selector: 'numeric-cell',
+	selector: 'numeric-editor',
 	template: `<input #input (keydown)="onKeyDown($event)" [(ngModel)]="value">`
 })
 
@@ -24,8 +24,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		//             
 	}
 	getValue(): any {
-		return this.value;
-
+		return this.value*-1;
 	}
 
 	isCancelBeforeStart(): boolean {

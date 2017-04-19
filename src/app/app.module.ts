@@ -15,6 +15,7 @@ import { DatasetsComponent } from './datasets/datasets.component';
 import { DatasetsActionComponent } from './datasets/datasets-action/datasets-action.component';
 import { NumericEditorComponent } from './main-interface/numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './main-interface/boolean-editor/boolean-editor.component';
+import { StringEditorComponent } from './main-interface/string-editor/string-editor.component';
 
 const appRoutes:Routes=[
 	{
@@ -49,7 +50,8 @@ export function restangularConfigFactory(RestangularProvider){}
     SaveViewComponent,
     DatasetsActionComponent,
     NumericEditorComponent,
-    BooleanEditorComponent
+    BooleanEditorComponent,
+    StringEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ export function restangularConfigFactory(RestangularProvider){}
 			DatasetsComponent,
 			DatasetsActionComponent,
 			NumericEditorComponent,
-			BooleanEditorComponent
+			BooleanEditorComponent,
+			StringEditorComponent
 		]
 	),
     FormsModule,
