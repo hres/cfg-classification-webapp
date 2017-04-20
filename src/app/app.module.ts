@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AgGridModule } from "ag-grid-angular/main";
 import { FormsModule } from '@angular/forms';
@@ -54,7 +55,8 @@ export function restangularConfigFactory(RestangularProvider){}
     StringEditorComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
+	BrowserModule,
 	AgGridModule.withComponents(
 		[
 			MainInterfaceComponent,
