@@ -347,9 +347,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	ngOnInit() {
 		this.route.params.subscribe(params =>{
 			this.datasetId = params['id'];
+
+			//todo fix this properly
+			if(this.datasetId == 'prod' || this.datasetId == 'sandbox'){
+				this.env = this.datasetId;
+				this.datasetId = undefined;
+			}
 		})
 
-		if(this.datasetId != 'prod'){
+		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
 				(res) => {
 					this.setDataset(res[0].data);
@@ -395,7 +401,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	saveDataset(datasetName:string, datasetComments:string){
 		console.log(this.gridOptions.api.getModel);
-		this.saveService.save(datasetName, datasetComments, this.dataset, this.env).subscribe(
+		this.saveService.save(this.datasetId, datasetName, datasetComments, this.dataset, this.env).subscribe(
 			(res) => {
 				console.log(res);
 			},

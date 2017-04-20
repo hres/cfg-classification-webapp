@@ -6,7 +6,7 @@ export class SaveService {
 
 	constructor(private restangular:Restangular) { }
 
-	save(name:string, comments:string, data:any, env:string){
+	save(id:string, name:string, comments:string, data:any, env:string){
 		let saveEndpoint = "cfg-task-service/service/datasets";
 
 		let restObj = this.restangular.all(saveEndpoint);
@@ -17,7 +17,11 @@ export class SaveService {
 		request.data = data;
 		request.env = env;
 
-		// [elem, path, params, headers]
-		return restObj.customPOST(request,undefined, undefined, {'Content-Type': 'application/json'});
+		if(id != undefined){
+			return restObj.customPUT(request, id, undefined, {'Content-Type': 'application/json'});
+		}else{
+			// [elem, path, params, headers]
+			return restObj.customPOST(request,undefined, undefined, {'Content-Type': 'application/json'});
+		}
 	}
 }
