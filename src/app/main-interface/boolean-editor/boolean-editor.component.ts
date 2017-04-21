@@ -4,8 +4,8 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 @Component({
 	selector: 'boolean-cell',
 	template: 	`<select #select [(ngModel)]="value" style="width:100%">
-					<option [ngValue]="true">true</option>
-					<option [ngValue]="false">false</option>
+					<option [ngValue]=-1>true</option>
+					<option [ngValue]=-2>false</option>
 				</select>` 
 })
 

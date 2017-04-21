@@ -47,7 +47,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 			 	headerName: "Food/Recipe Code",
-				field: "cnfCode",
+				field: "code",
 				width: 112,
 				minWidth: 112,
 			},
@@ -60,9 +60,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "CFG Code",
 				cellRenderer: this.getNumValue,
-				editable: true,
 				cellEditorFramework: NumericEditorComponent,
-				cellStyle: this.getCellStyle,
+				cellStyle: this.getNumCellStyle,
+				editable: true,
 				field: "cfgCode",
 				width: 90,
 				minWidth: 90
@@ -82,17 +82,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sodium Amount (per 100g)",
 				cellRenderer: this.getNumValue,
-				editable: true,
 				cellEditorFramework: NumericEditorComponent,
-				cellStyle: this.getCellStyle,
+				cellStyle: this.getNumCellStyle,
+				editable: true,
 				field: "sodiumAmountPer100g",
 				width: 100,
 				minWidth: 125
 			},
 			{
 				headerName: "Sodium Imputation Reference",
-				editable: true,
+				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
+				editable: true,
 				field: "sodiumImputationReference",
 				width: 100,
 				minWidth: 141
@@ -105,14 +107,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sugar Amount (per 100g)",
-				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
+				editable: true,
 				field: "sugarAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Sugar Imputation Reference",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "sugarImputationReference",
 				width: 100,
@@ -127,13 +134,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "TransFat Amount (per 100g)",
 				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Transfat Imputation Reference",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "transfatImputationReference",
 				width: 100,
@@ -149,13 +161,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "SatFat Amount (per 100g)",
 				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
 				field: "satfatAmountPer100g",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "SatFat Imputation Reference",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "satfatImputationReference",
 				width: 100,
@@ -171,6 +188,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Added Sodium",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSodium",
 				width: 100,
 				minWidth: 190
@@ -184,6 +203,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Sugar",
 				editable: true,
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSugar",
 				width: 100,
 				minWidth: 150
@@ -197,6 +219,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Free Sugars",
 				editable: true,
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				field: "containsFreeSugars",
 				width: 100,
 				minWidth: 150
@@ -210,6 +235,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Fat",
 				editable: true,
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedFat",
 				width: 100,
 				minWidth: 150
@@ -223,6 +251,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Added TransFat",
 				editable: true,
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedTransfat",
 				width: 100,
 				minWidth: 150
@@ -235,6 +266,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Caffeine",
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsCaffeine",
 				width: 100,
@@ -248,6 +282,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Sugar Substitutes",
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsSugarSubstitutes",
 				width: 100,
@@ -262,13 +299,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Reference Amount (g)",
 				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
 				field: "referenceAmountG",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Reference Amount (measure)",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "referenceAmountMeasure",
 				width: 100,
@@ -283,7 +325,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food Guide Serving (g)",
 				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
 				field: "foodGuideServingG",
 				width: 100,
 				minWidth: 150
@@ -291,6 +335,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food Guide Serving (measure)",
 				editable: true,
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				field: "foodGuideServingMeasure",
 				width: 100,
 				minWidth: 150
@@ -304,13 +351,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Tier 4 Serving (g)",
 				editable: true,
+				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
 				field: "tier4ServingG",
 				width: 100,
 				minWidth: 150
 			},
 			{
 				headerName: "Tier 4 Serving (measure)",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "tier4ServingMeasure",
 				width: 100,
@@ -324,6 +376,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Rolled Up",
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "rolledUp",
 				width: 100,
@@ -416,13 +471,57 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	getCellStyle(param:any):any{
+	getNumCellStyle(param:any):any{
 		if(param.value < 0){
 			return {backgroundColor: '#FFBFBC'};
 		}		
 	}
+
+	getStringCellStyle(param:any):any{
+		if(param.value!=null&&param.value.indexOf("&edited=true;")>-1){
+			return {backgroundColor: '#FFBFBC'};
+		}
+	}
+
+	getBooleanCellStyle(param:any):any{
+		if(param.value!=null&&param.value<0){
+			return {backgroundColor: '#FFBFBC'};
+		}
+	}
 	
 	getNumValue(param:any):any{
 		return param.value < 0 ? param.value*-1:param.value;
+	}
+
+	getStringValue(param:any):any{
+		if(param.value==null){
+			return null;
+		}else if(param.value.indexOf("&edited=true;")>-1){
+			return param.value.replace('&edited=true;','');
+		}else{
+			return param.value;
+		}
+	}
+
+	getBooleanValue(param:any):any{
+		//if(param.value==null){
+			//return null;
+		//}else if(param.value){
+			
+		//}
+		switch(param.value){
+			case null:
+				return null;
+			case 0:
+			case -2:
+			case "0":
+			case "-2":
+				return false;
+			case 1: 
+			case -1:
+			case "-1":
+			case "1":
+				return true;
+		}
 	}
 }

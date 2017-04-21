@@ -9,6 +9,7 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 export class NumericEditorComponent implements ICellEditorAngularComp, AfterViewInit {
 	private params: any;
 	public value: number;
+	private oldValue:number;
 	private cancelBeforeStart: boolean = false;
 
 	@ViewChild('input', {read: ViewContainerRef}) public input;
@@ -24,7 +25,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		//             
 	}
 	getValue(): any {
-		return this.value*-1;
+		return this.value != this.oldValue ? this.value*-1 : this.value;
 	}
 
 	isCancelBeforeStart(): boolean {
@@ -45,6 +46,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	}
 	// dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
 	ngAfterViewInit() {
+		this.oldValue = this.value;
 		this.input.element.nativeElement.focus();
 	}
 
