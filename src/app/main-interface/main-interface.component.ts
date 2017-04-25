@@ -24,6 +24,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	height=200;
 	private env:string = "prod";
 	private datasetId:string;
+	private validationMode:boolean = false;
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
@@ -40,22 +41,22 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			{
+				headerName: "Food/Recipe Name",
+				field: "name",
+				width: 390,
+				minWidth: 390
+			},
+			{
 				headerName: "Type",
 				field: "type",
 				minWidth: 65,
-				width: 65,
+				width: 65
 			},
 			{
 			 	headerName: "Food/Recipe Code",
 				field: "code",
 				width: 112,
-				minWidth: 112,
-			},
-			{
-				headerName: "Food/Recipe Name",
-				field: "name",
-				width: 300,
-				minWidth: 150
+				minWidth: 112
 			},
 			{
 				headerName: "CFG Code",
@@ -70,6 +71,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "CFG Code Last Update",
 				field: "cfgCodeUpdateDate",
+				hide: true,
 				width: 100,
 				minWidth: 120
 			},
@@ -102,6 +104,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sodium Imputation Last Update",
 				field: "sodiumImputationDate",
+				hide: true,
 				width: 100,
 				minWidth: 150
 			},
@@ -128,6 +131,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Sugar Imputation Last Update",
 				field: "sugarImputationDate",
+				hide: true,
 				width: 100,
 				minWidth: 150
 			},
@@ -155,6 +159,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "TransFat Imputation Last Update",
 				field: "transfatImputationDate",
+				hide: true,
 				width: 100,
 				minWidth: 150
 			},
@@ -181,6 +186,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "SatFat Imputation Last Update",
 				field: "satfatImputationDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -197,6 +203,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Sodium Last Update Date",
 				field: "containsAddedSodiumUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 170
 			},
@@ -213,6 +220,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Sugar Last Update Date",
 				field: "containsAddedSugarUdpateDate",
+				hide: true,
 				width: 100,
 				minWidth: 150
 			},
@@ -229,6 +237,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Free Sugars Last Update Date",
 				field: "containsFreeSugarsUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -245,6 +254,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Fat Last Update Date",
 				field: "containsAddedFatUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -261,6 +271,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added TransFat Last Update Date",
 				field: "containsAddedTransfatUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -277,6 +288,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Caffeine Last Update Date",
 				field: "containsCaffeineUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -293,6 +305,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Sugar Substitutes Last Update Date",
 				field: "containsSugarSubstituteUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -319,6 +332,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Reference Amount Last Update Date",
 				field: "referenceAmountUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -345,6 +359,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "FG Serving Last Update Date",
 				field: "foodGuideUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -371,6 +386,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Tier 4 Serving Last Update Date",
 				field: "tier4ServingUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -387,6 +403,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Rolled Up Last Update Date",
 				field: "rolledUpUpdateDate",
+				hide: true,	
 				width: 100,
 				minWidth: 150
 			},
@@ -472,6 +489,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumCellStyle(param:any):any{
+		//if(this.validationMode && param.value==null){
+			//return {backgroundColor: 'cream'}
+		//}
 		if(param.value < 0){
 			return {backgroundColor: '#FFBFBC'};
 		}		
@@ -523,5 +543,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			case "1":
 				return true;
 		}
+	}
+
+	onSubmitClick(){
+		this.validationMode = true;
+		this.saveDataset(null, null);
 	}
 }
