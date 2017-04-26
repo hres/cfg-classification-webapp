@@ -33,6 +33,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				private route:ActivatedRoute) {
 
 		this.gridOptions={
+			context:{validationMode:false},
 			enableFilter: true,
 			enableSorting: true,
 			headerHeight: 48,
@@ -488,29 +489,35 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	getNumCellStyle(param:any):any{
-		//if(this.validationMode && param.value==null){
-			//return {backgroundColor: 'cream'}
-		//}
-		if(param.value < 0){
+	getNumCellStyle(params:any):any{
+		if(params.context.validationMode && params.value==null){
+			return {backgroundColor: '#FFFFCC'}
+		}
+		else if(params.value < 0){
 			return {backgroundColor: '#FFBFBC'};
 		}		
 	}
 
-	getStringCellStyle(param:any):any{
-		if(param.value!=null&&param.value.indexOf("&edited=true;")>-1){
+	getStringCellStyle(params:any):any{
+		if(params.context.validationMode && params.value==null){
+			return {backgroundColor: '#FFFFCC'};
+		}
+		else if(params.value!=null&&params.value.indexOf("&edited=true;")>-1){
 			return {backgroundColor: '#FFBFBC'};
 		}
 	}
 
-	getBooleanCellStyle(param:any):any{
-		if(param.value!=null&&param.value<0){
+	getBooleanCellStyle(params:any):any{
+		if (params.context.validationMode && params.value==null){
+			return {backgroundColor: '#FFFFCC'};
+		}
+		else if(params.value!=null&&params.value<0){
 			return {backgroundColor: '#FFBFBC'};
 		}
 	}
 	
-	getNumValue(param:any):any{
-		return param.value < 0 ? param.value*-1:param.value;
+	getNumValue(params:any):any{
+		return params.value < 0 ? params.value*-1:params.value;
 	}
 
 	getStringValue(param:any):any{
@@ -524,29 +531,22 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getBooleanValue(param:any):any{
-		//if(param.value==null){
-			//return null;
-		//}else if(param.value){
-			
-		//}
 		switch(param.value){
 			case null:
 				return null;
 			case 0:
 			case -2:
-			case "0":
-			case "-2":
 				return false;
 			case 1: 
 			case -1:
-			case "-1":
-			case "1":
 				return true;
 		}
 	}
 
 	onSubmitClick(){
 		this.validationMode = true;
-		this.saveDataset(null, null);
+		this.gridOptions.context.validationMode = true;
+		this.gridOptions.api.refreshView();
+		//this.saveDataset(null, null);
 	}
 }
