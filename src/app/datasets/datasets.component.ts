@@ -45,7 +45,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Status",
 				field: "status",
-				width: 150
+				width: 190
 			},
 			{
 				headerName: "Comments",
@@ -61,7 +61,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: DatasetsActionComponent,
 				headerName: "Action",
 				field: "id",
-				width: 100
+				width: 200
 			}
 		]	
 	}
@@ -81,8 +81,12 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	onEnvChange(){
 		this.datasetsService.getDatasets(this.env).subscribe(
 			(res) => {
-				this.gridOptions.api.setRowData(res);
-				this.gridOptions.api.sizeColumnsToFit();
+				// Todo remove this status set
+				for(let dataset of res){
+					if (dataset.id == "5900c9bd69953d0d9be85c57") dataset.status="Pending Validation";
+					this.gridOptions.api.setRowData(res);
+					this.gridOptions.api.sizeColumnsToFit();
+				}
 			},
 			(err) => {
 				console.log(err);

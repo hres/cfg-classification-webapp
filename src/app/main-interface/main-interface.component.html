@@ -1,12 +1,20 @@
 <div class="container-fluid" style="height: 100%;">
 	<div style="height: 40px;" class="row">
-		<div class="col-sm-6">
+		<div class="col-md-6">
 			<button class="btn-success" (click)=onSaveClick()>Save</button>
 		</div>
-		<div class="col-sm-6 right"> 
+		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right"> 
 			Submit to CFG Admin for validation:
 			<button class="btn-primary" (click)="onSubmitClick()">Submit</button>
 			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+		</div>
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right">
+			Accept all analyst data changes.
+			<button class="btn-primary" (click)="onValidateClick()">Validate</button>
+			<button class="btn" (click)="onRejectClick()">Send for Review</button>
+		</div>
+		<div *ngIf="dataset!=undefined && dataset.status=='Validated'" class="col-md-6 right">
+			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
 		</div>
 	</div>
 	<div [style.height.px]="height">

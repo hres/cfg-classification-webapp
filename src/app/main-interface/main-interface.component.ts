@@ -3,6 +3,7 @@ import { GridOptions } from 'ag-grid';
 import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
+import { ClassifyService } from '../services/classify.service';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +15,7 @@ import { StringEditorComponent } from './string-editor/string-editor.component';
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService, OpenService]
+	providers: [SaveService, OpenService, ClassifyService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -25,10 +26,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private env:string = "prod";
 	private datasetId:string;
 	private validationMode:boolean = false;
+	private	dataset:any;	
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
 				private openService: OpenService,
+				private classifyService: ClassifyService,
 				private dialog: MdDialog,
 				private route:ActivatedRoute) {
 
@@ -431,8 +434,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
 				(res) => {
-					this.setDataset(res[0].data);
-
+					this.setDataset(res[0]);
+					
 				},
 				(err) => {
 					console.log(err);
@@ -443,7 +446,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}	
 	}
 
-	dataset:any;	
 	search():void{
 		this.queryService.search().subscribe(
 			(res) => {
@@ -456,7 +458,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
-		this.gridOptions.api.setRowData(dataset);
+		this.gridOptions.api.setRowData(dataset.data);
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 
@@ -472,9 +474,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		});
 	}
 
-	saveDataset(datasetName:string, datasetComments:string){
-		console.log(this.gridOptions.api.getModel);
-		this.saveService.save(this.datasetId, datasetName, datasetComments, this.dataset, this.env).subscribe(
+	saveDataset(datasetName:string, datasetComments:string, status:string=null){
+		if(status) this.dataset.status = status;
+
+		this.saveService.save(this.dataset).subscribe(
 			(res) => {
 				console.log(res);
 			},
@@ -547,6 +550,23 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
 		this.gridOptions.api.refreshView();
-		//this.saveDataset(null, null);
+		this.saveDataset(null, null);
+	}
+
+	onValidateClick(){
+		this.validationMode = false;
+		this.gridOptions.context.validationMode = false;
+		this.gridOptions.api.refreshView();
+		this.saveDataset(null, null, "Validated");
+	}
+
+	onClassifyClick(){
+		this.classifyService.classify(this.dataset.id).subscribe(
+			(res) => {
+				console.log(res);
+			},
+			(err) => {
+				console.log(err);
+			});
 	}
 }
