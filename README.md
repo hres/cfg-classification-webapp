@@ -14,4 +14,4 @@ Once the above are installed, navigate to project root and run the following.
 
 	npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.  The contents of this folder is what needs to be made available at https://lam-dev.hres.ca/cfg-classification-webapp/
+Run `ng build -bh /cfg-classification-webapp` to build the project. The build artifacts will be stored in the `dist/` directory.  The contents of this folder is what needs to be made available at https://lam-dev.hres.ca/cfg-classification-webapp/
