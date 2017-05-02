@@ -2,6 +2,7 @@
 	<div style="height: 40px;" class="row">
 		<div class="col-md-6">
 			<button class="btn-success" (click)=onSaveClick()>Save</button>
+			<button class="btn-primary" (click)=onExportClick()>Export</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right"> 
 			Submit to CFG Admin for validation:
@@ -17,7 +18,24 @@
 			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
 		</div>
 	</div>
-	<div [style.height.px]="height">
+	<div class="row">
+		<label>dataset.name</label>
+		<div class="btn-group" data-toggle="buttons">
+			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
+				<input type="checkbox" [(ngModel)]="btnBarState.showBase"> Base
+			</label>
+			<label class="btn btn-primary" [class.active]="btnBarState.showRa">
+				<input type="checkbox" [(ngModel)]="btnBarState.showRa"> RA
+			</label>
+			<label class="btn btn-primary" [class.active]="btnBarState.showThreshold">
+				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold"> Threshold
+			</label>
+			<label class="btn btn-primary" [class.active]="btnBarState.showAdj">
+				<input type="checkbox" [(ngModel)]="btnBarState.showAdj"> Adjustments
+			</label>
+		</div>
+	</div>
+	<div [style.height.px]="height" style="padding-top:20px;">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
 															  [gridOptions]="gridOptions">
 		</ag-grid-angular>

@@ -27,6 +27,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private datasetId:string;
 	private validationMode:boolean = false;
 	private	dataset:any;	
+	private btnBarState={
+		"showBase":false,
+		"showRa":false,
+		"showThreshold":false,
+		"showAdjustments":false
+	}
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
@@ -568,5 +574,23 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			(err) => {
 				console.log(err);
 			});
+	}
+
+	onExportClick(){
+		let params={
+			skipHeader: false,
+			columnGroups: true,
+			skipFooters: true,
+			skipGroups: true,
+			skipFloatingTop: true ,
+	        skipFloatingBottom: true,
+	        allColumns: true,
+	        onlySelected: false,
+	        suppressQuotes: true,
+			fileName: "luc.csv",
+	        columnSeparator: ","
+		};
+
+		this.gridOptions.api.exportDataAsCsv(params);
 	}
 }
