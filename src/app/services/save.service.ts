@@ -16,6 +16,9 @@ export class SaveService {
 		request.status = dataset.status;
 		request.comments = dataset.comments;
 		request.data = dataset.data;
+		request.owner = dataset.owner;
+		//todo remove this
+		request.env = "prod";
 
 		if(dataset.id != undefined){
 			return restObj.customPUT(request, dataset.id, undefined, {'Content-Type': 'application/json'});
