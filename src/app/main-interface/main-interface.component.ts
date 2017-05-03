@@ -26,7 +26,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private env:string = "prod";
 	private datasetId:string;
 	private validationMode:boolean = false;
-	private	dataset:any;	
+	private	dataset:any = {"name":null};
 	private btnBarState={
 		"showBase":false,
 		"showRa":false,
@@ -440,7 +440,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
 				(res) => {
-					this.setDataset(res[0]);
+					this.setDataset(res);
 					
 				},
 				(err) => {
@@ -455,7 +455,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	search():void{
 		this.queryService.search().subscribe(
 			(res) => {
-				this.setDataset(res);
+				this.dataset.data = res;
+				this.setDataset(this.dataset);
 			},
 			(err) =>{
 				console.log(err);
@@ -472,19 +473,33 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		let config = new MdDialogConfig();
 		config.width = '600px';
 
-		let dialogRef = this.dialog.open(SaveViewComponent, config);
-		dialogRef.afterClosed().subscribe(result => {
-			if (result == "save"){
-				this.saveDataset(dialogRef.componentInstance.datasetName, dialogRef.componentInstance.datasetComments);
-			}
-		});
+		//if first time save
+		if(this.dataset.name == undefined){
+			let dialogRef = this.dialog.open(SaveViewComponent, config);
+			dialogRef.afterClosed().subscribe(result => {
+				if (result == "save"){
+					this.dataset.name=dialogRef.componentInstance.datasetName;
+					this.dataset.status = "In Progress";
+					this.dataset.owner = "Jean-Gabriel Pageau";
+					this.dataset.comments=dialogRef.componentInstance.datasetComments;
+					this.saveDataset();
+				}
+			});
+		}else{
+			this.saveDataset();
+		}
 	}
 
-	saveDataset(datasetName:string, datasetComments:string, status:string=null){
-		if(status) this.dataset.status = status;
+	saveDataset(){
+		//ToDo
+		//if(status) this.dataset.status = status;
 
 		this.saveService.save(this.dataset).subscribe(
 			(res) => {
+				//if first time save, assign id
+				if(this.dataset.id == undefined){
+					this.dataset.id = res.id;
+				}
 				console.log(res);
 			},
 			(err) => {
@@ -494,7 +509,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	ngAfterContentChecked(){
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
-			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
+			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight + 20;
 		}
 	}
 
@@ -556,14 +571,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
 		this.gridOptions.api.refreshView();
-		this.saveDataset(null, null);
+		this.saveDataset();
 	}
 
 	onValidateClick(){
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
 		this.gridOptions.api.refreshView();
-		this.saveDataset(null, null, "Validated");
+		this.saveDataset();
 	}
 
 	onClassifyClick(){
