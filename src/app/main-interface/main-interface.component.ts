@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { QueryService } from '../services/query.service';
+
 import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
 import { ClassifyService } from '../services/classify.service';
@@ -50,6 +51,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		};
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
+			///////////////
+			//BASE ITEM DATA
+			///////////////
 			{
 				headerName: "Food/Recipe Name",
 				field: "name",
@@ -85,6 +89,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 100,
 				minWidth: 120
 			},
+			//////////////////////////
+			// EXTENTED ITEM DATA
+			// //////////////////
 			{
 				headerName: "Energy (Kcal)",
 				field: "energyKcal",
@@ -418,8 +425,142 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				minWidth: 150
 			},
 			{
-				headerName: "Comments",
-				field: "comments",
+				headerName: "Override Small RA Adj",
+				field: "overrideSmallRaAdjustment",
+				minWidth: 150
+			},
+			//{
+				//headerName: "Toddler Item",
+				//field: 
+			//},
+			{
+				headerName: "Replacement Code",
+				field: "replacementCode",
+				minWidth: 118
+			},
+			///////////////////////
+			// STEP 1 RA Adjustments
+			////////////////////////
+			{
+				headerName: "Adjusted RA",
+				field:"adjustedReferenceAmount",
+				minWidth:118
+			},
+			{
+				headerName: "Sodium per RA",
+				field:"sodiumPerReferenceAmount",
+				minWidth:118
+			},
+			{
+				headerName: "Sugar per RA",
+				field:"sugarPerReferenceAmount",
+				minWidth:118
+			},
+			{
+				headerName: "TransFat per RA",
+				field:"transFatPerReferenceAmount",
+				minWidth:118
+			},
+			{
+				headerName: "SatFat per RA",
+				field:"satFatPerReferenceAmount",
+				minWidth:118
+			},
+			{
+				headerName: "TotalFat per RA",
+				field:"fatPerReferenceAmount",
+				minWidth:118
+			},
+			/////////////////////////////
+			//// STEP 2 THRESHOLD RULES
+			//////////////////////////////
+			{
+				headerName: "Low Sodium",
+				field:"lowSodium",
+
+				minWidth:118
+			},
+			{
+				headerName: "High Sodium",
+				field:"highSodium",
+				minWidth:118
+			},
+			{
+				headerName: "Low Sugar",
+				field:"lowSugar",
+				minWidth:118
+			},
+			{
+				headerName: "High Sugar",
+				field:"highSugar",
+				minWidth:118
+			},
+			{
+				headerName: "Low Transfat",
+				field:"lowTransFat",
+				minWidth:118
+			},
+			{
+				headerName: "High Transfat",
+				field:"highTransFat",
+				minWidth:118
+			},
+			{
+				headerName: "Low SatFat",
+				field:"lowSatFat",
+				minWidth:118
+			},
+			{
+				headerName: "High SatFat",
+				field:"highSatFat",
+				minWidth:118
+			},
+			{
+				headerName: "Low TotalFat",
+				field:"lowFat",
+				minWidth:118
+			},
+			{
+				headerName: "High TotalFat",
+				field:"highFat",
+				minWidth:118
+			},
+			{
+				headerName: "SatFat FOP Warning",
+				field:"satFatFopWarning",
+				minWidth:118
+			},
+			{
+				headerName: "Sugar FOP Warning",
+				field:"sugarFopWarning",
+				minWidth:118
+			},
+			{
+				headerName: "Sodium FOP Warning",
+				field:"sodiumFopWarning",
+				minWidth:118
+			},
+			{
+				headerName: "Initial CFG Code",
+				field:"tier",
+				minWidth:118
+			},
+			////////////////////////////////////
+			//STEP 3 ADJUSTMENT RULES
+			//////////////////////////////////////
+			{
+				headerName: "Shift Tier",
+				field:"shift",
+				minWidth:118
+			},
+			{
+				headerName: "Absolute Tier",
+				field:"absolute",
+				minWidth:118
+			},
+			{
+				headerName: "New CFG Code",
+				field: "",
 				width: 100,
 				minWidth: 150
 			}
@@ -465,6 +606,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
+		this.dataset.status = dataset.status;
 		this.gridOptions.api.setRowData(dataset.data);
 		this.gridOptions.api.sizeColumnsToFit();
 	}
@@ -578,13 +720,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
 		this.gridOptions.api.refreshView();
+		this.dataset.status = "Validated";
 		this.saveDataset();
 	}
 
 	onClassifyClick(){
 		this.classifyService.classify(this.dataset.id).subscribe(
 			(res) => {
-				console.log(res);
+				this.setBaseClassified();
+				this.dataset = res;
 			},
 			(err) => {
 				console.log(err);
@@ -607,5 +751,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		};
 
 		this.gridOptions.api.exportDataAsCsv(params);
+	}
+
+	setBaseClassified(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["type","code","name","cfgCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = false;
+			}else{
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = true;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
 	}
 }
