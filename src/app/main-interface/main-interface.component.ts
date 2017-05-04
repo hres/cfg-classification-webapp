@@ -560,7 +560,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "New CFG Code",
-				field: "",
+				field: "classifiedCfgCode",
 				width: 100,
 				minWidth: 150
 			}
@@ -733,7 +733,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.classifyService.classify(this.dataset.id).subscribe(
 			(res) => {
 				this.setBaseClassified();
-				this.dataset = res;
+				this.setDataset(res);
 			},
 			(err) => {
 				console.log(err);
@@ -760,10 +760,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	setBaseClassified(){
 		for (let columnNum in this.gridOptions.columnDefs){
-			if(["type","code","name","cfgCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+			if(["type","code","name","cfgCode","classifiedCfgCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = false;
 			}else{
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = true;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
+	}
+
+	toggleRA(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["adjustedReferenceAmount","sodiumPerReferenceAmount","sugarPerReferenceAmount","transFatPerReferenceAmount","satFatPerReferenceAmount","fatPerReferenceAmount"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);

@@ -27,7 +27,7 @@
 				<input type="checkbox" [(ngModel)]="btnBarState.showBase"> Base
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showRa">
-				<input type="checkbox" [(ngModel)]="btnBarState.showRa"> RA
+				<input type="checkbox" [(ngModel)]="btnBarState.showRa" (change)="toggleRA();"> RA
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showThreshold">
 				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold"> Threshold
