@@ -12,13 +12,15 @@
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right">
 			Accept all analyst data changes.
 			<button class="btn-primary" (click)="onValidateClick()">Validate</button>
-			<button class="btn" (click)="onRejectClick()">Send for Review</button>
+			<button class="btn-primary" (click)="onRejectClick()">Send for Review</button>
+			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Validated'" class="col-md-6 right">
 			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
+			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" style="text-align:center">
 		<label>{{dataset.name}}</label>
 		<div class="btn-group" data-toggle="buttons">
 			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
@@ -35,9 +37,10 @@
 			</label>
 		</div>
 	</div>
-	<div [style.height.px]="height" style="padding-top:20px;">
+	<div [style.height.px]="height" style="padding-top:20px;padding-bottom:10px;">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
 															  [gridOptions]="gridOptions">
 		</ag-grid-angular>
 	</div>
+	<button (click)="tmpPendingValidation()">Set Pending Validation</button>
 </div>
