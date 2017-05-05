@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { GridOptions } from 'ag-grid';
-import { QueryService } from '../services/query.service';
 
+import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
 import { ClassifyService } from '../services/classify.service';
+
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -43,7 +44,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				private route:ActivatedRoute) {
 
 		this.gridOptions={
-			context:{validationMode:false},
+			context:{validationMode:this.validationMode},
 			enableFilter: true,
 			enableSorting: true,
 			headerHeight: 48,
@@ -429,10 +430,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "overrideSmallRaAdjustment",
 				minWidth: 150
 			},
-			//{
-				//headerName: "Toddler Item",
-				//field: 
-			//},
+			{
+				headerName: "Toddler Item",
+				field:"marketedToKids",
+				minWidth:118
+			},
 			{
 				headerName: "Replacement Code",
 				field: "replacementCode",
@@ -541,8 +543,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				minWidth:118
 			},
 			{
-				headerName: "Initial CFG Code",
-				field:"tier",
+				headerName: "Initial Cfg Code",
+				field:"initialCfgCode",
 				minWidth:118
 			},
 			////////////////////////////////////
@@ -780,6 +782,37 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 
+	toggleExt(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["energyKcal","sodiumAmountPer100g","sugarAmountPer100g","transfatAmountPer100g","satfatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
+	}
+	
+	toggleThres(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["lowSodium","highSodium","lowSugar","highSugar","lowTransFat","highTransFat","lowSatFat","highSatFat","lowFat","highFat","satFatFopWarning","sugarFopWarning","sodiumFopWarning","initialCfgCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
+	}
+
+	toggleAdj(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["shift","absolute"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
+	}
 	private	tmpPendingValidation(){
 		this.dataset.status = "Pending Validation";
 	}

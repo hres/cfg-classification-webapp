@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
+
 import { DatasetsService } from '../services/datasets.service';
+import { DeleteService } from '../services/delete.service';
+
 import { DatasetsActionComponent } from './datasets-action/datasets-action.component';
 import { Router } from '@angular/router';
 
@@ -9,7 +12,7 @@ import { Router } from '@angular/router';
 	selector: 'app-datasets',
 	templateUrl: './datasets.component.html',
 	styleUrls: ['./datasets.component.css'],
-	providers: [DatasetsService]
+	providers: [DatasetsService,DeleteService]
 })
 
 export class DatasetsComponent implements OnInit, AfterContentChecked {
@@ -25,7 +28,9 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		{name:'sandbox', desc:'Sandbox'}
 	];
 
-	constructor(private datasetsService: DatasetsService, private router:Router) {
+	constructor(private datasetsService: DatasetsService,
+				private router:Router,
+				private deleteService:DeleteService) {
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			enableFilter: true,
@@ -67,7 +72,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
-		this.onEnvChange();
+		this.getDatasets();
 	}
 
 	ngAfterContentChecked(){
@@ -78,15 +83,11 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	onEnvChange(){
+	private	getDatasets(){
 		this.datasetsService.getDatasets(this.env).subscribe(
 			(res) => {
-				// Todo remove this status set
-				for(let dataset of res){
-					if (dataset.id == "5900c9bd69953d0d9be85c57") dataset.status="Pending Validation";
-					this.gridOptions.api.setRowData(res);
-					this.gridOptions.api.sizeColumnsToFit();
-				}
+				this.gridOptions.api.setRowData(res);
+				this.gridOptions.api.sizeColumnsToFit();
 			},
 			(err) => {
 				console.log(err);
@@ -95,5 +96,16 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 
 	public openDataset(datasetId:string){
 		this.router.navigate(['/main', datasetId]);
+	}
+
+	public deleteDataset(id:string){
+		this.deleteService.delete(id).subscribe(
+			(res) => {
+				this.getDatasets();
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
 	}
 }

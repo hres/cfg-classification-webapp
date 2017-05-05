@@ -4,35 +4,43 @@
 			<button class="btn-success" (click)=onSaveClick()>Save</button>
 			<button class="btn-primary" (click)=onExportClick()>Export</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right"> 
+		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right" style="text-align:right">
 			Submit to CFG Admin for validation:
 			<button class="btn-primary" (click)="onSubmitClick()">Submit</button>
 			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right" style="text-align:right">
 			Accept all analyst data changes.
 			<button class="btn-primary" (click)="onValidateClick()">Validate</button>
 			<button class="btn-primary" (click)="onRejectClick()">Send for Review</button>
 			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Validated'" class="col-md-6 right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Validated'" class="col-md-6 right" style="text-align:right">
 			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
 			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
 		</div>
+		<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="col-md-6 right" style="text-align:right">
+			Commit data to Food Classification database
+			<button class="btn-primary" (click)="onClassifyClick()">Commit</button>
+			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+		</div>
+
 	</div>
-	<div class="row" style="text-align:center">
-		<label>{{dataset.name}}</label>
+	<div class="left">
+		<label>Datasets > {{dataset.name}}</label>
+	</div>
+	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center">
 		<div class="btn-group" data-toggle="buttons">
 			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
-				<input type="checkbox" [(ngModel)]="btnBarState.showBase"> Base
+				<input type="checkbox" [(ngModel)]="btnBarState.showBase" (change)=toggleExt();> Ext
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showRa">
 				<input type="checkbox" [(ngModel)]="btnBarState.showRa" (change)="toggleRA();"> RA
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showThreshold">
-				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold"> Threshold
+				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold" (change)="toggleThres();"> Threshold
 			</label>
-			<label class="btn btn-primary" [class.active]="btnBarState.showAdj">
+			<label class="btn btn-primary" [class.active]="btnBarState.showAdj" (change)="toggleAdj();">
 				<input type="checkbox" [(ngModel)]="btnBarState.showAdj"> Adjustments
 			</label>
 		</div>
