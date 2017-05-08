@@ -777,7 +777,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	        onlySelected: false,
 	        suppressQuotes: true,
 			fileName: "luc.csv",
-	        columnSeparator: ","
+	        columnSeparator: "\t"
 		};
 
 		this.gridOptions.api.exportDataAsCsv(params);
