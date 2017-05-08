@@ -446,31 +446,37 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Adjusted RA",
 				field:"adjustedReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Sodium per RA",
 				field:"sodiumPerReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Sugar per RA",
 				field:"sugarPerReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "TransFat per RA",
 				field:"transFatPerReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "SatFat per RA",
 				field:"satFatPerReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "TotalFat per RA",
 				field:"fatPerReferenceAmount",
+				hide: true,
 				minWidth:118
 			},
 			/////////////////////////////
@@ -479,12 +485,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Low Sodium",
 				field:"lowSodium",
+				hide: true,
 
 				minWidth:118
 			},
 			{
 				headerName: "High Sodium",
 				field:"highSodium",
+				hide: true,
 				minWidth:118
 			},
 			{
@@ -495,56 +503,67 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "High Sugar",
 				field:"highSugar",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Low Transfat",
 				field:"lowTransFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "High Transfat",
 				field:"highTransFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Low SatFat",
 				field:"lowSatFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "High SatFat",
 				field:"highSatFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Low TotalFat",
 				field:"lowFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "High TotalFat",
 				field:"highFat",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "SatFat FOP Warning",
 				field:"satFatFopWarning",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Sugar FOP Warning",
 				field:"sugarFopWarning",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Sodium FOP Warning",
 				field:"sodiumFopWarning",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Initial Cfg Code",
 				field:"initialCfgCode",
+				hide: true,
 				minWidth:118
 			},
 			////////////////////////////////////
@@ -553,16 +572,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Shift Tier",
 				field:"shift",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "Absolute Tier",
 				field:"absolute",
+				hide: true,
 				minWidth:118
 			},
 			{
 				headerName: "New CFG Code",
 				field: "classifiedCfgCode",
+				hide: true,
 				width: 100,
 				minWidth: 150
 			}
@@ -700,7 +722,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	getBooleanValue(param:any):any{
 		switch(param.value){
 			case null:
-				return null;
+				return '';
 			case 0:
 			case -2:
 				return false;
@@ -716,6 +738,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return;
 		}
 
+		this.validateData();
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
 		this.gridOptions.api.refreshView();
@@ -813,9 +836,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 		this.gridOptions.api.sizeColumnsToFit();
 	}
-	private	tmpPendingValidation(){
-		this.dataset.status = "Pending Validation";
-	}
 
 	private decode(){
 		for (let columnNum in this.gridOptions.columnDefs){
@@ -893,6 +913,52 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			}
 		}
+	}
+
+	/*/
+	//Searches mandatory fields and does a null check, if no nulls
+	//found then sets status to pending validation
+	/*/
+	private validateData(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			for (let num=0;num<this.dataset.data.length;num++){
+				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
+					// Num values
+					case "cfgCode":
+					case "sodiumAmountPer100g":
+					case "sugarAmountPer100g":
+					case "transfatAmountPer100g":
+					case "satfatAmountPer100g":
+					case "referenceAmountG":
+					case "foodGuideServingG":
+					case "tier4ServingG":
+					// String values	
+					case "sodiumImputationReference":
+					case "sugarImputationReference":
+					case "transfatImputationReference":
+					case "referenceAmountMeasure":
+					case "foodGuideServingMeasure":
+					case "tier4ServingMeasure":
+					case "satfatImputationReference":
+											// boolean values
+					case "containsAddedSodium":
+					case "containsAddedSugar":
+					case "containsFreeSugars":
+					case "containsAddedFat":
+					case "containsAddedTransfat":
+					case "containsCaffeine":
+					case "containsSugarSubstitutes":
+					case "rolledUp":
+						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field] == null){
+							console.log('found null');
+							return;
+						}
+						break;
+				}
+			}
+		}
+
+		this.dataset.status = "Pending Validation";
 	}
 }
 
