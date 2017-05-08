@@ -66,7 +66,8 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: DatasetsActionComponent,
 				headerName: "Action",
 				field: "id",
-				width: 200
+				minWidth: 190,
+				width:190
 			}
 		]	
 	}
