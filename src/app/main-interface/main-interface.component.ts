@@ -5,7 +5,7 @@ import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
 import { ClassifyService } from '../services/classify.service';
-
+import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
@@ -35,13 +35,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		"showThreshold":false,
 		"showAdjustments":false
 	}
+	private sandboxMode:boolean;
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
 				private openService: OpenService,
 				private classifyService: ClassifyService,
 				private dialog: MdDialog,
-				private route:ActivatedRoute) {
+				private route:ActivatedRoute,
+				private cfgModel:CfgModel) {
 
 		this.gridOptions={
 			context:{validationMode:this.validationMode},
@@ -614,6 +616,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}else{
 			this.search();
 		}	
+
+		if(this.cfgModel.sandboxMode){
+			this.setReadOnly();
+		}
 	}
 
 	search():void{
@@ -766,6 +772,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onExportClick(){
+		//save data
+		let data = [];
+		for (let field of this.dataset.data){
+			data.push(Object.assign({}, field));
+		}
+		
 		let params={
 			skipHeader: false,
 			columnGroups: true,
@@ -780,7 +792,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	        columnSeparator: "\t"
 		};
 
+		this.decode();
 		this.gridOptions.api.exportDataAsCsv(params);
+
+		//restore saved data
+		this.dataset.data = data;
+		this.setDataset(this.dataset);
+		this.gridOptions.api.refreshView();
 	}
 
 	setBaseClassified(){
@@ -960,5 +978,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		this.dataset.status = "Pending Validation";
 	}
-}
 
+	private setReadOnly(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			(<any>this.gridOptions.columnDefs[columnNum]).editable = false;
+		}
+	}
+
+}

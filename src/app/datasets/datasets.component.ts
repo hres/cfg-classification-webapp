@@ -4,6 +4,7 @@ import { Dataset } from '../dtos/dataset';
 
 import { DatasetsService } from '../services/datasets.service';
 import { DeleteService } from '../services/delete.service';
+import { CfgModel }			from '../model/cfg.model';
 
 import { DatasetsActionComponent } from './datasets-action/datasets-action.component';
 import { Router } from '@angular/router';
@@ -21,16 +22,11 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
 	height=200;
-	private env:string='prod';
-
-	private environments=[
-		{name:'prod', desc:'Production'},
-		{name:'sandbox', desc:'Sandbox'}
-	];
 
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
-				private deleteService:DeleteService) {
+				private deleteService:DeleteService,
+				private cfgModel:CfgModel) {
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			enableFilter: true,
@@ -73,6 +69,9 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
+		let body = document.getElementsByTagName('body')[0];
+		body.setAttribute("style","background-color:#d9edf7");//light blue
+
 		this.getDatasets();
 	}
 
@@ -85,7 +84,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	private	getDatasets(){
-		this.datasetsService.getDatasets(this.env).subscribe(
+		this.datasetsService.getDatasets('prod').subscribe(
 			(res) => {
 				this.gridOptions.api.setRowData(res);
 				this.gridOptions.api.sizeColumnsToFit();
@@ -95,7 +94,14 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			});
 	}
 
-	public openDataset(datasetId:string){
+	public openDataset(datasetId:string, sandboxMode:boolean=false){
+		this.cfgModel.sandboxMode = sandboxMode;
+
+		if(sandboxMode){
+			let body = document.getElementsByTagName('body')[0];
+			body.setAttribute("style","background-color:#dff0d8");
+		}
+
 		this.router.navigate(['/main', datasetId]);
 	}
 
