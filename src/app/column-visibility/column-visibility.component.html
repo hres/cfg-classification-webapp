@@ -1,0 +1,34 @@
+<h1 md-dialog-title>Column Visibility</h1>
+<div md-dialog-content>
+	<div class="form-vertical">
+		<div>
+			<label>
+				<input name="type" [(ngModel)]=columns[1].selected (change)="onChange()" type="checkbox">{{columns[1].name}}
+			</label>
+		</div>
+		<div>
+			<label>
+				<input name="code" [(ngModel)]=columns[2].selected type="checkbox">{{columns[2].name}}
+			</label>
+		</div>
+		<div>
+			<label>
+				<input name="cfgCode" [(ngModel)]=columns[3].selected type="checkbox">{{columns[3].name}}
+			</label>
+		</div>
+		<div>
+			<label>
+				<input name="energyKcal" [(ngModel)]=columns[5].selected type="checkbox">{{columns[5].name}}
+			</label>
+		</div>
+		<div>
+			<label>
+				<input name="sodiumAmountPer100g" [(ngModel)]=columns[6].selected type="checkbox">{{columns[6].name}}
+			</label>
+		</div>
+
+	</div>
+</div>
+<div md-dialog-actions>
+	<button md-button (click)="dialogRef.close('close')">Close</button>
+</div>
