@@ -7,27 +7,32 @@
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right" style="text-align:right">
 			Submit to CFG Admin for validation:
 			<button class="btn-primary" (click)="onSubmitClick()">Submit</button>
-			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right" style="text-align:right">
 			Accept all analyst data changes.
 			<button class="btn-primary" (click)="onValidateClick()">Validate</button>
 			<button class="btn-primary" (click)="onRejectClick()">Send for Review</button>
-			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Validated'" class="col-md-6 right" style="text-align:right">
 			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
-			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="col-md-6 right" style="text-align:right">
 			Commit data to Food Classification database
 			<button class="btn-primary" (click)="onClassifyClick()">Commit</button>
-			<button class="btn-info" [routerLink]="['/query', env]">Quit</button>
+			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
 
 	</div>
-	<div class="left">
-		<label>Datasets > {{dataset.name}}</label>
+	<div class="row">
+		<div class="col-md-4">
+			<label>Datasets > {{dataset.name}}</label>
+		</div>
+		<div class="right" style="text-align:right;padding-right:15px;">
+			<span (click)="openColumnVisibility()" class="glyphicon glyphicon-cog" style="color:#31708f"></span>
+		</div>
 	</div>
 	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center">
 		<div class="btn-group" data-toggle="buttons">
@@ -45,7 +50,7 @@
 			</label>
 		</div>
 	</div>
-	<div [style.height.px]="height" style="padding-top:20px;padding-bottom:10px;">
+	<div [style.height.px]="height" style="padding-bottom:10px;">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
 															  [gridOptions]="gridOptions">
 		</ag-grid-angular>

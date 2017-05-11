@@ -7,6 +7,7 @@ import { OpenService } from '../services/open.service';
 import { ClassifyService } from '../services/classify.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
+import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
@@ -584,7 +585,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				minWidth:118
 			},
 			{
-				headerName: "New CFG Code",
+				headerName: "Final CFG Code",
 				field: "classifiedCfgCode",
 				hide: true,
 				width: 100,
@@ -933,10 +934,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	/*/
+	/*
 	//Searches mandatory fields and does a null check, if no nulls
 	//found then sets status to pending validation
-	/*/
+	*/
 	private validateData(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
@@ -985,4 +986,40 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
+	private openColumnVisibility(){
+		let config = new MdDialogConfig();
+		config.width = '600px';
+
+			let dialogRef = this.dialog.open(ColumnVisibilityComponent, config);
+			dialogRef.componentInstance.columns = this.getColumnVisibility();
+			dialogRef.afterClosed().subscribe(result => {
+					this.setColumnVisibility(dialogRef.componentInstance.columns);
+		});
+	}
+
+	private getColumnVisibility():any{
+		let columns = [];
+
+		for (let columnNum in this.gridOptions.columnDefs){
+
+			let column = {	name:(<any>this.gridOptions.columnDefs[columnNum]).headerName,
+							field:(<any>this.gridOptions.columnDefs[columnNum]).field,
+							selected:!(<any>this.gridOptions.columnDefs[columnNum]).hide
+						};
+			columns.push(column);
+		}	
+
+		return columns;
+	}
+	
+	private setColumnVisibility(columns){
+		for (let columnNum in this.gridOptions.columnDefs){
+			(<any>this.gridOptions.columnDefs[columnNum]).hide = !columns[columnNum].selected;
+		}
+
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.sizeColumnsToFit();
+	}
+
 }
+	

@@ -63,6 +63,8 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				headerName: "Action",
 				field: "id",
 				minWidth: 190,
+				suppressFilter: true,
+				suppressSorting: true,
 				width:190
 			}
 		]	
