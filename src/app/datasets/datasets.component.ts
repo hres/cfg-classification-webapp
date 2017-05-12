@@ -41,6 +41,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Owner",
 				field: "owner",
+				minWidth: 160,
 				width: 110
 			},
 			{

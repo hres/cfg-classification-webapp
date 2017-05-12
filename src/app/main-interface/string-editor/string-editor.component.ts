@@ -16,26 +16,21 @@ export class StringEditorComponent implements AgEditorComponent {
 	
 	agInit(params:any):void{
 		this.params = params;
-		this.value = this.decode(this.params.value);
+		this.value = this.params.value ? this.params.value.value:null;
 	}
 
 	getValue():any{
-		return this.value != this.oldValue ? '&edited=true;' + this.value : this.value;
+		if(this.value != this.oldValue){
+			this.params.value.value = this.value;
+			this.params.value.modified = true;
+		} 
+		
+		return this.params.value;
 	}
 
 	ngAfterViewInit(){
 		this.oldValue = this.value;
 		this.input.element.nativeElement.focus();
-	}
-
-	decode(value:string){
-		if(value ==null){
-			return null;
-		}else if(value.indexOf("&edited=true;")>-1){
-			return value.replace('&edited=true;','');
-		}else{
-			return value;
-		}
 	}
 
 }

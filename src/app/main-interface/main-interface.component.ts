@@ -440,6 +440,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Replacement Code",
+				cellRenderer: this.getNumValue,
+				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
+				editable: true,
 				field: "replacementCode",
 				minWidth: 118
 			},
@@ -687,18 +691,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	getNumCellStyle(params:any):any{
 		if(params.context.validationMode && params.value==null){
-			return {backgroundColor: '#FFFFCC'}
+			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
-		else if(params.value < 0){
-			return {backgroundColor: '#FFBFBC'};
+		else if(params.value != null && params.value.modified == true){
+			return {backgroundColor: '#FFBFBC'};//light red
 		}		
 	}
 
 	getStringCellStyle(params:any):any{
-		if(params.context.validationMode && params.value==null){
+		if(params.context.validationMode && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
-		else if(params.value!=null&&params.value.indexOf("&edited=true;")>-1){
+		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
 		}
 	}
@@ -713,17 +717,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 	
 	getNumValue(params:any):any{
-		return params.value < 0 ? params.value*-1:params.value;
+		return params.value ? params.value.value : params.value;
 	}
 
 	getStringValue(param:any):any{
-		if(param.value==null){
-			return null;
-		}else if(param.value.indexOf("&edited=true;")>-1){
-			return param.value.replace('&edited=true;','');
-		}else{
-			return param.value;
-		}
+		return param.value ? param.value.value : param.value;
 	}
 
 	getBooleanValue(param:any):any{
@@ -959,7 +957,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "foodGuideServingMeasure":
 					case "tier4ServingMeasure":
 					case "satfatImputationReference":
-											// boolean values
+					// boolean values
 					case "containsAddedSodium":
 					case "containsAddedSugar":
 					case "containsFreeSugars":
@@ -968,7 +966,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "containsCaffeine":
 					case "containsSugarSubstitutes":
 					case "rolledUp":
-						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field] == null){
+						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('found null');
 							return;
 						}

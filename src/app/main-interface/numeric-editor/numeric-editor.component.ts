@@ -18,13 +18,18 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 
 	agInit(params: any): void {
 		this.params = params;
-		this.value = Math.abs(this.params.value);
+		this.value = this.params.value.value;
 		// only start edit if key pressed is a number, not a letter
 		//         this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
 		//             
 	}
 	getValue(): any {
-		return this.value != this.oldValue ? this.value*-1 : this.value;
+		if(this.value != this.oldValue){
+			this.params.value.value = this.value;
+			this.params.value.modified = true;
+		}
+	
+		return this.params.value;
 	}
 
 	isCancelBeforeStart(): boolean {
