@@ -4,14 +4,15 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 @Component({
 	selector: 'boolean-cell',
 	template: 	`<select #select [(ngModel)]="value" style="width:100%">
-					<option [ngValue]=-1>true</option>
-					<option [ngValue]=-2>false</option>
+					<option [ngValue]=true>true</option>
+					<option [ngValue]=false>false</option>
 				</select>` 
 })
 
 export class BooleanEditorComponent implements ICellEditorAngularComp {
 	private params:any;
-	value:boolean;
+	public value:boolean;
+	private oldValue:boolean;
 
 	@ViewChild('select')
 	input;
@@ -20,14 +21,20 @@ export class BooleanEditorComponent implements ICellEditorAngularComp {
 
 	agInit(params:any):void{
 		this.params = params;
-		this.value = this.params.value;
+		this.value = this.params.value ? this.params.value.value:null;
 	}
 
 	getValue(): boolean{
-		return this.value;
+		if(this.value != this.oldValue){
+			this.params.value.value = this.value;
+			this.params.value.modified = true;
+		}
+
+		return this.params.value;
 	}
 
 	ngAfterViewInit(){
+		this.oldValue = this.value;
 		this.input.nativeElement.focus();
 	}
 }

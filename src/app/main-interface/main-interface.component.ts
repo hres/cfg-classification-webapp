@@ -342,10 +342,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Reference Amount (measure)",
-				cellRenderer: this.getStringValue,
-				cellEditorFramework: StringEditorComponent,
-				cellStyle: this.getStringCellStyle,
-				editable: true,
 				field: "referenceAmountMeasure",
 				width: 100,
 				minWidth: 150
@@ -690,7 +686,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumCellStyle(params:any):any{
-		if(params.context.validationMode && params.value==null){
+		if(params.context.validationMode && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
@@ -708,33 +704,24 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getBooleanCellStyle(params:any):any{
-		if (params.context.validationMode && params.value==null){
-			return {backgroundColor: '#FFFFCC'};
+		if (params.context.validationMode && (params.value==null||params.value.value==null)){
+			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
-		else if(params.value!=null&&params.value<0){
+		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};
 		}
 	}
 	
 	getNumValue(params:any):any{
-		return params.value ? params.value.value : params.value;
+		return params.value ? params.value.value : null;
 	}
 
 	getStringValue(param:any):any{
-		return param.value ? param.value.value : param.value;
+		return param.value ? param.value.value : null;
 	}
 
 	getBooleanValue(param:any):any{
-		switch(param.value){
-			case null:
-				return '';
-			case 0:
-			case -2:
-				return false;
-			case 1: 
-			case -1:
-				return true;
-		}
+		return param.value ? param.value.value: null;
 	}
 
 	onSubmitClick(){
