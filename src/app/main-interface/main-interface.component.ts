@@ -740,7 +740,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	onValidateClick(){
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
-		this.decode();
 		this.gridOptions.api.refreshView();
 		this.dataset.status = "Validated";
 		this.saveDataset();
@@ -774,11 +773,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	        allColumns: true,
 	        onlySelected: false,
 	        suppressQuotes: true,
-			fileName: "luc.csv",
+			fileName: "classification_data.csv",
 	        columnSeparator: "\t"
 		};
 
-		this.decode();
+		this.unwrapData();
 		this.gridOptions.api.exportDataAsCsv(params);
 
 		//restore saved data
@@ -841,78 +840,85 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 
-	private decode(){
+	/* 
+	 * Unwraps the grid data object values.  Sets the grid data to equal the value property.  This
+	 * is data loss so remember to save data prior if you need it.
+	 */
+	private unwrapData(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
 					case "cfgCode":
-						this.dataset.data[num].cfgCode = Math.abs(this.dataset.data[num].cfgCode);
+						this.dataset.data[num].cfgCode = this.dataset.data[num].cfgCode.value;
 						break;
 					case "sodiumAmountPer100g":
-						this.dataset.data[num].sodiumAmountPer100g= Math.abs(this.dataset.data[num].sodiumAmountPer100g);
+						this.dataset.data[num].sodiumAmountPer100g= this.dataset.data[num].sodiumAmountPer100g.value;
 						break;
 					case "sodiumImputationReference":
-						this.dataset.data[num].sodiumImputationReference= this.dataset.data[num].sodiumImputationReference.replace('&edited=true;','');
+						this.dataset.data[num].sodiumImputationReference= this.dataset.data[num].sodiumImputationReference.value;
 						break;
 					case "sugarAmountPer100g":
-						this.dataset.data[num].sugarAmountPer100g = Math.abs(this.dataset.data[num].sugarAmountPer100g);
+						this.dataset.data[num].sugarAmountPer100g = this.dataset.data[num].sugarAmountPer100g.value;
 						break;
 					case "sugarImputationReference":
-						this.dataset.data[num].sugarImputationReference = this.dataset.data[num].sugarImputationReference.replace('&edited=true;','');
+						this.dataset.data[num].sugarImputationReference = this.dataset.data[num].sugarImputationReference.value;
 						break;
 					case "transfatAmountPer100g":
-						this.dataset.data[num].transfatAmountPer100g = Math.abs(this.dataset.data[num].transfatAmountPer100g);
+						this.dataset.data[num].transfatAmountPer100g = this.dataset.data[num].transfatAmountPer100g.value;
 						break;
 					case "transfatImputationReference":
-						this.dataset.data[num].transfatImputationReference = this.dataset.data[num].transfatImputationReference.replace('&edited=true;','');
+						this.dataset.data[num].transfatImputationReference = this.dataset.data[num].transfatImputationReference.value;
 						break;
 					case "satfatAmountPer100g":
-						this.dataset.data[num].satfatAmountPer100g = Math.abs(this.dataset.data[num].satfatAmountPer100g);
+						this.dataset.data[num].satfatAmountPer100g = this.dataset.data[num].satfatAmountPer100g.value;
 						break;
 					case "satfatImputationReference":
-						this.dataset.data[num].satfatImputationReference = this.dataset.data[num].satfatImputationReference.replace('&edited=true;','');
+						this.dataset.data[num].satfatImputationReference = this.dataset.data[num].satfatImputationReference.value;
 						break;
 					case "containsAddedSodium":
-						this.dataset.data[num].containsAddedSodium = this.dataset.data[num].containsAddedSodium < 0 ? this.dataset.data[num].containsAddedSodium + 2 : this.dataset.data[num].containsAddedSodium;
+						this.dataset.data[num].containsAddedSodium = this.dataset.data[num].containsAddedSodium.value;
 						break;
 					case "containsAddedSugar":
-						this.dataset.data[num].containsAddedSugar = this.dataset.data[num].containsAddedSugar < 0 ? this.dataset.data[num].containsAddedSugar + 2 : this.dataset.data[num].containsAddedSugar;
+						this.dataset.data[num].containsAddedSugar = this.dataset.data[num].containsAddedSugar.value;
 						break;
 					case "containsFreeSugars":
-						this.dataset.data[num].containsFreeSugars = this.dataset.data[num].containsFreeSugars < 0 ? this.dataset.data[num].containsFreeSugars + 2 : this.dataset.data[num].containsFreeSugars;
+						this.dataset.data[num].containsFreeSugars = this.dataset.data[num].containsFreeSugars.value;
 						break;
 					case "containsAddedFat":
-						this.dataset.data[num].containsAddedFat = this.dataset.data[num].containsAddedFat < 0 ? this.dataset.data[num].containsAddedFat + 2 : this.dataset.data[num].containsAddedFat;
+						this.dataset.data[num].containsAddedFat = this.dataset.data[num].containsAddedFat.value;
 						break;
 					case "containsAddedTransfat":
-						this.dataset.data[num].containsAddedTransfat = this.dataset.data[num].containsAddedTransfat < 0 ? this.dataset.data[num].containsAddedTransfat + 2 : this.dataset.data[num].containsAddedTransfat;
+						this.dataset.data[num].containsAddedTransfat = this.dataset.data[num].containsAddedTransfat.value;
 						break;
 					case "containsCaffeine":
-						this.dataset.data[num].containsCaffeine = this.dataset.data[num].containsCaffeine < 0 ? this.dataset.data[num].containsCaffeine + 2 : this.dataset.data[num].containsCaffeine;
+						this.dataset.data[num].containsCaffeine = this.dataset.data[num].containsCaffeine.value;
 						break;
 					case "containsSugarSubstitutes":
-						this.dataset.data[num].containsSugarSubstitutes = this.dataset.data[num].containsSugarSubstitutes < 0 ? this.dataset.data[num].containsSugarSubstitutes + 2 : this.dataset.data[num].containsSugarSubstitutes;
+						this.dataset.data[num].containsSugarSubstitutes = this.dataset.data[num].containsSugarSubstitutes.value;
 						break;
 					case "referenceAmountG":
-						this.dataset.data[num].referenceAmountG = Math.abs(this.dataset.data[num].referenceAmountG);
+						this.dataset.data[num].referenceAmountG = this.dataset.data[num].referenceAmountG.value;
 						break;
 					case "referenceAmountMeasure":
-						this.dataset.data[num].referenceAmountMeasure = this.dataset.data[num].referenceAmountMeasure.replace('&edited=true;','');
+						this.dataset.data[num].referenceAmountMeasure = this.dataset.data[num].referenceAmountMeasure.value;
 						break;
 					case "foodGuideServingG":
-						this.dataset.data[num].foodGuideServingG = Math.abs(this.dataset.data[num].foodGuideServingG);
+						this.dataset.data[num].foodGuideServingG = this.dataset.data[num].foodGuideServingG.value;
 						break;
 					case "foodGuideServingMeasure":
-						this.dataset.data[num].foodGuideServingMeasure = this.dataset.data[num].foodGuideServingMeasure.replace('&edited=true;','');
+						this.dataset.data[num].foodGuideServingMeasure = this.dataset.data[num].foodGuideServingMeasure.value;
 						break;
 					case "tier4ServingG":
-						this.dataset.data[num].tier4ServingG = Math.abs(this.dataset.data[num].tier4ServingG);
+						this.dataset.data[num].tier4ServingG = this.dataset.data[num].tier4ServingG.value;
 						break;
 					case "tier4ServingMeasure":
-						this.dataset.data[num].tier4ServingMeasure = this.dataset.data[num].tier4ServingMeasure.replace('&edited=true;','');
+						this.dataset.data[num].tier4ServingMeasure = this.dataset.data[num].tier4ServingMeasure.value;
 						break;
 					case "rolledUp":
-						this.dataset.data[num].rolledUp = this.dataset.data[num].rolledUp < 0 ? this.dataset.data[num].rolledUp + 2 : this.dataset.data[num].rolledUp;
+						this.dataset.data[num].rolledUp = this.dataset.data[num].rolledUp.value;
+						break;
+					case "replacementCode":
+						this.dataset.data[num].replacementCode = this.dataset.data[num].replacementCode.value;
 						break;
 				}
 			}
