@@ -50,9 +50,10 @@
 			</label>
 		</div>
 	</div>
+	<div #gridPlaceHolder style="height: calc(100vh - 178px);visibility:hidden;position:absolute;"></div>
 	<div [style.height.px]="height" style="padding-bottom:10px;">
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
-															  [gridOptions]="gridOptions">
+				  [gridOptions]="gridOptions">
 		</ag-grid-angular>
 	</div>
 </div>

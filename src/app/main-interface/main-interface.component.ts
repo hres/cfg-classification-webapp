@@ -22,14 +22,18 @@ import { StringEditorComponent } from './string-editor/string-editor.component';
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
-	@ViewChild('agGrid')agGrid:any;
+	@ViewChild('agGrid')
+	agGrid:any;
+
+	@ViewChild('gridPlaceHolder')
+	gridPlaceHolder:any;
 
 	private gridOptions: GridOptions;
 	height=200;
 	private env:string = "prod";
 	private datasetId:string;
 	private validationMode:boolean = false;
-	private	dataset:any = {"name":null};
+	private	dataset:any = {"name":null,status:''};
 	private btnBarState={
 		"showBase":false,
 		"showRa":false,
@@ -332,10 +336,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Reference Amount (g)",
-				editable: true,
-				cellRenderer: this.getNumValue,
-				cellEditorFramework: NumericEditorComponent,
-				cellStyle: this.getNumCellStyle,
 				field: "referenceAmountG",
 				width: 100,
 				minWidth: 150
@@ -683,6 +683,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight + 20;
 		}
+
+		if(this.gridPlaceHolder.nativeElement.clientHeight < this.height){
+			this.height = this.gridPlaceHolder.nativeElement.clientHeight;
+		}
 	}
 
 	getNumCellStyle(params:any):any{
@@ -738,6 +742,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onValidateClick(){
+		this.clearModifiedFlags();
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
 		this.gridOptions.api.refreshView();
@@ -896,12 +901,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "containsSugarSubstitutes":
 						this.dataset.data[num].containsSugarSubstitutes = this.dataset.data[num].containsSugarSubstitutes.value;
 						break;
-					case "referenceAmountG":
-						this.dataset.data[num].referenceAmountG = this.dataset.data[num].referenceAmountG.value;
-						break;
-					case "referenceAmountMeasure":
-						this.dataset.data[num].referenceAmountMeasure = this.dataset.data[num].referenceAmountMeasure.value;
-						break;
 					case "foodGuideServingG":
 						this.dataset.data[num].foodGuideServingG = this.dataset.data[num].foodGuideServingG.value;
 						break;
@@ -939,14 +938,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "sugarAmountPer100g":
 					case "transfatAmountPer100g":
 					case "satfatAmountPer100g":
-					case "referenceAmountG":
 					case "foodGuideServingG":
 					case "tier4ServingG":
 					// String values	
 					case "sodiumImputationReference":
 					case "sugarImputationReference":
 					case "transfatImputationReference":
-					case "referenceAmountMeasure":
 					case "foodGuideServingMeasure":
 					case "tier4ServingMeasure":
 					case "satfatImputationReference":
@@ -960,7 +957,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "containsSugarSubstitutes":
 					case "rolledUp":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
-							console.log('found null');
+							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
 							return;
 						}
 						break;
@@ -969,6 +966,45 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 
 		this.dataset.status = "Pending Validation";
+	}
+
+	/*
+	//Sets all modified flags to false
+	*/
+	private clearModifiedFlags(){
+		for (let columnNum in this.gridOptions.columnDefs){
+			for (let num=0;num<this.dataset.data.length;num++){
+				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
+					// Num values
+					case "cfgCode":
+					case "sodiumAmountPer100g":
+					case "sugarAmountPer100g":
+					case "transfatAmountPer100g":
+					case "satfatAmountPer100g":
+					case "foodGuideServingG":
+					case "tier4ServingG":
+					// String values	
+					case "sodiumImputationReference":
+					case "sugarImputationReference":
+					case "transfatImputationReference":
+					case "foodGuideServingMeasure":
+					case "tier4ServingMeasure":
+					case "satfatImputationReference":
+					// boolean values
+					case "containsAddedSodium":
+					case "containsAddedSugar":
+					case "containsFreeSugars":
+					case "containsAddedFat":
+					case "containsAddedTransfat":
+					case "containsCaffeine":
+					case "containsSugarSubstitutes":
+					case "rolledUp":
+					case "replacementCode":
+						this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].modified = false;
+						break;
+				}
+			}
+		}
 	}
 
 	private setReadOnly(){
@@ -1012,5 +1048,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 
+	private onCellClicked(event:any){
+		console.log('onCellClicked');
+		if(event.column.colId == "containsAddedSodium"){
+			this.gridOptions.api.startEditingCell({rowIndex:event.rowIndex,colKey:event.column.colId});
+		}
+	}
 }
 	
