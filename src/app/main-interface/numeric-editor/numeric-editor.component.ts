@@ -25,7 +25,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	}
 	getValue(): any {
 		if(this.value != this.oldValue){
-			this.params.value.value = this.value;
+			this.params.value.value = this.value * 1;
 			this.params.value.modified = true;
 		}
 	

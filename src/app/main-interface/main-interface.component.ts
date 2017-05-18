@@ -931,6 +931,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private validateData(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
+				// totalfatAmountPer100g
+				if(columnNum=="0"){
+					this.dataset.data[num].totalfatAmountPer100g.value = 69;
+				}
+
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
 					// Num values
 					case "cfgCode":
