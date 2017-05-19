@@ -580,7 +580,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Absolute Tier",
-				field:"absolute",
+				field:"tier",
 				hide: true,
 				minWidth:118
 			},
@@ -836,7 +836,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	toggleAdj(){
 		for (let columnNum in this.gridOptions.columnDefs){
-			if(["shift","absolute"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+			if(["shift","tier"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
 				
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
 			}

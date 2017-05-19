@@ -34,7 +34,7 @@
 			<span (click)="openColumnVisibility()" class="glyphicon glyphicon-cog" style="color:#31708f"></span>
 		</div>
 	</div>
-	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center">
+	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center;padding-bottom:5px;">
 		<div class="btn-group" data-toggle="buttons">
 			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
 				<input type="checkbox" [(ngModel)]="btnBarState.showBase" (change)=toggleExt();> Ext
