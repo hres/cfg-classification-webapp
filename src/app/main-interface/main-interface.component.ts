@@ -586,6 +586,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Final CFG Code",
+				cellStyle: this.getFinalCfgCodeCellStyle,
 				field: "classifiedCfgCode",
 				hide: true,
 				width: 100,
@@ -696,6 +697,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
 		}		
+	}
+
+	getFinalCfgCodeCellStyle(params:any):any{
+		if(params.value && params.data.cfgCode.value != params.value){
+			return {backgroundColor: '#dff0d8'};//light green
+		}
 	}
 
 	getStringCellStyle(params:any):any{
