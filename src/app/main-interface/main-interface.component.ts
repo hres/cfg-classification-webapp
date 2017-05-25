@@ -426,11 +426,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Override Small RA Adj",
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
+				editable: true,
 				field: "overrideSmallRaAdjustment",
 				minWidth: 150
 			},
 			{
 				headerName: "Toddler Item",
+				cellEditorFramework: BooleanEditorComponent,
+				cellRenderer: this.getBooleanValue,
+				cellStyle: this.getBooleanCellStyle,
+				editable: true,
 				field:"marketedToKids",
 				minWidth:118
 			},
@@ -442,6 +450,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				field: "replacementCode",
 				minWidth: 118
+			},
+			{
+				headerName: "Comments",
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
+				editable: true
 			},
 			///////////////////////
 			// STEP 1 RA Adjustments
@@ -489,7 +504,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Low Sodium",
 				field:"lowSodium",
 				hide: true,
-
 				minWidth:118
 			},
 			{
@@ -501,6 +515,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Low Sugar",
 				field:"lowSugar",
+				hide: true,
 				minWidth:118
 			},
 			{
@@ -968,6 +983,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "containsCaffeine":
 					case "containsSugarSubstitutes":
 					case "rolledUp":
+					case "marketedToKids":
+					case "overrideSmallRaAdjustment":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
 							return;
@@ -1012,6 +1029,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "containsSugarSubstitutes":
 					case "rolledUp":
 					case "replacementCode":
+					case "marketedToKids":
+					case "overrideSmallRaAdjustment":
 						this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].modified = false;
 						break;
 				}

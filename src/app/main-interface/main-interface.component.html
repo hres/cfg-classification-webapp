@@ -37,10 +37,10 @@
 	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center;padding-bottom:5px;">
 		<div class="btn-group" data-toggle="buttons">
 			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
-				<input type="checkbox" [(ngModel)]="btnBarState.showBase" (change)=toggleExt();> Ext
+				<input type="checkbox" [(ngModel)]="btnBarState.showBase" (change)=toggleExt();> Extended Data
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showRa">
-				<input type="checkbox" [(ngModel)]="btnBarState.showRa" (change)="toggleRA();"> RA
+				<input type="checkbox" [(ngModel)]="btnBarState.showRa" (change)="toggleRA();"> Reference Amount
 			</label>
 			<label class="btn btn-primary" [class.active]="btnBarState.showThreshold">
 				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold" (change)="toggleThres();"> Threshold
