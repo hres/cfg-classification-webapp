@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AgGridModule } from "ag-grid-angular/main";
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RestangularModule } from 'ng2-restangular';
+import { RestangularModule } from 'ngx-restangular';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,8 @@ import { BooleanEditorComponent } from './main-interface/boolean-editor/boolean-
 import { StringEditorComponent } from './main-interface/string-editor/string-editor.component';
 
 import { AppRoutingModule }	from './app-routing.module';
+import { KeycloakService } from './keycloak-service/keycloak.service';
+import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -56,7 +58,10 @@ export function restangularConfigFactory(RestangularProvider){}
 	MaterialModule
   ],
   entryComponents: [SaveViewComponent, ColumnVisibilityComponent],
-  providers: [],
+	providers: [
+		KeycloakService,
+		KEYCLOAK_HTTP_PROVIDER
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

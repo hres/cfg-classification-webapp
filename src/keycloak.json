@@ -1,0 +1,7 @@
+{
+  "realm": "cfg-classification",
+  "auth-server-url": "http://localhost:4200/auth",
+  "ssl-required": "external",
+  "resource": "cfg-classification-webapp",
+  "public-client": true
+}

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dataset } from '../dtos/dataset';
 import { DATASETS } from './mock-datasets';
-import { Restangular } from 'ng2-restangular';
+import { Restangular } from 'ngx-restangular';
 
 @Injectable()
 export class DatasetsService {
