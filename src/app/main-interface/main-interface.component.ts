@@ -668,7 +668,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				if (result == "save"){
 					this.dataset.name=dialogRef.componentInstance.datasetName;
 					this.dataset.status = "In Progress";
-					this.dataset.owner = "Jean-Gabriel Pageau";
+					this.dataset.owner = "Sydney Crosby";
 					this.dataset.comments=dialogRef.componentInstance.datasetComments;
 					this.saveDataset();
 				}
