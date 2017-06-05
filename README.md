@@ -19,7 +19,7 @@ Building this project requires the following.
 
 	git clone https://github.com/hres/cfg-classification-webapp.git
 	
-Once the above are installed, navigate to project root and run the following.
+Navigate to project root and run the following.
 
 	npm install
 
