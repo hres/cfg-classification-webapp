@@ -46,12 +46,14 @@ Run `ng build -bh /cfg-classification-webapp/` to build the project. The build a
 	sudo a2enmod proxy
 	sudo a2enmod proxy_http
 	
-	From your favorite editor open: /etc/apache2/sites_available/000-default.conf
-	Inside the VirtualHost tag add the following 3 lines including the correct domain and port of the Java Application Server.
+From your favorite editor open: /etc/apache2/sites_available/000-default.conf
+Inside the VirtualHost tag add the following 3 lines including the correct domain and port of the Java Application Server.
 	
-		ProxyPreserveHost On
-		ProxyPass /cfg-task-service/ http://<java-host-here:port>/cfg-task-service/
-		ProxyPassReverse /cfg-task-service/ http://<java-host-here:port>/cfg-task-service/
+	ProxyPreserveHost On
+	ProxyPass /cfg-task-service/ http://<java-host-here:port>/cfg-task-service/
+	ProxyPassReverse /cfg-task-service/ http://<java-host-here:port>/cfg-task-service/
 		
-	
+Restart Apache
+
+	sudo systemctl restart apache2
 
