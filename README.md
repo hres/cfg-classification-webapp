@@ -17,7 +17,7 @@ Building this project requires the following.
 	
 ## Install Angular CLI
 
-	npm install -g @angular/cli
+	sudo npm install -g @angular/cli
 	
 ## Git the project
 
