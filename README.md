@@ -11,6 +11,11 @@ Building this project requires the following.
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
+Deploying this project requires:
+
+	-Apache2
+	-Tomcat
+	
 ## Installing NodeJS and NPM
 
 	*Note:  If you are installing on a Debian or Ubuntu based distrobution you will need to update your repositories.  Enter:
