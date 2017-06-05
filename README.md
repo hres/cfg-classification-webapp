@@ -10,7 +10,7 @@ Building this project requires the following.
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
-Installing NodeJS
+## Installing NodeJS
 
 	sudo apt-get install nodejs
 	
