@@ -3,7 +3,7 @@
 This project is the user interface for the CFG-Classification IP346b initiative.  It is an Angular front end that interfaces with Java Rest services.
 
 
-## Build
+## Prerequisites
 
 Building this project requires the following.
 
