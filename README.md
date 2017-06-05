@@ -15,6 +15,10 @@ Building this project requires the following.
 
 	sudo apt-get install npm
 	
+## Install Angular CLI
+
+	npm install -g @angular/cli
+	
 ## Git the project
 
 	git clone https://github.com/hres/cfg-classification-webapp.git
