@@ -16,7 +16,7 @@ Building this project requires the following.
 	sudo apt-get install nodejs
 	sudo apt-get install npm
 	
-	** I needed nodejs-legacy (I am working on LinuxMint 18)
+	*Note: I needed nodejs-legacy (I am working on LinuxMint 18)
 	sudo apt-get install nodejs-legacy
 	
 ## Install Angular CLI
