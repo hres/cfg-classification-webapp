@@ -13,12 +13,13 @@ Building this project requires the following.
 	
 ## Installing NodeJS and NPM
 
+	*Note:  If you are installing on a Debian or Ubuntu based distrobution you will need to update your repositories.  Enter:
+	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+	
+	Once you are pointing to v6.x repos enter:
+	
 	sudo apt-get install nodejs
-	sudo apt-get install npm
-	
-	*Note: I needed nodejs-legacy (I am working on LinuxMint 18)
-	sudo apt-get install nodejs-legacy
-	
+		
 ## Install Angular CLI
 
 	sudo npm install -g @angular/cli
