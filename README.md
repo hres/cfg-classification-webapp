@@ -18,7 +18,9 @@ Deploying this project requires:
 	
 ## Installing NodeJS and NPM
 
-	*Note:  If you are installing on a Debian or Ubuntu based distrobution you will need to update your repositories.  Enter:
+	*Note:  If you are installing on a Debian or Ubuntu based distrobution you will need to update your repositories.
+	Enter:
+	
 	curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 	
 	Once you are pointing to v6.x repos enter:
