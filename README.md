@@ -6,7 +6,7 @@ This project is the user interface for the CFG-Classification IP346b initiative.
 ## Build
 
 Building this project requires the following.
-
+	-git
 	-npm
 	-angular CLI 1.0.0-rc.0
 	
