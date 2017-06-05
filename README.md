@@ -41,7 +41,9 @@ Run `ng build -bh /cfg-classification-webapp/` to build the project. The build a
 
 ## Configure the reverse proxy
 
-	The web application sends all service calls to /cfg-task-service/.  For security reasons the actual location of the application server is hidden from the webapp and only available via the reverse proxy.  To enable the reverse proxy, on the apache box enter:
+	The web application sends all service calls to /cfg-task-service/.  For security reasons the actual location 
+	of the application server is hidden from the webapp and only available via the reverse proxy.  To enable the 
+	reverse proxy, on the apache box enter:
 	
 	sudo a2enmod proxy
 	sudo a2enmod proxy_http
