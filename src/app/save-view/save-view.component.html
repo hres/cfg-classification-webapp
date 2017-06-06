@@ -8,6 +8,6 @@
 	<textarea class="form-control" style="height:250px;" [(ngModel)]="datasetComments" name="datasetComments"></textarea>
 </div>
 <div md-dialog-actions>
-	<button md-button md-dialog-close="save">Save</button>
+	<button md-button (click)="dialogRef.close(onSaveClose())">Save</button>
 	<button md-button (click)="dialogRef.close('cancel')">Cancel</button>
 </div>

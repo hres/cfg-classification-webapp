@@ -168,7 +168,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
 				width: 100,
-				minWidth: 150
+				minWidth: 155
 			},
 			{
 				headerName: "Transfat Imputation Reference",
@@ -186,7 +186,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "transfatImputationDate",
 				hide: true,
 				width: 100,
-				minWidth: 150
+				minWidth: 155
 			},
 			{
 				headerName: "SatFat Amount (per 100g)",
@@ -247,7 +247,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "containsAddedSugarUdpateDate",
 				hide: true,
 				width: 100,
-				minWidth: 150
+				minWidth: 165
 			},
 			{
 				headerName: "Contains Free Sugars",
@@ -264,7 +264,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "containsFreeSugarsUpdateDate",
 				hide: true,	
 				width: 100,
-				minWidth: 150
+				minWidth: 165
 			},
 			{
 				headerName: "Contains Added Fat",
@@ -281,7 +281,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "containsAddedFatUpdateDate",
 				hide: true,	
 				width: 100,
-				minWidth: 150
+				minWidth: 165
 			},
 			{
 				headerName: "Added TransFat",
@@ -298,7 +298,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "containsAddedTransfatUpdateDate",
 				hide: true,	
 				width: 100,
-				minWidth: 150
+				minWidth: 180
 			},
 			{
 				headerName: "Contains Caffeine",
@@ -332,7 +332,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				field: "containsSugarSubstituteUpdateDate",
 				hide: true,	
 				width: 100,
-				minWidth: 150
+				minWidth: 193
 			},
 			{
 				headerName: "Reference Amount (g)",
@@ -456,7 +456,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true
+				editable: true,
+				minWidth: 200,
+				width: 200
 			},
 			///////////////////////
 			// STEP 1 RA Adjustments
@@ -664,12 +666,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		//if first time save
 		if(this.dataset.name == undefined){
 			let dialogRef = this.dialog.open(SaveViewComponent, config);
-			dialogRef.afterClosed().subscribe(result => {
-				if (result == "save"){
-					this.dataset.name=dialogRef.componentInstance.datasetName;
+			dialogRef.afterClosed().subscribe(saveObj => {
+				if (saveObj != "cancel"){
+					this.dataset.name=saveObj.datasetName;
 					this.dataset.status = "In Progress";
 					this.dataset.owner = "Sydney Crosby";
-					this.dataset.comments=dialogRef.componentInstance.datasetComments;
+					this.dataset.comments=saveObj.datasetComments;
 					this.saveDataset();
 				}
 			});
@@ -1048,10 +1050,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		let config = new MdDialogConfig();
 		config.width = '600px';
 
-			let dialogRef = this.dialog.open(ColumnVisibilityComponent, config);
-			dialogRef.componentInstance.columns = this.getColumnVisibility();
-			dialogRef.afterClosed().subscribe(result => {
-					this.setColumnVisibility(dialogRef.componentInstance.columns);
+			let columnVisibilityPopup = this.dialog.open(ColumnVisibilityComponent, config);
+			columnVisibilityPopup.componentInstance.columns = this.getColumnVisibility();
+			columnVisibilityPopup.afterClosed().subscribe(columns => {
+					this.setColumnVisibility(columns);
 		});
 	}
 

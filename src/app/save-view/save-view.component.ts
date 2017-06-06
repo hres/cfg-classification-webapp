@@ -13,5 +13,11 @@ export class SaveViewComponent {
 
 	constructor(public dialogRef: MdDialogRef<SaveViewComponent>) { }
 
-
+	onSaveClose():any{
+		let retObj = {
+			datasetName: this.datasetName,
+			datasetComments: this.datasetComments
+		};
+		return retObj;
+	}
 }
