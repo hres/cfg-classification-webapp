@@ -65,6 +65,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food/Recipe Name",
 				field: "name",
+				pinned: "left",
 				width: 390,
 				minWidth: 390
 			},
