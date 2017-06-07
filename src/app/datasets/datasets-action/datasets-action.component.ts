@@ -3,10 +3,23 @@ import { ICellRendererAngularComp } from "ag-grid-angular/main";
 
 @Component({
 	selector: 'datasets-action',
-	template: `<span (click)="openDataset()" class="glyphicon glyphicon-eye-open action-icon" style="color:#31708f">Prod</span>	<span class="wb-inv">Open Production</span>
-			<span *ngIf="status=='Validated'" (click)="openDataset(true)" class="glyphicon glyphicon-eye-open action-icon" style="color:#3c763d">Sandbox</span>
-			<span class="wb-inv">Open Sandbox</span>
-			<span (click)="deleteDataset()" class="glyphicon glyphicon-trash action-icon" style="color:#a94442">Delete</span>`,
+	template: `<span (click)="openDataset()"
+					class="glyphicon glyphicon-eye-open action-icon" 
+					style="color:#31708f;cursor:pointer">Prod
+				</span>
+				<span class="wb-inv">Open Production</span>
+				<span *ngIf="status=='Validated';else hideSandbox" (click)="openDataset(true)"
+					class="glyphicon glyphicon-eye-open action-icon"
+					style="color:#3c763d;cursor:pointer">Sandbox
+				</span>
+				<ng-template #hideSandbox>
+					<span class="glyphicon glyphicon-eye-open action-icon" style="visibility:hidden">Sandbox</span>
+				</ng-template>
+				<span class="wb-inv">Open Sandbox</span>
+				<span (click)="deleteDataset()"
+					class="glyphicon glyphicon-trash action-icon"
+					style="color:#a94442;cursor:pointer">Delete
+				</span>`,
 	styleUrls:['./datasets-action.component.css']
 })
 
