@@ -40,6 +40,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		"showThreshold":false,
 		"showAdjustments":false
 	}
+	private callbackSubmit:boolean;
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
@@ -669,6 +670,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					this.dataset.owner = "Sydney Crosby";
 					this.dataset.comments=saveObj.datasetComments;
 					this.saveDataset();
+					if(this.callbackSubmit){
+						this.onSubmitClick();
+					}
 				}
 			});
 		}else{
@@ -750,6 +754,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	onSubmitClick(){
 		if(this.dataset.name == null){
+			this.callbackSubmit=true;
 			this.onSaveClick();
 			return;
 		}
