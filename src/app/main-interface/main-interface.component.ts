@@ -40,7 +40,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		"showThreshold":false,
 		"showAdjustments":false
 	}
-	private sandboxMode:boolean;
 
 	constructor(private queryService: QueryService,
 				private saveService: SaveService,
@@ -636,10 +635,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}else{
 			this.search();
 		}	
-
-		if(this.cfgModel.sandboxMode){
-			this.setReadOnly();
-		}
 	}
 
 	search():void{
@@ -1038,12 +1033,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 						break;
 				}
 			}
-		}
-	}
-
-	private setReadOnly(){
-		for (let columnNum in this.gridOptions.columnDefs){
-			(<any>this.gridOptions.columnDefs[columnNum]).editable = false;
 		}
 	}
 
