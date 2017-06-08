@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
 
-import { DatasetsService } from '../services/datasets.service';
-import { DeleteService } from '../services/delete.service';
+import { DatasetsService } 	from '../services/datasets.service';
+import { DeleteService } 	from '../services/delete.service';
+import { SaveService  } 	from '../services/save.service';
 import { CfgModel }			from '../model/cfg.model';
 
 import { DatasetsActionComponent } from './datasets-action/datasets-action.component';
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 	selector: 'app-datasets',
 	templateUrl: './datasets.component.html',
 	styleUrls: ['./datasets.component.css'],
-	providers: [DatasetsService,DeleteService]
+	providers: [DatasetsService,DeleteService,SaveService]
 })
 
 export class DatasetsComponent implements OnInit, AfterContentChecked {
@@ -26,17 +27,20 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
 				private deleteService:DeleteService,
-				private cfgModel:CfgModel) {
+				private cfgModel:CfgModel,
+				private saveService:SaveService) {
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			enableFilter: true,
-			enableSorting: true
+			enableSorting: true,
+			onCellValueChanged: this.onCellValueChanged
 		};
   		this.gridOptions.columnDefs=[
 			{
 				headerName: "Name",
+				editable: true,
 				field: "name",
-				width: 200
+				width: 200,
 			},
 			{
 				headerName: "Owner",
@@ -51,6 +55,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Comments",
+				editable: true,
 				field: "comments",
 				width: 250
 			},
@@ -69,6 +74,19 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				width:190
 			}
 		]	
+	}
+
+	private onCellValueChanged(event){
+		if (event.newValue != event.oldValue){
+			(<any>this).context.componentParent.saveService.save(event.data).subscribe(
+				(res) => {
+					console.log(res);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);	
+		}
 	}
 
 	ngOnInit() {
