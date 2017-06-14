@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 
 import { QueryService } from '../services/query.service';
@@ -13,6 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
+import { Output, EventEmitter  } 		from '@angular/core';
 
 @Component({
 	selector: 'app-main-interface',
@@ -41,14 +42,16 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		"showAdjustments":false
 	}
 	private callbackSubmit:boolean;
+	private validationFailed:boolean=false;
 
 	constructor(private queryService: QueryService,
-				private saveService: SaveService,
-				private openService: OpenService,
-				private classifyService: ClassifyService,
-				private dialog: MdDialog,
-				private route:ActivatedRoute,
-				private cfgModel:CfgModel) {
+		private saveService: SaveService,
+		private openService: OpenService,
+		private classifyService: ClassifyService,
+		private dialog: MdDialog,
+		private route:ActivatedRoute,
+		private cfgModel:CfgModel,
+		private element:ElementRef) {
 
 		this.gridOptions={
 			context:{validationMode:this.validationMode},
@@ -76,7 +79,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 65
 			},
 			{
-			 	headerName: "Food/Recipe Code",
+				headerName: "Food/Recipe Code",
 				field: "code",
 				width: 112,
 				minWidth: 112
@@ -458,6 +461,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
 				editable: true,
+				field: "comments",
 				minWidth: 200,
 				width: 200
 			},
@@ -656,7 +660,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 
-	onSaveClick(){
+	onSaveClick(userSave:boolean = false){
 		let config = new MdDialogConfig();
 		config.width = '600px';
 
@@ -669,18 +673,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					this.dataset.status = "In Progress";
 					this.dataset.owner = "Sydney Crosby";
 					this.dataset.comments=saveObj.datasetComments;
-					this.saveDataset();
+					this.saveDataset(true);
 					if(this.callbackSubmit){
 						this.onSubmitClick();
 					}
 				}
 			});
 		}else{
-			this.saveDataset();
+			this.saveDataset(userSave);
 		}
 	}
 
-	saveDataset(){
+	saveDataset(userSave:boolean = false){
 		//ToDo
 		//if(status) this.dataset.status = status;
 
@@ -691,6 +695,21 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					this.dataset.id = res.id;
 				}
 				console.log(res);
+				
+				if(userSave && this.validationFailed == false){
+					this.element.nativeElement.dispatchEvent(
+						new CustomEvent(
+							'popup',
+							{
+								detail: {
+									message: "Dataset successfully saved.",
+									showOkButton: true
+								},
+								bubbles:true
+							}
+						)
+					);
+				}
 			},
 			(err) => {
 				console.log(err);
@@ -739,7 +758,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return {backgroundColor: '#FFBFBC'};
 		}
 	}
-	
+
 	getNumValue(params:any):any{
 		return params.value ? params.value.value : null;
 	}
@@ -764,6 +783,30 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.context.validationMode = true;
 		this.gridOptions.api.refreshView();
 		this.saveDataset();
+
+		if(this.validationFailed){
+			this.element.nativeElement.dispatchEvent(
+				new CustomEvent('popup', {
+					detail:{
+						message:"Validation failed, please verify all amber field values.",
+						showOkButton: true
+					},
+					bubbles:true
+				}
+				)
+			);
+		}else{
+			this.element.nativeElement.dispatchEvent(
+				new CustomEvent('popup', {
+					detail:{
+						message:"Dataset sent to Canada Food Guide administrator.",
+						showOkButton: true
+					},
+					bubbles:true
+				}
+				)
+			);
+		}
 	}
 
 	onValidateClick(){
@@ -792,19 +835,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		for (let field of this.dataset.data){
 			data.push(Object.assign({}, field));
 		}
-		
+
 		let params={
 			skipHeader: false,
 			columnGroups: true,
 			skipFooters: true,
 			skipGroups: true,
 			skipFloatingTop: true ,
-	        skipFloatingBottom: true,
-	        allColumns: true,
-	        onlySelected: false,
-	        suppressQuotes: true,
+			skipFloatingBottom: true,
+			allColumns: true,
+			onlySelected: false,
+			suppressQuotes: true,
 			fileName: "classification_data.csv",
-	        columnSeparator: "\t"
+			columnSeparator: "\t"
 		};
 
 		this.unwrapData();
@@ -847,11 +890,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 		this.gridOptions.api.sizeColumnsToFit();
 	}
-	
+
 	toggleThres(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			if(["lowSodium","highSodium","lowSugar","highSugar","lowTransFat","highTransFat","lowSatFat","highSatFat","lowFat","highFat","satFatFopWarning","sugarFopWarning","sodiumFopWarning","initialCfgCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
-				
+
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
 			}
 		}
@@ -862,7 +905,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	toggleAdj(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			if(["shift","tier"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
-				
+
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
 			}
 		}
@@ -952,8 +995,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	/*
 	//Searches mandatory fields and does a null check, if no nulls
 	//found then sets status to pending validation
-	*/
+	 */
 	private validateData(){
+		this.validationFailed = false;
+
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
 				// totalfatAmountPer100g
@@ -962,7 +1007,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
-					// Num values
+						// Num values
 					case "cfgCode":
 					case "sodiumAmountPer100g":
 					case "sugarAmountPer100g":
@@ -970,14 +1015,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "satfatAmountPer100g":
 					case "foodGuideServingG":
 					case "tier4ServingG":
-					// String values	
+						// String values	
 					case "sodiumImputationReference":
 					case "sugarImputationReference":
 					case "transfatImputationReference":
 					case "foodGuideServingMeasure":
 					case "tier4ServingMeasure":
 					case "satfatImputationReference":
-					// boolean values
+						// boolean values
 					case "containsAddedSodium":
 					case "containsAddedSugar":
 					case "containsFreeSugars":
@@ -990,6 +1035,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "overrideSmallRaAdjustment":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
+							this.validationFailed = true;
 							return;
 						}
 						break;
@@ -1002,12 +1048,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	/*
 	//Sets all modified flags to false
-	*/
+	 */
 	private clearModifiedFlags(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
-					// Num values
+						// Num values
 					case "cfgCode":
 					case "sodiumAmountPer100g":
 					case "sugarAmountPer100g":
@@ -1015,14 +1061,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "satfatAmountPer100g":
 					case "foodGuideServingG":
 					case "tier4ServingG":
-					// String values	
+						// String values	
 					case "sodiumImputationReference":
 					case "sugarImputationReference":
 					case "transfatImputationReference":
 					case "foodGuideServingMeasure":
 					case "tier4ServingMeasure":
 					case "satfatImputationReference":
-					// boolean values
+						// boolean values
 					case "containsAddedSodium":
 					case "containsAddedSugar":
 					case "containsFreeSugars":
@@ -1045,10 +1091,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		let config = new MdDialogConfig();
 		config.width = '600px';
 
-			let columnVisibilityPopup = this.dialog.open(ColumnVisibilityComponent, config);
-			columnVisibilityPopup.componentInstance.columns = this.getColumnVisibility();
-			columnVisibilityPopup.afterClosed().subscribe(columns => {
-					this.setColumnVisibility(columns);
+		let columnVisibilityPopup = this.dialog.open(ColumnVisibilityComponent, config);
+		columnVisibilityPopup.componentInstance.columns = this.getColumnVisibility();
+		columnVisibilityPopup.afterClosed().subscribe(columns => {
+			this.setColumnVisibility(columns);
 		});
 	}
 
@@ -1058,15 +1104,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		for (let columnNum in this.gridOptions.columnDefs){
 
 			let column = {	name:(<any>this.gridOptions.columnDefs[columnNum]).headerName,
-							field:(<any>this.gridOptions.columnDefs[columnNum]).field,
-							selected:!(<any>this.gridOptions.columnDefs[columnNum]).hide
-						};
+				field:(<any>this.gridOptions.columnDefs[columnNum]).field,
+				selected:!(<any>this.gridOptions.columnDefs[columnNum]).hide
+			};
 			columns.push(column);
 		}	
 
 		return columns;
 	}
-	
+
 	private setColumnVisibility(columns){
 		for (let columnNum in this.gridOptions.columnDefs){
 			(<any>this.gridOptions.columnDefs[columnNum]).hide = !columns[columnNum].selected;
@@ -1083,4 +1129,4 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 }
-	
+

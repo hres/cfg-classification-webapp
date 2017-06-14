@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
 
@@ -25,17 +25,18 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	height=200;
 
 	constructor(private datasetsService: DatasetsService,
-				private router:Router,
-				private deleteService:DeleteService,
-				private cfgModel:CfgModel,
-				private saveService:SaveService) {
+		private router:Router,
+		private deleteService:DeleteService,
+		private cfgModel:CfgModel,
+		private saveService:SaveService,
+		private element:ElementRef) {
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			enableFilter: true,
 			enableSorting: true,
 			onCellValueChanged: this.onCellValueChanged
 		};
-  		this.gridOptions.columnDefs=[
+		this.gridOptions.columnDefs=[
 			{
 				headerName: "Name",
 				editable: true,
@@ -92,6 +93,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	ngOnInit() {
 		let body = document.getElementsByTagName('body')[0];
 		body.setAttribute("style","background-color:#d9edf7");//light blue
+		this.cfgModel.sandboxMode = false;
 
 		this.getDatasets();
 	}
@@ -126,8 +128,20 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.router.navigate(['/main', datasetId]);
 	}
 
-	public deleteDataset(id:string){
-		this.deleteService.delete(id).subscribe(
+	private deleteId:string;
+	private deleteDataset(id:string){
+		this.deleteId = id;
+		this.element.nativeElement.dispatchEvent(new CustomEvent('popup', {
+			detail:{message: "Are you sure you want to permanently delete dataset?",
+				showYesButton: true,
+				showNoButton: true,
+				callback: this.deleteConfirmed},
+			bubbles:true
+		}));
+	}
+
+	private deleteConfirmed = () => {
+		this.deleteService.delete(this.deleteId).subscribe(
 			(res) => {
 				this.getDatasets();
 			},

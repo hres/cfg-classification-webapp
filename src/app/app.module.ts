@@ -12,6 +12,7 @@ import { MainInterfaceComponent }	from './main-interface/main-interface.componen
 import { QueryViewComponent }		from './query-view/query-view.component';
 import { SaveViewComponent } from './save-view/save-view.component';
 import { ColumnVisibilityComponent }	from './column-visibility/column-visibility.component';
+import { PopupMessage }				from './popup-message/popup-message';
 import { DatasetsComponent } from './datasets/datasets.component';
 import { DatasetsActionComponent } from './datasets/datasets-action/datasets-action.component';
 import { NumericEditorComponent } from './main-interface/numeric-editor/numeric-editor.component';
@@ -36,7 +37,8 @@ export function restangularConfigFactory(RestangularProvider){}
     DatasetsActionComponent,
     NumericEditorComponent,
     BooleanEditorComponent,
-    StringEditorComponent
+    StringEditorComponent,
+    PopupMessage
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,7 +59,7 @@ export function restangularConfigFactory(RestangularProvider){}
 	RestangularModule.forRoot(restangularConfigFactory),
 	MaterialModule
   ],
-  entryComponents: [SaveViewComponent, ColumnVisibilityComponent],
+  entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
 	providers: [
 		//KeycloakService,
 		//KEYCLOAK_HTTP_PROVIDER

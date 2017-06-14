@@ -1,7 +1,7 @@
 <div class="container-fluid" style="height: 100%;">
 	<div style="height: 40px;" class="row">
 		<div class="col-md-6">
-			<button *ngIf="cfgModel.sandboxMode==false" class="btn-success" (click)=onSaveClick()>Save</button>
+			<button *ngIf="cfgModel.sandboxMode==false" class="btn-success" (click)=onSaveClick(true)>Save</button>
 			<button class="btn-primary" (click)=onExportClick()>Export</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right" style="text-align:right">
