@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
-import { Output, EventEmitter  } 		from '@angular/core';
 
 @Component({
 	selector: 'app-main-interface',
