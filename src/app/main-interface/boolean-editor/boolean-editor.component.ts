@@ -3,10 +3,11 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 
 @Component({
 	selector: 'boolean-cell',
-	template: 	`<select #select [(ngModel)]="value" style="width:100%">
-					<option [ngValue]=true>true</option>
-					<option [ngValue]=false>false</option>
-				</select>` 
+	template: 	`<md-select #mdSelect [(ngModel)]="value" (onClose)="onClose()">
+					<md-option [value]=true>true</md-option>
+					<md-option [value]=false>false</md-option>
+				</md-select>`,
+	styleUrls: ['./boolean-editor.component.css']
 })
 
 export class BooleanEditorComponent implements ICellEditorAngularComp {
@@ -14,8 +15,8 @@ export class BooleanEditorComponent implements ICellEditorAngularComp {
 	public value:boolean;
 	private oldValue:boolean;
 
-	@ViewChild('select')
-	input;
+	@ViewChild('mdSelect')
+	mdSelect;
 
 	constructor() { }
 
@@ -35,6 +36,10 @@ export class BooleanEditorComponent implements ICellEditorAngularComp {
 
 	ngAfterViewInit(){
 		this.oldValue = this.value;
-		this.input.nativeElement.focus();
+		this.mdSelect.open();
+	}
+
+	onClose(event){
+		this.params.api.stopEditing();
 	}
 }

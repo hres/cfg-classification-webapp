@@ -12,6 +12,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
+import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
 
 @Component({
@@ -222,7 +223,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Added Sodium",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSodium",
 				width: 100,
@@ -239,7 +240,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Added Sugar",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSugar",
 				width: 100,
@@ -256,7 +257,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Free Sugars",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsFreeSugars",
 				width: 100,
@@ -273,7 +274,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Contains Added Fat",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedFat",
 				width: 100,
@@ -290,7 +291,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Added TransFat",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedTransfat",
 				width: 100,
@@ -306,7 +307,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Caffeine",
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsCaffeine",
@@ -323,7 +324,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Sugar Substitutes",
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsSugarSubstitutes",
@@ -413,7 +414,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Rolled Up",
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "rolledUp",
@@ -430,7 +431,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Override Small RA Adj",
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "overrideSmallRaAdjustment",
@@ -439,7 +440,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Toddler Item",
 				cellEditorFramework: BooleanEditorComponent,
-				cellRenderer: this.getBooleanValue,
+				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field:"marketedToKids",
