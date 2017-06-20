@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SaveService {
@@ -7,9 +8,9 @@ export class SaveService {
 	constructor(private restangular:Restangular) { }
 
 	save(dataset:any){
-		let saveEndpoint = "cfg-task-service/service/datasets";
+		let saveEndpoint = "service/datasets";
 
-		let restObj = this.restangular.all(saveEndpoint);
+		let restObj = this.restangular.allUrl('save', environment.servicesUrl + saveEndpoint);
 	
 		let request:any = {};
 		request.name = dataset.name;

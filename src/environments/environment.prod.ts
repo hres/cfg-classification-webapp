@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+	production: true,
+	servicesUlr: "https://java-prod.hres.ca/cfg-task-service/"
 };

@@ -1,8 +1,4 @@
 {
-	"/cfg-task-service/*": {
-		"target": "http://localhost:8080/",
-		"logLevel":"debug"
-	},
 	"/auth/*":{
 		"target": "http://localhost:8180/",
 		"logLevel":"debug"

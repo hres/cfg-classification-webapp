@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import { CfgRequest } from '../dtos/cfg-request';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class QueryService {
@@ -10,7 +11,7 @@ export class QueryService {
 	constructor(private restangular:Restangular){ }
 
 	search(){
-		let queryString = "cfg-task-service/service/datasets/search?";
+		let queryString = "service/datasets/search?";
 
 		//set source
 		if(this.cfgRequest.source == 1)
@@ -81,7 +82,7 @@ export class QueryService {
 
 		queryString = queryString.replace(/\?\&/g, "?");
 
-		let element = this.restangular.one(queryString).get();
+		let element = this.restangular.oneUrl('query', environment.servicesUrl + queryString).get();
 
 		return element;
 	}

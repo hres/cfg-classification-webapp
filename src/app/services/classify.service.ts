@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ClassifyService {
@@ -7,12 +8,10 @@ export class ClassifyService {
 	constructor(private restangular:Restangular) { }
 
 	classify(datasetId:string){
-		let classifyEndpoint = "cfg-task-service/service/datasets";
+		let classifyEndpoint = "service/datasets";
 
-		//let restObj = this.restangular.all(classifyEndpoint);
-		let restObj = this.restangular.one(classifyEndpoint,datasetId);
+		let restObj = this.restangular.oneUrl('classify', environment.servicesUrl + classifyEndpoint, datasetId);
 
-		//return restObj.customPOST(null, datasetId + "/classify", null, {'Content-Type': 'application/json'});
 		return restObj.customPOST(null, "classify", null, {});
 	}
 
