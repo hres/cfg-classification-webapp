@@ -1,5 +1,0 @@
--#/bin/sh
- cd dist
- cp * /var/www/html/cfg-classification-webapp/
- exit       
-EOF

@@ -568,19 +568,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				minWidth:118
 			},
 			{
-				headerName: "SatFat FOP Warning",
+				headerName: "SatFat FOP Symbol",
 				field:"satFatFopWarning",
 				hide: true,
 				minWidth:118
 			},
 			{
-				headerName: "Sugar FOP Warning",
+				headerName: "Sugar FOP Symbol",
 				field:"sugarFopWarning",
 				hide: true,
 				minWidth:118
 			},
 			{
-				headerName: "Sodium FOP Warning",
+				headerName: "Sodium FOP Symbol",
 				field:"sodiumFopWarning",
 				hide: true,
 				minWidth:118
