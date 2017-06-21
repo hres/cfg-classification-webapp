@@ -8,9 +8,9 @@ export class ClassifyService {
 	constructor(private restangular:Restangular) { }
 
 	classify(datasetId:string){
-		let classifyEndpoint = "service/datasets";
+		let classifyEndpoint = "service/datasets/" + datasetId;
 
-		let restObj = this.restangular.oneUrl('classify', environment.servicesUrl + classifyEndpoint, datasetId);
+		let restObj = this.restangular.oneUrl('classify', environment.servicesUrl + classifyEndpoint);
 
 		return restObj.customPOST(null, "classify", null, {});
 	}
