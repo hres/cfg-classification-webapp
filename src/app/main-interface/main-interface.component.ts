@@ -69,20 +69,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Food/Recipe Name",
 				field: "name",
 				pinned: "left",
-				width: 390,
-				minWidth: 390
+				width: 390
 			},
 			{
 				headerName: "Type",
 				field: "type",
-				minWidth: 65,
 				width: 65
 			},
 			{
 				headerName: "Food/Recipe Code",
 				field: "code",
-				width: 112,
-				minWidth: 112
+				width: 112
 			},
 			{
 				headerName: "CFG Code",
@@ -91,15 +88,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "cfgCode",
-				width: 90,
-				minWidth: 90
+				width: 90
 			},
 			{
 				headerName: "CFG Code Last Update",
 				field: "cfgCodeUpdateDate",
 				hide: true,
-				width: 100,
-				minWidth: 120
+				width: 120
 			},
 			//////////////////////////
 			// EXTENTED ITEM DATA
@@ -107,8 +102,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Energy (Kcal)",
 				field: "energyKcal",
-				width: 100,
-				minWidth: 110
+				width: 100
 			},
 			{
 				headerName: "Sodium Amount (per 100g)",
@@ -117,8 +111,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "sodiumAmountPer100g",
-				width: 100,
-				minWidth: 125
+				width: 127
 			},
 			{
 				headerName: "Sodium Imputation Reference",
@@ -127,15 +120,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "sodiumImputationReference",
-				width: 100,
-				minWidth: 141
+				width: 142
 			},
 			{
 				headerName: "Sodium Imputation Last Update",
 				field: "sodiumImputationDate",
 				hide: true,
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Sugar Amount (per 100g)",
@@ -144,8 +135,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "sugarAmountPer100g",
-				width: 100,
-				minWidth: 150
+				width: 151
 			},
 			{
 				headerName: "Sugar Imputation Reference",
@@ -154,15 +144,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "sugarImputationReference",
-				width: 100,
-				minWidth: 150
+				width: 151
 			},
 			{
 				headerName: "Sugar Imputation Last Update",
 				field: "sugarImputationDate",
 				hide: true,
-				width: 100,
-				minWidth: 150
+				width: 156
 			},
 			{
 				headerName: "TransFat Amount (per 100g)",
@@ -171,8 +159,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
-				width: 100,
-				minWidth: 155
+				width: 151
 			},
 			{
 				headerName: "Transfat Imputation Reference",
@@ -181,16 +168,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "transfatImputationReference",
-				width: 100,
-				minWidth: 150
+				width: 152
 			},
 
 			{
 				headerName: "TransFat Imputation Last Update",
 				field: "transfatImputationDate",
 				hide: true,
-				width: 100,
-				minWidth: 155
+				width: 151
 			},
 			{
 				headerName: "SatFat Amount (per 100g)",
@@ -199,8 +184,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "satfatAmountPer100g",
-				width: 100,
-				minWidth: 150
+				width: 152
 			},
 			{
 				headerName: "SatFat Imputation Reference",
@@ -209,15 +193,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "satfatImputationReference",
-				width: 100,
-				minWidth: 150
+				width: 124
 			},
 			{
 				headerName: "SatFat Imputation Last Update",
 				field: "satfatImputationDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 100
 			},
 			{
 				headerName: "Contains Added Sodium",
@@ -226,15 +208,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSodium",
-				width: 100,
-				minWidth: 190
+				width: 111
 			},
 			{
 				headerName: "Contains Added Sodium Last Update Date",
 				field: "containsAddedSodiumUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 170
+				width: 170
 			},
 			{
 				headerName: "Contains Added Sugar",
@@ -243,15 +223,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSugar",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Added Sugar Last Update Date",
 				field: "containsAddedSugarUdpateDate",
 				hide: true,
-				width: 100,
-				minWidth: 165
+				width: 165
 			},
 			{
 				headerName: "Contains Free Sugars",
@@ -260,15 +238,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsFreeSugars",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Free Sugars Last Update Date",
 				field: "containsFreeSugarsUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 165
+				width: 165
 			},
 			{
 				headerName: "Contains Added Fat",
@@ -277,15 +253,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedFat",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Added Fat Last Update Date",
 				field: "containsAddedFatUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 165
+				width: 165
 			},
 			{
 				headerName: "Added TransFat",
@@ -294,15 +268,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedTransfat",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Added TransFat Last Update Date",
 				field: "containsAddedTransfatUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 180
+				width: 180
 			},
 			{
 				headerName: "Contains Caffeine",
@@ -311,15 +283,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsCaffeine",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Caffeine Last Update Date",
 				field: "containsCaffeineUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Contains Sugar Substitutes",
@@ -328,34 +298,29 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsSugarSubstitutes",
-				width: 100,
-				minWidth: 150
+				width: 116
 			},
 			{
 				headerName: "Contains Sugar Substitutes Last Update Date",
 				field: "containsSugarSubstituteUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 193
+				width: 100
 			},
 			{
 				headerName: "Reference Amount (g)",
 				field: "referenceAmountG",
-				width: 100,
-				minWidth: 150
+				width: 100
 			},
 			{
 				headerName: "Reference Amount (measure)",
 				field: "referenceAmountMeasure",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Reference Amount Last Update Date",
 				field: "referenceAmountUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 100
 			},
 			{
 				headerName: "Food Guide Serving (g)",
@@ -364,8 +329,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "foodGuideServingG",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Food Guide Serving (measure)",
@@ -374,15 +338,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
 				field: "foodGuideServingMeasure",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "FG Serving Last Update Date",
 				field: "foodGuideUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Tier 4 Serving (g)",
@@ -391,8 +353,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "tier4ServingG",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Tier 4 Serving (measure)",
@@ -401,15 +362,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "tier4ServingMeasure",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Tier 4 Serving Last Update Date",
 				field: "tier4ServingUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Rolled Up",
@@ -418,15 +377,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "rolledUp",
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Rolled Up Last Update Date",
 				field: "rolledUpUpdateDate",
 				hide: true,	
-				width: 100,
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Override Small RA Adj",
@@ -435,7 +392,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "overrideSmallRaAdjustment",
-				minWidth: 150
+				width: 150
 			},
 			{
 				headerName: "Toddler Item",
@@ -444,7 +401,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field:"marketedToKids",
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Replacement Code",
@@ -453,7 +410,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "replacementCode",
-				minWidth: 118
+				width:118
 			},
 			{
 				headerName: "Comments",
@@ -462,7 +419,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "comments",
-				minWidth: 200,
 				width: 200
 			},
 			///////////////////////
@@ -472,37 +428,37 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Adjusted RA",
 				field:"adjustedReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			{
 				headerName: "Sodium per RA",
 				field:"sodiumPerReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			{
 				headerName: "Sugar per RA",
 				field:"sugarPerReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			{
 				headerName: "TransFat per RA",
 				field:"transFatPerReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			{
 				headerName: "SatFat per RA",
 				field:"satFatPerReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			{
 				headerName: "TotalFat per RA",
 				field:"fatPerReferenceAmount",
 				hide: true,
-				minWidth:118
+				width:118
 			},
 			/////////////////////////////
 			//// STEP 2 THRESHOLD RULES
@@ -511,85 +467,85 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Low Sodium",
 				field:"lowSodium",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "High Sodium",
 				field:"highSodium",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Low Sugar",
 				field:"lowSugar",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "High Sugar",
 				field:"highSugar",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Low Transfat",
 				field:"lowTransFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "High Transfat",
 				field:"highTransFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Low SatFat",
 				field:"lowSatFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "High SatFat",
 				field:"highSatFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Low TotalFat",
 				field:"lowFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "High TotalFat",
 				field:"highFat",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "SatFat FOP Symbol",
 				field:"satFatFopWarning",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Sugar FOP Symbol",
 				field:"sugarFopWarning",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Sodium FOP Symbol",
 				field:"sodiumFopWarning",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Initial Cfg Code",
 				field:"initialCfgCode",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			////////////////////////////////////
 			//STEP 3 ADJUSTMENT RULES
@@ -598,21 +554,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Shift Tier",
 				field:"shift",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Absolute Tier",
 				field:"tier",
 				hide: true,
-				minWidth:118
+				width: 118
 			},
 			{
 				headerName: "Final CFG Code",
 				cellStyle: this.getFinalCfgCodeCellStyle,
 				field: "classifiedCfgCode",
 				hide: true,
-				width: 100,
-				minWidth: 150
+				width: 118
 			}
 		];
 	}
@@ -657,7 +612,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
-		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	onSaveClick(userSave:boolean = false){
