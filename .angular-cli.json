@@ -31,7 +31,7 @@
 		"local":"environments/environment.ts",
         "dev": "environments/environment.dev.ts",
         "prod": "environments/environment.prod.ts",
-		"imsd": "environments/environment.imsd.ts"
+		"imsd": "environments/environment.imsd.ts",
 		"raul": "environments/environment.raul.ts"
       }
     }
