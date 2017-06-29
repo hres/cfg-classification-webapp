@@ -25,11 +25,11 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	height=200;
 
 	constructor(private datasetsService: DatasetsService,
-		private router:Router,
-		private deleteService:DeleteService,
-		private cfgModel:CfgModel,
-		private saveService:SaveService,
-		private element:ElementRef) {
+				private router:Router,
+				private deleteService:DeleteService,
+				private cfgModel:CfgModel,
+				private saveService:SaveService,
+				private element:ElementRef) {
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			enableFilter: true,

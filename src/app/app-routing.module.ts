@@ -4,6 +4,7 @@ import { RouterModule, Routes } 	from '@angular/router';
 import { DatasetsComponent }		from './datasets/datasets.component';
 import { MainInterfaceComponent }	from './main-interface/main-interface.component';
 import { QueryViewComponent }		from './query-view/query-view.component';
+import { ManageRulesetsComponent }  from './manage-rulesets/manage-rulesets.component';
 
 const appRoutes:Routes =[
 	{
@@ -22,6 +23,10 @@ const appRoutes:Routes =[
 		path: 'query',
 		component: QueryViewComponent,
 		data: {env: 'My Query Title'}
+	},
+	{
+		path: 'manageRulesets',
+		component: ManageRulesetsComponent
 	},
 	{
 		path: '',

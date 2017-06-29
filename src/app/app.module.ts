@@ -21,6 +21,9 @@ import { StringEditorComponent } from './main-interface/string-editor/string-edi
 
 import { AppRoutingModule }	from './app-routing.module';
 import { BooleanRendererComponent } from './main-interface/boolean-renderer/boolean-renderer.component';
+import { ManageRulesetsComponent } from './manage-rulesets/manage-rulesets.component';
+import { RulesetComponent } from './manage-rulesets/ruleset/ruleset.component';
+import { RulesetEditorComponent } from './manage-rulesets/ruleset-editor/ruleset-editor.component';
 //import { KeycloakService } from './keycloak-service/keycloak.service';
 //import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 
@@ -40,7 +43,10 @@ export function restangularConfigFactory(RestangularProvider){}
     BooleanEditorComponent,
     StringEditorComponent,
     PopupMessage,
-    BooleanRendererComponent
+    BooleanRendererComponent,
+    ManageRulesetsComponent,
+    RulesetComponent,
+    RulesetEditorComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -53,7 +59,10 @@ export function restangularConfigFactory(RestangularProvider){}
 			NumericEditorComponent,
 			BooleanEditorComponent,
 			BooleanRendererComponent,
-			StringEditorComponent
+			StringEditorComponent,
+			ManageRulesetsComponent,
+			RulesetComponent,
+			RulesetEditorComponent
 		]
 	),
 	AppRoutingModule,

@@ -283,7 +283,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsCaffeine",
-				width: 150
+				width: 128
 			},
 			{
 				headerName: "Contains Caffeine Last Update Date",
@@ -1022,6 +1022,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "foodGuideServingMeasure":
 					case "tier4ServingMeasure":
 					case "satfatImputationReference":
+					case "comments":
 						// boolean values
 					case "containsAddedSodium":
 					case "containsAddedSugar":
@@ -1074,13 +1075,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 		this.gridOptions.api.sizeColumnsToFit();
-	}
-
-	private onCellClicked(event:any){
-		console.log('onCellClicked');
-		if(event.column.colId == "containsAddedSodium"){
-			this.gridOptions.api.startEditingCell({rowIndex:event.rowIndex,colKey:event.column.colId});
-		}
 	}
 }
 

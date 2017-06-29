@@ -1,8 +1,17 @@
 <div class="container-fluid" style="height: 100%;">
 	<div style="height: 40px;" class="row">
 		<div class="col-md-6">
-			<button *ngIf="cfgModel.sandboxMode==false" class="btn-success" (click)=onSaveClick(true)>Save</button>
-			<button class="btn-primary" (click)=onExportClick()>Export</button>
+			<span class="fa-stack fa-lg">
+				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
+				<span *ngIf="cfgModel.sandboxMode==false" class="fa fa-floppy-o fa-stack-1x" (click)=onSaveClick(true) style="color:#31708f;cursor:pointer;font-size:24px"></span>
+			</span>
+			<span class="fa-stack fa-lg">
+				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
+				<span class="fa fa-file-excel-o fa-stack-1x" style="color:#31708f;cursor:pointer;font-size:24px" (click)=onExportClick()></span>
+			</span>
+			<span class="fa-stack fa-lg">
+				<span class="glyphicon glyphicon-list" style="color:#31708f;cursor:pointer;font-size:24px" [routerLink]="['/manageRulesets']"></span>
+			</span>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right" style="text-align:right">
 			Submit to CFG Admin for validation:
