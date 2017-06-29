@@ -1,6 +1,6 @@
 <div class="container-fluid" style="height: 100%;">
 	<div style="height: 40px;" class="row">
-		<div class="col-md-6">
+		<div class="col-md-4">
 			<span class="fa-stack fa-lg">
 				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
 				<span *ngIf="cfgModel.sandboxMode==false" class="fa fa-floppy-o fa-stack-1x" (click)=onSaveClick(true) style="color:#31708f;cursor:pointer;font-size:24px"></span>
@@ -13,26 +13,33 @@
 				<span class="glyphicon glyphicon-list" style="color:#31708f;cursor:pointer;font-size:24px" [routerLink]="['/manageRulesets']"></span>
 			</span>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-6 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-8 right" style="text-align:right">
 			Submit to CFG Admin for validation:
 			<button class="btn-primary" (click)="onSubmitClick()">Submit</button>
 			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-6 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-8 right" style="text-align:right">
 			Accept all analyst data changes.
 			<button class="btn-primary" (click)="onValidateClick()">Validate</button>
-			<button class="btn-primary" (click)="onRejectClick()">Send for Review</button>
+			<button class="btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
 			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-6 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
 			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-6 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 			Commit data to Food Classification database
 			<button class="btn-primary" (click)="onClassifyClick()">Commit</button>
+			<button class="btn-success" (click)="onRejectClick()">Reject</button>
+			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
+		<div *ngIf="dataset!=undefined && dataset.status=='Rejected'" class="col-md-8 right" style="text-align:right">
+			Accept all analyst data changes.
+			<button class="btn-primary" (click)="onClassifyClick()">Classify</button>
+			<button class="btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
 			<button class="btn-info" [routerLink]="['/datasets']">Quit</button>
 		</div>
+</div>
 
 	</div>
 	<div class="row">

@@ -790,6 +790,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			});
 	}
 
+	onRejectClick(){
+		this.dataset.status="Rejected";
+		this.resetColumnVisibility();
+		this.saveDataset();
+	}
+
 	onExportClick(){
 		//save data
 		let data = [];
@@ -818,6 +824,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.dataset.data = data;
 		this.setDataset(this.dataset);
 		this.gridOptions.api.refreshView();
+	}
+
+	resetColumnVisibility(){
+		for (let columnNum in this.gridOptions.columnDefs){
+ 			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = false;
+			}else{
+				(<any>this.gridOptions.columnDefs[columnNum]).hide = true;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 	}
 
 	setBaseClassified(){
@@ -1084,4 +1101,3 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.sizeColumnsToFit();
 	}
 }
-
