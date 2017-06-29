@@ -628,9 +628,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					this.dataset.owner = "Sydney Crosby";
 					this.dataset.comments=saveObj.datasetComments;
 					this.saveDataset(true);
-					if(this.callbackSubmit){
-						this.onSubmitClick();
-					}
 				}
 			});
 		}else{
@@ -642,7 +639,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		//ToDo
 		//if(status) this.dataset.status = status;
 
-		this.saveService.save(this.dataset).subscribe(
+		// do not save classified state
+		let datasetToSave = Object.assign({}, this.dataset);
+		if (datasetToSave.status == 'Classified'){
+			datasetToSave.status = 'Validated';
+		}
+
+		this.saveService.save(datasetToSave).subscribe(
 			(res) => {
 				//if first time save, assign id
 				if(this.dataset.id == undefined){
@@ -663,6 +666,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 							}
 						)
 					);
+				}
+				if(this.callbackSubmit){
+					this.callbackSubmit = false;
+					this.onSubmitClick();
 				}
 			},
 			(err) => {
