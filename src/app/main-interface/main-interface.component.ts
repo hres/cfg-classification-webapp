@@ -67,6 +67,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			///////////////
 			{
 				headerName: "Food/Recipe Name",
+				cellStyle: this.getNameCellStyle,
 				field: "name",
 				pinned: "left",
 				width: 390
@@ -701,6 +702,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return {backgroundColor: '#dff0d8'};//light green
 		}
 	}
+	
+	getNameCellStyle(params:any):any{
+		if(params.data.classifiedCfgCode && params.data.classifiedCfgCode != params.data.cfgCode.value){
+			return {backgroundColor: '#dff0d8'};//light green
+		}
+	}
+
 
 	getStringCellStyle(params:any):any{
 		if(params.context.validationMode && (params.value==null||params.value.value==null)){
