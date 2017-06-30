@@ -54,7 +54,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private element:ElementRef) {
 
 		this.gridOptions={
-			context:{validationMode:this.validationMode},
+			context:{validationMode:this.validationMode,
+					 mainInterface:this
+					},
 			enableFilter: true,
 			enableSorting: true,
 			headerHeight: 48,
@@ -102,6 +104,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			// //////////////////
 			{
 				headerName: "Energy (Kcal)",
+				cellStyle: this.getExtendedCellStyle,
 				field: "energyKcal",
 				width: 100
 			},
@@ -125,6 +128,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sodium Imputation Last Update",
+				cellStyle: this.getExtendedCellStyle,
 				field: "sodiumImputationDate",
 				hide: true,
 				width: 150
@@ -149,6 +153,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sugar Imputation Last Update",
+				cellStyle: this.getExtendedCellStyle,
 				field: "sugarImputationDate",
 				hide: true,
 				width: 156
@@ -174,6 +179,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 			{
 				headerName: "TransFat Imputation Last Update",
+				cellStyle: this.getExtendedCellStyle,
 				field: "transfatImputationDate",
 				hide: true,
 				width: 151
@@ -198,6 +204,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "SatFat Imputation Last Update",
+				cellStyle: this.getExtendedCellStyle,
 				field: "satfatImputationDate",
 				hide: true,	
 				width: 100
@@ -213,6 +220,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sodium Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedSodiumUpdateDate",
 				hide: true,	
 				width: 170
@@ -228,6 +236,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sugar Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedSugarUdpateDate",
 				hide: true,
 				width: 165
@@ -243,6 +252,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Free Sugars Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsFreeSugarsUpdateDate",
 				hide: true,	
 				width: 165
@@ -258,6 +268,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Fat Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedFatUpdateDate",
 				hide: true,	
 				width: 165
@@ -273,6 +284,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added TransFat Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedTransfatUpdateDate",
 				hide: true,	
 				width: 180
@@ -288,6 +300,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Caffeine Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsCaffeineUpdateDate",
 				hide: true,	
 				width: 150
@@ -303,22 +316,26 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Sugar Substitutes Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "containsSugarSubstituteUpdateDate",
 				hide: true,	
 				width: 100
 			},
 			{
 				headerName: "Reference Amount (g)",
+				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountG",
 				width: 100
 			},
 			{
 				headerName: "Reference Amount (measure)",
+				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountMeasure",
 				width: 150
 			},
 			{
 				headerName: "Reference Amount Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountUpdateDate",
 				hide: true,	
 				width: 100
@@ -343,6 +360,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "FG Serving Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "foodGuideUpdateDate",
 				hide: true,	
 				width: 150
@@ -367,6 +385,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Tier 4 Serving Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "tier4ServingUpdateDate",
 				hide: true,	
 				width: 150
@@ -382,6 +401,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Rolled Up Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
 				field: "rolledUpUpdateDate",
 				hide: true,	
 				width: 150
@@ -427,36 +447,42 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			////////////////////////
 			{
 				headerName: "Adjusted RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"adjustedReferenceAmount",
 				hide: true,
 				width:118
 			},
 			{
 				headerName: "Sodium per RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"sodiumPerReferenceAmount",
 				hide: true,
 				width:118
 			},
 			{
 				headerName: "Sugar per RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"sugarPerReferenceAmount",
 				hide: true,
 				width:118
 			},
 			{
 				headerName: "TransFat per RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"transFatPerReferenceAmount",
 				hide: true,
 				width:118
 			},
 			{
 				headerName: "SatFat per RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"satFatPerReferenceAmount",
 				hide: true,
 				width:118
 			},
 			{
 				headerName: "TotalFat per RA",
+				cellStyle: this.getRefAmountCellStyle,
 				field:"fatPerReferenceAmount",
 				hide: true,
 				width:118
@@ -466,84 +492,98 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//////////////////////////////
 			{
 				headerName: "Low Sodium",
+				cellStyle: this.getThresholdCellStyle,
 				field:"lowSodium",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "High Sodium",
+				cellStyle: this.getThresholdCellStyle,
 				field:"highSodium",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Low Sugar",
+				cellStyle: this.getThresholdCellStyle,
 				field:"lowSugar",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "High Sugar",
+				cellStyle: this.getThresholdCellStyle,
 				field:"highSugar",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Low Transfat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"lowTransFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "High Transfat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"highTransFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Low SatFat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"lowSatFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "High SatFat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"highSatFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Low TotalFat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"lowFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "High TotalFat",
+				cellStyle: this.getThresholdCellStyle,
 				field:"highFat",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "SatFat FOP Symbol",
+				cellStyle: this.getThresholdCellStyle,
 				field:"satFatFopWarning",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Sugar FOP Symbol",
+				cellStyle: this.getThresholdCellStyle,
 				field:"sugarFopWarning",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Sodium FOP Symbol",
+				cellStyle: this.getThresholdCellStyle,
 				field:"sodiumFopWarning",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Initial Cfg Code",
+				cellStyle: this.getThresholdCellStyle,
 				field:"initialCfgCode",
 				hide: true,
 				width: 118
@@ -553,12 +593,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//////////////////////////////////////
 			{
 				headerName: "Shift Tier",
+				cellStyle: this.getAdjCellStyle,
 				field:"shift",
 				hide: true,
 				width: 118
 			},
 			{
 				headerName: "Absolute Tier",
+				cellStyle: this.getAdjCellStyle,
 				field:"tier",
 				hide: true,
 				width: 118
@@ -688,24 +730,52 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
+	private getExtendedCellStyle(params:any){
+		if (params.context.mainInterface.dataset.status == 'Classified'){
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#d9edf7'}/*light blue*/ : {backgroundColor: '#95B9C7'};
+		}
+
+		return;
+	}
+
+	private getRefAmountCellStyle(params:any){
+		if (params.context.mainInterface.dataset.status == "Classified"){
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#ffffcc'}/*yellow*/ : {backgroundColor: 'rgba(255,215,64,0.7)'};
+		}
+	}
+
+	private getThresholdCellStyle(params:any){
+		if (params.context.mainInterface.dataset.status == "Classified"){
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: 'rgb(241,232,255)'}/*magenta*/ : {backgroundColor: 'rgb(170,131,179)'};
+		}
+	}
+	
+	private getAdjCellStyle(params:any){
+		if (params.context.mainInterface.dataset.status == "Classified"){
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#ffdecd'}/*red*/ : {backgroundColor: '#ff8d85'};
+		}
+	}
+
 	getNumCellStyle(params:any):any{
 		if(params.context.validationMode && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
-		}		
+		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
+			return params.context.mainInterface.getExtendedCellStyle(params);
+		}
 	}
 
-	getFinalCfgCodeCellStyle(params:any):any{
+	private getFinalCfgCodeCellStyle(params:any):any{
 		if(params.value && params.data.cfgCode.value != params.value){
-			return {backgroundColor: '#dff0d8'};//light green
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#dff0d8'}/*light green*/ : {backgroundColor: 'rgb(181,214,168)'};
 		}
 	}
 	
 	getNameCellStyle(params:any):any{
 		if(params.data.classifiedCfgCode && params.data.classifiedCfgCode != params.data.cfgCode.value){
-			return {backgroundColor: '#dff0d8'};//light green
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#dff0d8'}/*light green*/ : {backgroundColor: 'rgb(181,214,168)'};
 		}
 	}
 
@@ -716,6 +786,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
+		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
+			return params.context.mainInterface.getExtendedCellStyle(params);
 		}
 	}
 
@@ -725,6 +797,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 		else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};
+		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
+			return params.context.mainInterface.getExtendedCellStyle(params);
 		}
 	}
 
@@ -844,6 +918,37 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 	}
+	
+	private isExtendedData(colId:string):boolean{
+		return ["energyKcal",
+				"sodiumAmountPer100g",
+				"sodiumImputationReference",
+				"sugarAmountPer100g",
+				"sugarImputationReference",
+				"transfatAmountPer100g",
+				"transfatImputationReference",
+				"satfatAmountPer100g",
+				"satfatImputationReference",
+				"containsAddedSodium",
+				"containsAddedSugar",
+				"containsFreeSugars",
+				"containsAddedFat",
+				"containsAddedTransfat",
+				"containsCaffeine",
+				"containsSugarSubstitutes",
+				"referenceAmountG",
+				"referenceAmountMeasure",
+				"foodGuideServingG",
+				"foodGuideServingMeasure",
+				"tier4ServingG",
+				"tier4ServingMeasure",
+				"rolledUp",
+				"overrideSmallRaAdjustment",
+				"marketedToKids",
+				"replacementCode",
+				"comments"
+				].includes(colId);
+	}
 
 	setBaseClassified(){
 		for (let columnNum in this.gridOptions.columnDefs){
@@ -864,7 +969,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	toggleExt(){
@@ -874,7 +978,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	toggleThres(){
@@ -885,7 +988,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	toggleAdj(){
@@ -896,7 +998,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-		this.gridOptions.api.sizeColumnsToFit();
 	}
 
 	/* 

@@ -64,8 +64,8 @@
 			<label class="btn btn-primary" [class.active]="btnBarState.showThreshold">
 				<input type="checkbox" [(ngModel)]="btnBarState.showThreshold" (change)="toggleThres();"> Threshold
 			</label>
-			<label class="btn btn-primary" [class.active]="btnBarState.showAdj" (change)="toggleAdj();">
-				<input type="checkbox" [(ngModel)]="btnBarState.showAdj"> Adjustments
+			<label class="btn btn-primary" [class.active]="btnBarState.showAdj">
+				<input type="checkbox" [(ngModel)]="btnBarState.showAdj" (change)="toggleAdj();"> Adjustments
 			</label>
 		</div>
 	</div>
