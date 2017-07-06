@@ -31,7 +31,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	height=200;
-	private env:string = "prod";
 	private datasetId:string;
 	private validationMode:boolean = false;
 	private	dataset:any = {"name":null,status:''};
@@ -620,10 +619,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			this.datasetId = params['id'];
 
 			//todo fix this properly
-			if(this.datasetId == 'prod' || this.datasetId == 'sandbox'){
-				this.env = this.datasetId;
-				this.datasetId = undefined;
-			}
+			//if(this.datasetId == 'prod' || this.datasetId == 'sandbox'){
+				//this.env = this.datasetId;
+				//this.datasetId = undefined;
+			//}
 		})
 
 		if(this.datasetId != undefined){
@@ -861,15 +860,28 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.saveDataset();
 	}
 
-	onClassifyClick(){
-		this.classifyService.classify(this.dataset.id).subscribe(
-			(res) => {
-				this.setBaseClassified();
-				this.setDataset(res);
-			},
-			(err) => {
-				console.log(err);
-			});
+	onClassifyClick(env:string='prod'){
+		if(env=='prod'){
+			this.classifyService.classify(this.dataset.id).subscribe(
+				(res) => {
+					this.setBaseClassified();
+					this.setDataset(res);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);
+		}else if (env=='sandbox'){
+			this.classifyService.classifySandbox(this.dataset).subscribe(
+				(res) => {
+					this.setBaseClassified();
+					this.setDataset(res);
+				},
+				(err) => {
+					console.log(err);
+				}
+			)
+		}
 	}
 
 	onRejectClick(){
