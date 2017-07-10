@@ -86,4 +86,10 @@
 			</select>
 		</div>
 	</div>
+	<div #showMissingDiv style="display:none;" class="row" >
+		<button (click)="onShowMissingClick()">Show Validation Errors</button>
+	</div>
+	<div #showAllDiv class="row" style="display:none;">
+		<button (click)="onShowAllClick()">Show All</button>
+	</div>
 </div>

@@ -32,6 +32,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	@ViewChild('showMissingDiv')
 	showMissingDiv:any;
 
+	@ViewChild('showAllDiv')
+	showAllDiv:any;
+
 	private gridOptions: GridOptions;
 	height=200;
 	private datasetId:string;
@@ -62,8 +65,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			enableFilter: true,
 			enableSorting: true,
 			headerHeight: 48,
-			enableColResize: true
+			enableColResize: true,
+			isExternalFilterPresent: this.isExternalFilterPresent,
+			doesExternalFilterPass: this.doesExternalFilterPass
 		};
+
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			///////////////
@@ -840,7 +846,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 				)
 			);
-			this.showMissingDiv.nativeElement.style.display = "inline";
+			this.showMissingDiv.nativeElement.style.display = "none";
+			this.showAllDiv.nativeElement.style.display = "inline";
+			this.gridOptions.api.onFilterChanged();
 		}else{
 			this.element.nativeElement.dispatchEvent(
 				new CustomEvent('popup', {
@@ -1107,6 +1115,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				// totalfatAmountPer100g
 				if(columnNum=="0"){
 					this.dataset.data[num].totalfatAmountPer100g.value = 69;
+					this.dataset.data[num].missingData = false;
 				}
 
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
@@ -1138,12 +1147,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "overrideSmallRaAdjustment":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
+							if(!this.validationFailed){
+								this.gridOptions.api.ensureColumnVisible((<any>this.gridOptions.columnDefs[columnNum]).field);
+								this.gridOptions.api.ensureNodeVisible(this.dataset.data[num]);
+							}
 							this.validationFailed = true;
-							return;
+							this.dataset.data[num].missingData = true;
 						}
 						break;
 				}
 			}
+		}
+
+		if(this.validationFailed){
+			return;
 		}
 
 		this.dataset.status = "Pending Validation";
@@ -1228,6 +1245,29 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private onShowMissingClick(){
-		
+		this.showMissingDiv.nativeElement.style.display='none';
+		this.showAllDiv.nativeElement.style.display='inline';
+		this.gridOptions.api.onFilterChanged();
+	}
+
+	private isExternalFilterPresent(){
+		if ((<any>this).context.mainInterface.dataset.status != 'In Progress'){
+			return false;
+		}
+
+		return (<any>this).context.mainInterface.validationFailed;
+	}
+
+	private doesExternalFilterPass(node){
+		if((<any>this).context.mainInterface.showMissingDiv.nativeElement.style.display=="inline"){
+			return true;
+		}
+		return node.data.missingData;
+	}
+
+	private onShowAllClick($event){
+		this.showMissingDiv.nativeElement.style.display='inline';
+		this.showAllDiv.nativeElement.style.display='none';
+		this.gridOptions.api.onFilterChanged();
 	}
 }
