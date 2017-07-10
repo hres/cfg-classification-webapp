@@ -29,6 +29,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	@ViewChild('gridPlaceHolder')
 	gridPlaceHolder:any;
 
+	@ViewChild('showMissingDiv')
+	showMissingDiv:any;
+
 	private gridOptions: GridOptions;
 	height=200;
 	private datasetId:string;
@@ -581,7 +584,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 118
 			},
 			{
-				headerName: "Initial Cfg Code",
+				headerName: "Initial CFG Code",
 				cellStyle: this.getThresholdCellStyle,
 				field:"initialCfgCode",
 				hide: true,
@@ -837,6 +840,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 				)
 			);
+			this.showMissingDiv.nativeElement.style.display = "inline";
 		}else{
 			this.element.nativeElement.dispatchEvent(
 				new CustomEvent('popup', {
@@ -1189,10 +1193,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private openColumnVisibility(){
 		let config = new MdDialogConfig();
-		config.width = '600px';
+		config.width = '1100px';
 
 		let columnVisibilityPopup = this.dialog.open(ColumnVisibilityComponent, config);
 		columnVisibilityPopup.componentInstance.columns = this.getColumnVisibility();
+		columnVisibilityPopup.componentInstance.datasetStatus = this.dataset.status;
 		columnVisibilityPopup.afterClosed().subscribe(columns => {
 			this.setColumnVisibility(columns);
 		});
@@ -1219,6 +1224,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-		this.gridOptions.api.sizeColumnsToFit();
+		//this.gridOptions.api.sizeColumnsToFit();
+	}
+
+	private onShowMissingClick(){
+		
 	}
 }
