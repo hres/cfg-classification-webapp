@@ -1,11 +1,54 @@
 <h1 md-dialog-title>Column Visibility</h1>
 <div md-dialog-content>
 	<div class="form-vertical">
-		<div *ngFor="let column of columns">
-			<label>
-				<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
-			</label>
-		</div>
+		<md-tab-group>
+			<md-tab label="Base">
+				<div *ngFor="let column of columns;index as i">
+					<label *ngIf="i<5">
+						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+					</label>
+				</div>
+			</md-tab>
+			<md-tab label="Extended Data">
+				<div class="row">
+					<div class="col-md-6">
+						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
+							<label *ngIf="i>4&&i<19">
+								<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+							</label>
+						</ng-template>
+					</div>
+					<div class="col-md-6">
+						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
+							<label *ngIf="i>18&&i<32">
+								<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+							</label>
+						</ng-template>
+					</div>
+				</div>
+			</md-tab>
+			<md-tab *ngIf="datasetStatus=='Classified'" label="Reference Amount">
+				<div *ngFor="let column of columns;index as i">
+					<label *ngIf="i>31&&i<53">
+						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+					</label>
+				</div>
+			</md-tab>
+			<md-tab *ngIf="datasetStatus=='Classified'" label="Threshold">
+				<div *ngFor="let column of columns;index as i">
+					<label *ngIf="i>52&&i<66">
+						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+					</label>
+				</div>
+			</md-tab>
+			<md-tab *ngIf="datasetStatus=='Classified'" label="Adjustments">
+				<div *ngFor="let column of columns;index as i">
+					<label *ngIf="i>65&&i<69">
+						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+					</label>
+				</div>
+			</md-tab>
+		</md-tab-group>
 	</div>
 	<div md-dialog-actions>
 		<button md-button (click)="dialogRef.close(columns)">Close</button>

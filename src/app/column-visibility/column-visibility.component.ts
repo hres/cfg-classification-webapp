@@ -10,6 +10,7 @@ import { MdDialogRef } from '@angular/material';
 export class ColumnVisibilityComponent {
 
 	public columns;
+	public datasetStatus;
 
 	constructor(public dialogRef: MdDialogRef<ColumnVisibilityComponent>) { }
 }
