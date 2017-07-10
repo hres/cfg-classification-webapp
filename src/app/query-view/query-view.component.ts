@@ -15,6 +15,7 @@ export class QueryViewComponent{
 	cfgRequest = new CfgRequest();
 	private addedSodium:number;
 	private addedSugar:number;
+	private freeSugars:number;
 	private addedFat:number;
 	private addedTransFat:number;
 	private addedCaffeine:number;
@@ -29,10 +30,11 @@ export class QueryViewComponent{
 		{id: 0, name:'Both'}
 	];
 	cfgTiers=[
+		{id: 5, name: ''},
 		{id: 1, name: 1},
 		{id: 2, name: 2},
-		{id: 3, name:3},
-		{id: 4, name:4},
+		{id: 3, name: 3},
+		{id: 4, name: 4},
 		{id: 0, name: 'Missing'},
 		{id: -1, name: '(Custom)'}
 	];

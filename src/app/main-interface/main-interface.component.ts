@@ -111,13 +111,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			// EXTENTED ITEM DATA
 			// //////////////////
 			{
-				headerName: "Energy (Kcal)",
+				headerName: "Energy (Kcal/100g)",
 				cellStyle: this.getExtendedCellStyle,
 				field: "energyKcal",
 				width: 100
 			},
 			{
-				headerName: "Sodium Amount (per 100g)",
+				headerName: "Sodium (mg/100g)",
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -142,7 +142,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 150
 			},
 			{
-				headerName: "Sugar Amount (per 100g)",
+				headerName: "Sugar (g/100g)",
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -167,7 +167,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 156
 			},
 			{
-				headerName: "TransFat Amount (per 100g)",
+				headerName: "TransFat (g/100g)",
 				editable: true,
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
@@ -193,7 +193,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 151
 			},
 			{
-				headerName: "SatFat Amount (per 100g)",
+				headerName: "SatFat (g/100g)",
 				editable: true,
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
@@ -215,6 +215,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "satfatImputationDate",
 				hide: true,	
+				width: 100
+			},
+			{
+				headerName: "TotalFat (g/100g)",
+				editable: true,
+				cellRenderer: this.getNumValue,
+				cellEditorFramework: NumericEditorComponent,
+				cellStyle: this.getNumCellStyle,
+				field: "totalFatAmountPer100g",
 				width: 100
 			},
 			{
@@ -282,7 +291,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 165
 			},
 			{
-				headerName: "Added TransFat",
+				headerName: "Contains TransFat",
 				editable: true,
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
@@ -934,7 +943,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	resetColumnVisibility(){
 		for (let columnNum in this.gridOptions.columnDefs){
- 			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+ 			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","totalFatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = false;
 			}else{
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = true;
@@ -953,6 +962,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				"transfatImputationReference",
 				"satfatAmountPer100g",
 				"satfatImputationReference",
+				"totalFatAmountPer100g",
 				"containsAddedSodium",
 				"containsAddedSugar",
 				"containsFreeSugars",
@@ -997,7 +1007,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	toggleExt(){
 		for (let columnNum in this.gridOptions.columnDefs){
-			if(["energyKcal","sodiumAmountPer100g","sugarAmountPer100g","transfatAmountPer100g","satfatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+			if(["energyKcal","sodiumAmountPer100g","sugarAmountPer100g","transfatAmountPer100g","satfatAmountPer100g","totalFatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = !(<any>this.gridOptions.columnDefs[columnNum]).hide;
 			}
 		}
@@ -1058,6 +1068,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 						break;
 					case "satfatImputationReference":
 						this.dataset.data[num].satfatImputationReference = this.dataset.data[num].satfatImputationReference.value;
+						break;
+					case "totalFatAmountPer100g":
+						this.dataset.data[num].totalFatAmountPer100g = this.dataset.data[num].totalFatAmountPer100g.value;
 						break;
 					case "containsAddedSodium":
 						this.dataset.data[num].containsAddedSodium = this.dataset.data[num].containsAddedSodium.value;
@@ -1125,6 +1138,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "sugarAmountPer100g":
 					case "transfatAmountPer100g":
 					case "satfatAmountPer100g":
+					case "totalFatAmountPer100g":
 					case "foodGuideServingG":
 					case "tier4ServingG":
 						// String values	
@@ -1179,6 +1193,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "sugarAmountPer100g":
 					case "transfatAmountPer100g":
 					case "satfatAmountPer100g":
+					case "totalFatAmountPer100g":
 					case "foodGuideServingG":
 					case "tier4ServingG":
 						// String values	

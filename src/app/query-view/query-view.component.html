@@ -45,7 +45,7 @@
 			<div class="col-md-2 form-group">
 			</div>
 			<div class="col-md-4 form-group">
-				<label class="control-label" for="cnfCode">CNF Code:</label>
+				<label class="control-label" for="cnfCode">CNF Group Code:</label>
 				<input id="cnfCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
 			</div>
 		</div>
@@ -73,10 +73,10 @@
 		</div>
 		<div class="row">
 			<div class="form-group form-vertical col-md-4" style="margin-right:0;">
-				<label>Contains</label>
+				<label>Contains Added</label>
 				<fieldset class="well">
 					<div class="container form-group form-horizontal" style="width: 100%">
-						<label class="control-label">Sodium</label>
+						<label class="control-label">Added Sodium</label>
 						<select class="form-control" style="float:right" 
 								   [(ngModel)]="addedSodium" 
 								   name="addedSodium">
@@ -84,7 +84,7 @@
 						</select>
 					</div>
 					<div class="container form-group form-horizontal" style="width: 100%">
-						<label class="control-label">Sugar</label>
+						<label class="control-label">Added Sugar</label>
 						<select class="form-control" style="float:right" 
 								   [(ngModel)]="addedSugar"
 								   name="addedSugar">
@@ -92,7 +92,15 @@
 						</select>
 					</div>
 					<div class="container form-group form-horizontal" style="width: 100%">
-						<label class="control-label">Fat</label>
+						<label class="control-label">Free Sugars</label>
+						<select class="form-control" style="float:right" 
+								   [(ngModel)]="freeSugars"
+								   name="freeSugars">
+							<option *ngFor="let item of containsAdded" [ngValue]="item.id">{{item.name}}</option>
+						</select>
+					</div>
+					<div class="container form-group form-horizontal" style="width: 100%">
+						<label class="control-label">Added Fat</label>
 						<select class="form-control" style="float:right" 
 								   [(ngModel)]="addedFat"
 								   name="addedFat">
