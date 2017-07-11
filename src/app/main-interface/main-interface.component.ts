@@ -93,6 +93,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 112
 			},
 			{
+				headerName: "CNF Group Code",
+				field: "cnfGroupCode",
+				width: 92
+			},
+			{
 				headerName: "CFG Code",
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
@@ -773,8 +778,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
+	private isNonMandatoryEditable(field:string):boolean{
+		return ['replacementCode','comments'].indexOf(field) > -1;
+	}
+
 	getNumCellStyle(params:any):any{
-		if(params.context.validationMode && (params.value==null||params.value.value==null)){
+		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
@@ -798,7 +807,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 
 	getStringCellStyle(params:any):any{
-		if(params.context.validationMode && (params.value==null||params.value.value==null)){
+		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
