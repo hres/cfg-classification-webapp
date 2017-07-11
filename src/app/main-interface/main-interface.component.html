@@ -5,9 +5,9 @@
 				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
 				<span class="fa fa-arrow-circle-left fa-stack-1x" style="color:#31708f;cursor:pointer" [routerLink]="['/datasets']"></span>
 			</span>
-			<span class="fa-stack fa-lg" style="margin-left:-5px">
+			<span *ngIf="cfgModel.sandboxMode==false"class="fa-stack fa-lg" style="margin-left:-5px">
 				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
-				<span *ngIf="cfgModel.sandboxMode==false" class="fa fa-floppy-o fa-stack-1x" (click)=onSaveClick(true) style="color:#31708f;cursor:pointer;font-size:24px"></span>
+				<span class="fa fa-floppy-o fa-stack-1x" (click)=onSaveClick(true) style="color:#31708f;cursor:pointer;font-size:24px"></span>
 			</span>
 			<span class="fa-stack fa-lg" style="margin-left:-5px">
 				<span class="fa fa-square fa-stack-2x" style="color:#FFFFFF;font-size:115%;padding-top:10px"></span>
