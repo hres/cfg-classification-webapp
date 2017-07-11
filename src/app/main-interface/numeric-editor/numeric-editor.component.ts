@@ -3,7 +3,7 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 
 @Component({
 	selector: 'numeric-editor',
-	template: `<input #input (keydown)="onKeyDown($event)" [(ngModel)]="value">`
+	template: `<input #input (keypress)="onKeyPress($event)" [(ngModel)]="value">`
 })
 
 export class NumericEditorComponent implements ICellEditorAngularComp, AfterViewInit {
@@ -20,9 +20,10 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		this.params = params;
 		this.value = this.params.value.value;
 		// only start edit if key pressed is a number, not a letter
-		//         this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
+		// this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
 		//             
 	}
+
 	getValue(): any {
 		if(this.value !== this.oldValue){
 			this.params.value.value = this.value.toString() == '' ? null : this.value * 1;
@@ -38,16 +39,17 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	}
 
 	// will reject the number if it greater than 1,000,000
-	//     // not very practical, but demonstrates the method.
+	// not very practical, but demonstrates the method.
 	isCancelAfterEnd(): boolean {
 		return this.value > 1000000;
 	};
 
-	onKeyDown(event): void {
+	onKeyPress(event): void {
 		if (!this.isKeyPressedNumeric(event)) {
 			if (event.preventDefault) event.preventDefault();
 		}
 	}
+
 	// dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
 	ngAfterViewInit() {
 		this.oldValue = this.value;
