@@ -1318,4 +1318,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.showAllDiv.nativeElement.style.display='none';
 		this.gridOptions.api.onFilterChanged();
 	}
+	
+	private itemCount():number{
+		if(this.agGrid.api){
+			return this.agGrid.api.rowModel.rowsToDisplay.length;
+		}
+	}
 }
