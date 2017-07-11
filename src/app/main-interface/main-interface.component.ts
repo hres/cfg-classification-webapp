@@ -1003,6 +1003,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.ensureColumnVisible('adjustedReferenceAmount');
+		this.gridOptions.api.ensureColumnVisible('sodiumPerReferenceAmount');
+		this.gridOptions.api.ensureColumnVisible('sugarPerReferenceAmount');
+		this.gridOptions.api.ensureColumnVisible('transFatPerReferenceAmount');
+		this.gridOptions.api.ensureColumnVisible('satFatPerReferenceAmount');
+		this.gridOptions.api.ensureColumnVisible('fatPerReferenceAmount');
 	}
 
 	toggleExt(){
@@ -1012,6 +1018,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.ensureColumnVisible('energyKcal');
 	}
 
 	toggleThres(){
@@ -1022,6 +1029,21 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.ensureColumnVisible('lowSodium');
+		this.gridOptions.api.ensureColumnVisible('highSodium');
+		this.gridOptions.api.ensureColumnVisible('lowSugar');
+		this.gridOptions.api.ensureColumnVisible('highSugar');
+		this.gridOptions.api.ensureColumnVisible('lowTransFat');
+		this.gridOptions.api.ensureColumnVisible('highTransFat');
+		this.gridOptions.api.ensureColumnVisible('lowSatFat');
+		this.gridOptions.api.ensureColumnVisible('highSatFat');
+		this.gridOptions.api.ensureColumnVisible('lowFat');
+		this.gridOptions.api.ensureColumnVisible('highFat');
+		this.gridOptions.api.ensureColumnVisible('satFatFopWarning');
+		this.gridOptions.api.ensureColumnVisible('sugarFopWarning');
+		this.gridOptions.api.ensureColumnVisible('sodiumFopWarning');
+		this.gridOptions.api.ensureColumnVisible('initialCfgCode');
+		this.gridOptions.api.ensureColumnVisible('lowSodium');
 	}
 
 	toggleAdj(){
@@ -1032,6 +1054,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		this.gridOptions.api.ensureColumnVisible('shift');
+		this.gridOptions.api.ensureColumnVisible('tier');
 	}
 
 	/* 
@@ -1127,7 +1151,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			for (let num=0;num<this.dataset.data.length;num++){
 				// totalfatAmountPer100g
 				if(columnNum=="0"){
-					this.dataset.data[num].totalfatAmountPer100g.value = 69;
+					this.dataset.data[num].totalFatAmountPer100g.value = 69;
 					this.dataset.data[num].missingData = false;
 				}
 
