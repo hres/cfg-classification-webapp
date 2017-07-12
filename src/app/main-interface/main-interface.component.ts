@@ -68,7 +68,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			headerHeight: 48,
 			enableColResize: true,
 			isExternalFilterPresent: this.isExternalFilterPresent,
-			doesExternalFilterPass: this.doesExternalFilterPass
+			doesExternalFilterPass: this.doesExternalFilterPass,
+			rowSelection: 'multiple'
 		};
 
 		this.gridOptions.debug = true;
@@ -908,7 +909,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.forEachNode(
 			(node) => {
 				if(node.data.validated){
-					node.setSelected(true, false);
+					node.setSelected(true);
 				}
 			}
 		);
