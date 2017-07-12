@@ -48,6 +48,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 	private callbackSubmit:boolean;
 	private validationFailed:boolean=false;
+	private itemsAllValidated:boolean=true;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
@@ -72,6 +73,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
+			{
+				field: "validated",
+				hide: true,
+				pinned: "left",
+				width: 25
+			},
 			///////////////
 			//BASE ITEM DATA
 			///////////////
@@ -677,6 +684,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
+
+		if(dataset.status == "Pending Validation"){
+			(<any>this.gridOptions.columnDefs[0]).hide = false;
+			this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		}
 	}
 
 	onSaveClick(userSave:boolean = false){
@@ -867,7 +879,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			this.showMissingDiv.nativeElement.style.display = "none";
 			this.showAllDiv.nativeElement.style.display = "inline";
 			this.gridOptions.api.onFilterChanged();
-		}else{
+		}else{ //successfully passed data validation
+			this.addValidatedProperty();
 			this.element.nativeElement.dispatchEvent(
 				new CustomEvent('popup', {
 					detail:{
@@ -879,6 +892,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				)
 			);
 		}
+	}
+
+	private addValidatedProperty(){
+		for (let i = 0; i < this.dataset.data.length; i++){
+			this.dataset.data[i].validated = true;
+		}
+		this.gridOptions.api.refreshView();
 	}
 
 	onValidateClick(){

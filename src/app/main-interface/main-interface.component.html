@@ -22,9 +22,11 @@
 			Submit to CFG Admin for validation:
 			<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>
 		</div>
-		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation'" class="col-md-8 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && itemsAllValidated" class="col-md-8 right" style="text-align:right">
 			Accept all analyst data changes.
 			<button class="btn btn-primary" (click)="onValidateClick()">Validate</button>
+		</div>
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !itemsAllValidated" class="col-md-8 right" style="text-align:right">
 			<button class="btn btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
