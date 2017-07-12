@@ -801,8 +801,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	getNumCellStyle(params:any):any{
 		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
-		}
-		else if(params.value != null && params.value.modified == true){
+		}else if (params.context.validationMode && params.column.colId == 'cfgCode' && (params.value.value.toString().length < 3 || params.value.value.toString() > 4)){
+			return {backgroundColor: '#FFFFCC'};//light yellow
+		}else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
 		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
 			return params.context.mainInterface.getExtendedCellStyle(params);
@@ -823,7 +824,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 
 	getStringCellStyle(params:any):any{
-		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
+		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null||params.value.value=="")){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
@@ -1201,8 +1202,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	/*
-	//Searches mandatory fields and does a null check, if no nulls
-	//found then sets status to pending validation, and adds validated property to data items
+	//Searches mandatory fields and does a null check, then validates cfgCode, then if all is good,
+	//sets status to pending validation
 	 */
 	private validateData(){
 		this.validationFailed = false;
@@ -1256,6 +1257,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			}
 		}
+
+		for (let rowData of this.dataset.data){
+			if(rowData.cfgCode.value.toString().length < 3 || rowData.cfgCode.value.toString().length > 4){
+				if(!this.validationFailed){
+					this.gridOptions.api.ensureColumnVisible('cfgCode');
+					this.gridOptions.api.ensureNodeVisible(rowData);
+				}
+				
+				this.validationFailed = true;
+				rowData.missingData = true;
+			}
+		}		
 
 		if(this.validationFailed){
 			return;
