@@ -88,7 +88,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//BASE ITEM DATA
 			///////////////
 			{
-				headerName: "Food/Recipe Name",
+				headerName: "Food / Recipe Code",
+				field: "code",
+				pinned: "left",
+				width: 104
+			},
+			{
+				headerName: "Food / Recipe Name",
 				cellStyle: this.getNameCellStyle,
 				field: "name",
 				pinned: "left",
@@ -98,11 +104,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Type",
 				field: "type",
 				width: 65
-			},
-			{
-				headerName: "Food/Recipe Code",
-				field: "code",
-				width: 112
 			},
 			{
 				headerName: "CNF Group Code",
