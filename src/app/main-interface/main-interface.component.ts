@@ -9,7 +9,7 @@ import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
@@ -48,7 +48,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 	private callbackSubmit:boolean;
 	private validationFailed:boolean=false;
-	private itemsAllValidated:boolean=true;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
@@ -57,7 +56,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private dialog: MdDialog,
 		private route:ActivatedRoute,
 		private cfgModel:CfgModel,
-		private element:ElementRef) {
+		private element:ElementRef,
+		private router:Router) {
 
 		this.gridOptions={
 			context:{validationMode:this.validationMode,
@@ -74,9 +74,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			{
-				field: "validated",
+				headerName: '',
+				field: "selection",
 				hide: true,
 				pinned: "left",
+				checkboxSelection: true,
+				suppressSorting: true,
+				suppressFilter: true,
 				width: 25
 			},
 			///////////////
@@ -686,8 +690,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.setRowData(dataset.data);
 
 		if(dataset.status == "Pending Validation"){
-			(<any>this.gridOptions.columnDefs[0]).hide = false;
-			this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+			this.setSelectedRows();
 		}
 	}
 
@@ -880,7 +883,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			this.showAllDiv.nativeElement.style.display = "inline";
 			this.gridOptions.api.onFilterChanged();
 		}else{ //successfully passed data validation
-			this.addValidatedProperty();
 			this.element.nativeElement.dispatchEvent(
 				new CustomEvent('popup', {
 					detail:{
@@ -891,14 +893,27 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 				)
 			);
+			this.router.navigate(['/datasets']);
 		}
 	}
 
-	private addValidatedProperty(){
-		for (let i = 0; i < this.dataset.data.length; i++){
-			this.dataset.data[i].validated = true;
+	private setSelectedRows(){
+		for (let rowData of this.dataset.data){
+			if(rowData.validated == undefined){
+				rowData.validated = true;
+			}
 		}
-		this.gridOptions.api.refreshView();
+
+		// Set checkbox selections
+		this.gridOptions.api.forEachNode(
+			(node) => {
+				if(node.data.validated){
+					node.setSelected(true);
+				}
+			}
+		);
+
+		this.gridOptions.columnApi.setColumnVisible('selection', true);
 	}
 
 	onValidateClick(){
@@ -938,6 +953,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.dataset.status="Rejected";
 		this.resetColumnVisibility();
 		this.saveDataset();
+	}
+
+	onSendForReviewClick(){
+		this.dataset.status="Review";
+		this.saveDataset();
+		this.router.navigate(['/datasets']);
 	}
 
 	onExportClick(){
@@ -1180,7 +1201,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	/*
 	//Searches mandatory fields and does a null check, if no nulls
-	//found then sets status to pending validation
+	//found then sets status to pending validation, and adds validated property to data items
 	 */
 	private validateData(){
 		this.validationFailed = false;
@@ -1352,5 +1373,25 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(this.agGrid.api){
 			return this.agGrid.api.rowModel.rowsToDisplay.length;
 		}
+	}
+
+	private readyToValidate:boolean;
+
+	private onRowSelected($event){
+		this.readyToValidate = this.itemsAllSelected() ? true : false;
+	}
+
+	private itemsAllSelected():boolean{
+		let retValue = true;
+
+		this.gridOptions.api.forEachNode(
+			(node) => {
+				if (!node.isSelected()){
+					retValue = false;
+				}
+			}
+		)
+
+		return retValue;
 	}
 }
