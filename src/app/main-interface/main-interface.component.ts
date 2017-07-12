@@ -941,7 +941,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			columnSeparator: "\t"
 		};
 
-		this.unwrapData();
+		this.exportData();
 		this.gridOptions.api.exportDataAsCsv(params);
 
 		//restore saved data
@@ -1071,7 +1071,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	 * Unwraps the grid data object values.  Sets the grid data to equal the value property.  This
 	 * is data loss so remember to save data prior if you need it.
 	 */
-	private unwrapData(){
+	private exportData(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
@@ -1141,8 +1141,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "rolledUp":
 						this.dataset.data[num].rolledUp = this.dataset.data[num].rolledUp.value;
 						break;
+					case "overrideSmallRaAdjustment":
+						this.dataset.data[num].overrideSmallRaAdjustment = this.dataset.data[num].overrideSmallRaAdjustment.value;
+						break;
+					case "marketedToKids":
+						this.dataset.data[num].marketedToKids = this.dataset.data[num].marketedToKids.value;
+						break;
 					case "replacementCode":
 						this.dataset.data[num].replacementCode = this.dataset.data[num].replacementCode.value;
+						break;
+					case "comments":
+						this.dataset.data[num].comments = this.dataset.data[num].comments.value;
 						break;
 				}
 			}
