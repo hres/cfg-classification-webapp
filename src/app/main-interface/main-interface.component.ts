@@ -908,7 +908,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.forEachNode(
 			(node) => {
 				if(node.data.validated){
-					node.setSelected(true);
+					node.setSelected(true, false);
 				}
 			}
 		);
