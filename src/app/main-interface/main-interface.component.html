@@ -43,7 +43,6 @@
 			<button class="btn btn-danger" (click)="onRejectClick()">Reject</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Rejected'" class="col-md-8 right" style="text-align:right">
-			Accept all analyst data changes.
 			<button class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
 			<button class="btn btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
