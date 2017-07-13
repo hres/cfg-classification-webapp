@@ -3,7 +3,10 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 
 @Component({
 	selector: 'numeric-editor',
-	template: `<input #input (keypress)="onKeyPress($event)" [(ngModel)]="value">`
+	template: `<input #input
+					(keypress)="onKeyPress($event)"
+					(blur)="onBlur($event)"
+					[(ngModel)]="value">`
 })
 
 export class NumericEditorComponent implements ICellEditorAngularComp, AfterViewInit {
@@ -12,8 +15,9 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	private oldValue:number;
 	private cancelBeforeStart: boolean = false;
 
-	@ViewChild('input', {read: ViewContainerRef}) public input;
-
+	@ViewChild('input', {read: ViewContainerRef})
+	public input;
+	
 	constructor() { }
 
 	agInit(params: any): void {
@@ -21,7 +25,6 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		this.value = this.params.value.value;
 		// only start edit if key pressed is a number, not a letter
 		// this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
-		//             
 	}
 
 	getValue(): any {
@@ -48,6 +51,10 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		if (!this.isKeyPressedNumeric(event)) {
 			if (event.preventDefault) event.preventDefault();
 		}
+	}
+
+	onBlur(event):void{
+		this.params.stopEditing();
 	}
 
 	// dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this

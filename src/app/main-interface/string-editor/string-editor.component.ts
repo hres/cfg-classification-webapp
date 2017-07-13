@@ -3,7 +3,9 @@ import { AgEditorComponent } from 'ag-grid-angular/main';
 
 @Component({
   selector: 'string-editor',
-  template: `<input #input class="ag-cell-edit-input" type="text" [(ngModel)]="value"/>`
+  template: `<input #input class="ag-cell-edit-input" type="text"
+					(blur)="onBlur($event)"
+					[(ngModel)]="value"/>`
 })
 
 export class StringEditorComponent implements AgEditorComponent {
@@ -33,4 +35,7 @@ export class StringEditorComponent implements AgEditorComponent {
 		this.input.element.nativeElement.focus();
 	}
 
+	private onBlur(event):void{
+		this.params.stopEditing();
+	}
 }
