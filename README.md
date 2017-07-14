@@ -34,11 +34,13 @@ Deploying this project requires:
 ## Git the project
 
 	git clone https://github.com/hres/cfg-classification-webapp.git
-	
+
+## Install package dependencies
 Navigate to project root and run the following.
 
 	npm install
 
+## Build CFG Classification Webapp
 Run `ng build -bh /cfg-classification-webapp/` to build the project. The build artifacts will be stored in the `dist/` directory.  The contents of this folder is what needs to be made available at https://lam-dev.hres.ca/cfg-classification-webapp/
 
 
