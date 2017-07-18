@@ -5,6 +5,7 @@ import { DatasetsComponent }		from './datasets/datasets.component';
 import { MainInterfaceComponent }	from './main-interface/main-interface.component';
 import { QueryViewComponent }		from './query-view/query-view.component';
 import { ManageRulesetsComponent }  from './manage-rulesets/manage-rulesets.component';
+import { CreateRulesetComponent }   from './create-ruleset/create-ruleset.component';
 
 const appRoutes:Routes =[
 	{
@@ -27,6 +28,10 @@ const appRoutes:Routes =[
 	{
 		path: 'manageRulesets',
 		component: ManageRulesetsComponent
+	},
+	{
+		path: 'createRuleset',
+		component: CreateRulesetComponent
 	},
 	{
 		path: '',

@@ -18,12 +18,14 @@ import { DatasetsActionComponent } from './datasets/datasets-action/datasets-act
 import { NumericEditorComponent } from './main-interface/numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './main-interface/boolean-editor/boolean-editor.component';
 import { StringEditorComponent } from './main-interface/string-editor/string-editor.component';
+import { BooleanRendererComponent } from './main-interface/boolean-renderer/boolean-renderer.component';
+//import { NoSelectionRendererComponent } from './main-interface/no-selection-renderer/no-selection-renderer.component';
 
 import { AppRoutingModule }	from './app-routing.module';
-import { BooleanRendererComponent } from './main-interface/boolean-renderer/boolean-renderer.component';
 import { ManageRulesetsComponent } from './manage-rulesets/manage-rulesets.component';
 import { RulesetComponent } from './manage-rulesets/ruleset/ruleset.component';
 import { RulesetEditorComponent } from './manage-rulesets/ruleset-editor/ruleset-editor.component';
+import { CreateRulesetComponent } from './create-ruleset/create-ruleset.component';
 //import { KeycloakService } from './keycloak-service/keycloak.service';
 //import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 
@@ -46,7 +48,9 @@ export function restangularConfigFactory(RestangularProvider){}
     BooleanRendererComponent,
     ManageRulesetsComponent,
     RulesetComponent,
-    RulesetEditorComponent
+    RulesetEditorComponent,
+    //NoSelectionRendererComponent,
+    CreateRulesetComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -62,7 +66,8 @@ export function restangularConfigFactory(RestangularProvider){}
 			StringEditorComponent,
 			ManageRulesetsComponent,
 			RulesetComponent,
-			RulesetEditorComponent
+			RulesetEditorComponent,
+			//NoSelectionRendererComponent
 		]
 	),
 	AppRoutingModule,
