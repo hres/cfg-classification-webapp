@@ -32,19 +32,20 @@
 			<button class="btn btn-primary" (click)="onValidateClick()">Validate</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !readyToValidate" class="col-md-8 right" style="text-align:right">
-			<button class="btn btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
+			<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 			<button class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
+			<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 			Commit data to Food Classification database
 			<button class="btn btn-primary" (click)="onClassifyClick()">Commit</button>
-			<button class="btn btn-danger" (click)="onRejectClick()">Reject</button>
+			<button class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Rejected'" class="col-md-8 right" style="text-align:right">
 			<button class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
-			<button class="btn btn-primary" (click)="onSendForReviewClick()">Send for Review</button>
+			<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
 	</div>
 	<div class="row">

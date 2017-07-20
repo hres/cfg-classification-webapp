@@ -81,6 +81,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: '',
 				field: "selection",
+				headerCheckboxSelection: true,
+				headerCheckboxSelectionFilteredOnly: true,
 				hide: true,
 				pinned: "left",
 				checkboxSelection: true,
@@ -717,10 +719,16 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
+		this.setSelectedRows();
+	}
 
-		if(dataset.status == "Pending Validation"){
-			this.setSelectedRows();
+	private hasValidatedColumn():boolean{
+		switch(this.dataset.status){
+			case "Pending Validation":
+				return true;
 		}
+
+		return false;
 	}
 
 	onSaveClick(userSave:boolean = false){
@@ -829,7 +837,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	getNumCellStyle(params:any):any{
 		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
-		}else if (params.context.validationMode && params.column.colId == 'cfgCode' && (params.value.value.toString().length < 3 || params.value.value.toString() > 4)){
+		}else if (params.context.validationMode && params.column.colId == 'cfgCode' && (params.value.value.toString().length < 3 || params.value.value.toString().length > 4)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}else if(params.value != null && params.value.modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
@@ -928,28 +936,25 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private setSelectedRows(){
-		for (let rowData of this.dataset.data){
-			if(rowData.validated == undefined){
-				rowData.validated = true;
-			}
-		}
-
 		// Set checkbox selections
 		this.gridOptions.api.forEachNode(
 			(node) => {
-				if(node.data.validated){
+				if(node.data.validated == undefined){
+					node.data.validated = false;
+				}else if(node.data.validated){
 					node.setSelected(true);
 				}
 			}
 		);
 
-		this.gridOptions.columnApi.setColumnVisible('selection', true);
+		this.gridOptions.columnApi.setColumnVisible('selection', this.hasValidatedColumn());
 	}
 
 	onValidateClick(){
 		this.clearModifiedFlags();
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
+		this.gridOptions.columnApi.setColumnVisible('selection', false);
 		this.gridOptions.api.refreshView();
 		this.dataset.status = "Validated";
 		this.saveDataset();
@@ -979,13 +984,32 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	onRejectClick(){
-		this.dataset.status="Rejected";
+	onUndoClick(){
+		this.dataset.status="Validated";
 		this.resetColumnVisibility();
-		this.saveDataset();
 	}
 
 	onSendForReviewClick(){
+		var selectedCount = this.gridOptions.api.getSelectedNodes().length;
+
+		if(selectedCount == this.dataset.data.length){
+			this.element.nativeElement.dispatchEvent(
+						new CustomEvent(
+							'popup',
+							{
+								detail: {
+									message: "A minimum of one food/recipe item must be deselected to send for a review.",
+									showOkButton: true
+								},
+								bubbles:true
+							}
+						)
+					);
+
+			this.gridOptions.columnApi.setColumnVisible('selection', true);
+			return;
+		}
+
 		this.dataset.status="Review";
 		this.saveDataset();
 		this.router.navigate(['/datasets']);
