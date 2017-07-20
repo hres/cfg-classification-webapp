@@ -26,6 +26,9 @@ import { ManageRulesetsComponent } from './manage-rulesets/manage-rulesets.compo
 import { RulesetComponent } from './manage-rulesets/ruleset/ruleset.component';
 import { RulesetEditorComponent } from './manage-rulesets/ruleset-editor/ruleset-editor.component';
 import { CreateRulesetComponent } from './create-ruleset/create-ruleset.component';
+import { MissingNumericFilter } from './main-interface/missing-numeric-filter/missing-numeric-filter.component';
+import { MissingStringFilter } from './main-interface/missing-string-filter/missing-string-filter.component';
+import { MissingBooleanFilter } from './main-interface/missing-boolean-filter/missing-boolean-filter.component';
 //import { KeycloakService } from './keycloak-service/keycloak.service';
 //import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 
@@ -50,7 +53,10 @@ export function restangularConfigFactory(RestangularProvider){}
     RulesetComponent,
     RulesetEditorComponent,
     //NoSelectionRendererComponent,
-    CreateRulesetComponent
+    CreateRulesetComponent,
+    MissingNumericFilter,
+    MissingStringFilter,
+    MissingBooleanFilter,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -68,6 +74,9 @@ export function restangularConfigFactory(RestangularProvider){}
 			RulesetComponent,
 			RulesetEditorComponent,
 			//NoSelectionRendererComponent
+			MissingNumericFilter,
+			MissingStringFilter,
+			MissingBooleanFilter
 		]
 	),
 	AppRoutingModule,

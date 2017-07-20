@@ -14,6 +14,10 @@ import { NumericEditorComponent } from './numeric-editor/numeric-editor.componen
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
+//import { NoSelectionRendererComponent } from './no-selection-renderer/no-selection-renderer.component';
+import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-filter.component';
+import { MissingStringFilter }				from './missing-string-filter/missing-string-filter.component';
+import { MissingBooleanFilter }				from './missing-boolean-filter/missing-boolean-filter.component';
 
 @Component({
 	selector: 'app-main-interface',
@@ -89,7 +93,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			///////////////
 			{
 				headerName: "Food / Recipe Code",
+				//cellRendererFramework: NoSelectionRendererComponent,
 				field: "code",
+				filter: 'number',
 				pinned: "left",
 				width: 104
 			},
@@ -117,6 +123,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "cfgCode",
+				filter: "number",
 				width: 90
 			},
 			{
@@ -132,6 +139,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Energy (Kcal/100g)",
 				cellStyle: this.getExtendedCellStyle,
 				field: "energyKcal",
+				filter: 'number',
 				width: 100
 			},
 			{
@@ -141,6 +149,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "sodiumAmountPer100g",
+				filterFramework: MissingNumericFilter,
 				width: 127
 			},
 			{
@@ -191,6 +200,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
+				filter: 'number',
 				width: 151
 			},
 			{
@@ -217,6 +227,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "satfatAmountPer100g",
+				filter: 'number',
 				width: 152
 			},
 			{
@@ -242,6 +253,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "totalFatAmountPer100g",
+				filter: 'number',
 				width: 100
 			},
 			{
@@ -251,6 +263,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSodium",
+				filterFramework: MissingBooleanFilter, 
 				width: 111
 			},
 			{
@@ -267,6 +280,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedSugar",
+				filterFramework: MissingBooleanFilter, 
 				width: 150
 			},
 			{
@@ -283,6 +297,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsFreeSugars",
+				filterFramework: MissingBooleanFilter, 
 				width: 150
 			},
 			{
@@ -299,6 +314,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedFat",
+				filterFramework: MissingBooleanFilter, 
 				width: 150
 			},
 			{
@@ -315,6 +331,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
 				field: "containsAddedTransfat",
+				filterFramework: MissingBooleanFilter, 
 				width: 150
 			},
 			{
@@ -331,6 +348,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsCaffeine",
+				filterFramework: MissingBooleanFilter, 
 				width: 128
 			},
 			{
@@ -347,6 +365,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "containsSugarSubstitutes",
+				filterFramework: MissingBooleanFilter, 
 				width: 116
 			},
 			{
@@ -360,6 +379,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Reference Amount (g)",
 				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountG",
+				filter: 'number',
 				width: 100
 			},
 			{
@@ -382,6 +402,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "foodGuideServingG",
+				filter: 'number',
 				width: 150
 			},
 			{
@@ -407,6 +428,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "tier4ServingG",
+				filter: 'number',
 				width: 150
 			},
 			{
@@ -416,6 +438,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "tier4ServingMeasure",
+				filterFramework: MissingStringFilter,
 				width: 150
 			},
 			{
@@ -432,6 +455,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "rolledUp",
+				filterFramework: MissingBooleanFilter,
 				width: 150
 			},
 			{
@@ -448,6 +472,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field: "overrideSmallRaAdjustment",
+				filterFramework: MissingBooleanFilter,
 				width: 150
 			},
 			{
@@ -457,6 +482,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getBooleanCellStyle,
 				editable: true,
 				field:"marketedToKids",
+				filterFramework: MissingBooleanFilter,
 				width: 118
 			},
 			{
@@ -466,6 +492,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: true,
 				field: "replacementCode",
+				filter: 'number',
 				width:118
 			},
 			{
