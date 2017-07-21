@@ -1445,11 +1445,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private readyToValidate:boolean;
 
 	private onRowSelected($event){
-		this.readyToValidate = this.itemsAllSelected() ? true : false;
+		this.readyToValidate = this.itemsAllSelected();
+		$event.node.data.validated = $event.node.isSelected();
 	}
 
 	private itemsAllSelected():boolean{
-		let retValue = true;
+		let retValue:boolean = true;
 
 		this.gridOptions.api.forEachNode(
 			(node) => {
