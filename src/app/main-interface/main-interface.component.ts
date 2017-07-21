@@ -1310,8 +1310,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 
+		// cfgCode Validation
 		for (let rowData of this.dataset.data){
-			if(rowData.cfgCode.value.toString().length < 3 || rowData.cfgCode.value.toString().length > 4){
+			if(rowData.cfgCode.value && (rowData.cfgCode.value.toString().length < 3 || rowData.cfgCode.value.toString().length > 4)){
 				if(!this.validationFailed){
 					this.gridOptions.api.ensureColumnVisible('cfgCode');
 					this.gridOptions.api.ensureNodeVisible(rowData);
