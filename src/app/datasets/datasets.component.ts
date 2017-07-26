@@ -18,8 +18,9 @@ import { Router } from '@angular/router';
 })
 
 export class DatasetsComponent implements OnInit, AfterContentChecked {
-	@ViewChild('agGrid')agGrid;any
-
+	@ViewChild('agGrid')
+	agGrid;
+	
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
 	height=200;

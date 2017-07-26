@@ -742,7 +742,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				if (saveObj != "cancel"){
 					this.dataset.name=saveObj.datasetName;
 					this.dataset.status = "In Progress";
-					this.dataset.owner = "Sydney Crosby";
+					this.dataset.owner = "Daniel Robert";
 					this.dataset.comments=saveObj.datasetComments;
 					this.saveDataset(true);
 				}

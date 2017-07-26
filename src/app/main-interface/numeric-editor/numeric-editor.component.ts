@@ -1,12 +1,14 @@
 import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular/main';
+import { MdTooltip } 				from '@angular/material';
 
 @Component({
 	selector: 'numeric-editor',
-	template: `<input #input
+	template: `<input #input mdTooltip="Please enter only numeric characters 0-9."
 					(keypress)="onKeyPress($event)"
 					(blur)="onBlur($event)"
-					[(ngModel)]="value">`
+					[(ngModel)]="value">
+				`
 })
 
 export class NumericEditorComponent implements ICellEditorAngularComp, AfterViewInit {
@@ -18,6 +20,9 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	@ViewChild('input', {read: ViewContainerRef})
 	public input;
 	
+	@ViewChild(MdTooltip)
+	tooltip;
+
 	constructor() { }
 
 	agInit(params: any): void {
@@ -49,6 +54,9 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 
 	onKeyPress(event): void {
 		if (!this.isKeyPressedNumeric(event)) {
+			event.stopImmediatePropagation();
+			this.tooltip.show();
+
 			if (event.preventDefault) event.preventDefault();
 		}
 	}
