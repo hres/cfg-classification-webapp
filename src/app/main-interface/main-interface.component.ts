@@ -14,7 +14,7 @@ import { NumericEditorComponent } from './numeric-editor/numeric-editor.componen
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
-//import { NoSelectionRendererComponent } from './no-selection-renderer/no-selection-renderer.component';
+import { NoSelectionRendererComponent } from './no-selection-renderer/no-selection-renderer.component';
 import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-filter.component';
 import { MissingStringFilter }				from './missing-string-filter/missing-string-filter.component';
 import { MissingBooleanFilter }				from './missing-boolean-filter/missing-boolean-filter.component';
@@ -95,7 +95,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			///////////////
 			{
 				headerName: "Food / Recipe Code",
-				//cellRendererFramework: NoSelectionRendererComponent,
+				cellRendererFramework: NoSelectionRendererComponent,
 				field: "code",
 				filter: 'number',
 				pinned: "left",
@@ -104,17 +104,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food / Recipe Name",
 				cellStyle: this.getNameCellStyle,
+				cellRendererFramework: NoSelectionRendererComponent,
 				field: "name",
 				pinned: "left",
 				width: 390
 			},
 			{
 				headerName: "Type",
+				cellRendererFramework: NoSelectionRendererComponent,
 				field: "type",
 				width: 65
 			},
 			{
 				headerName: "CNF Group Code",
+				cellRendererFramework: NoSelectionRendererComponent,
 				field: "cnfGroupCode",
 				width: 92
 			},
@@ -139,6 +142,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			// //////////////////
 			{
 				headerName: "Energy (Kcal/100g)",
+				cellRendererFramework: NoSelectionRendererComponent,
 				cellStyle: this.getExtendedCellStyle,
 				field: "energyKcal",
 				filter: 'number',
@@ -379,6 +383,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Reference Amount (g)",
+				cellRendererFramework: NoSelectionRendererComponent,
 				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountG",
 				filter: 'number',
@@ -386,6 +391,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Reference Amount (measure)",
+				cellRendererFramework: NoSelectionRendererComponent,
 				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountMeasure",
 				width: 150
