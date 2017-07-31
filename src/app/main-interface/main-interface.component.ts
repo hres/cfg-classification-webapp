@@ -4,6 +4,7 @@ import { GridOptions } from 'ag-grid';
 import { QueryService } from '../services/query.service';
 import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
+import { RulesetsService } from '../services/rulesets.service';
 import { ClassifyService } from '../services/classify.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
@@ -15,6 +16,8 @@ import { BooleanEditorComponent } from './boolean-editor/boolean-editor.componen
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
 import { StringEditorComponent } from './string-editor/string-editor.component';
 import { NoSelectionRendererComponent } from './no-selection-renderer/no-selection-renderer.component';
+//import { CalendarHeaderComponent2 } 		from './calendar-header2/calendar-header2.component';
+
 import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-filter.component';
 import { MissingStringFilter }				from './missing-string-filter/missing-string-filter.component';
 import { MissingBooleanFilter }				from './missing-boolean-filter/missing-boolean-filter.component';
@@ -23,7 +26,7 @@ import { MissingBooleanFilter }				from './missing-boolean-filter/missing-boolea
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService, OpenService, ClassifyService]
+	providers: [SaveService, OpenService, ClassifyService, RulesetsService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -57,6 +60,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private saveService: SaveService,
 		private openService: OpenService,
 		private classifyService: ClassifyService,
+		private rulesetsService: RulesetsService,
 		private dialog: MdDialog,
 		private route:ActivatedRoute,
 		private cfgModel:CfgModel,
@@ -123,6 +127,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "CFG Code",
+				//headerComponent: CalendarHeaderComponent2,
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -695,6 +700,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				//this.datasetId = undefined;
 			//}
 		})
+
+		//this.rulesetsService.getList().subscribe(
+			//(res) => {
+				//console.log("got ruleset");
+			//}
+		//)
 
 		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
@@ -1282,26 +1293,26 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "transfatAmountPer100g":
 					case "satfatAmountPer100g":
 					case "totalFatAmountPer100g":
-					case "foodGuideServingG":
-					case "tier4ServingG":
+					//case "foodGuideServingG":
+					//case "tier4ServingG":
 						// String values	
-					case "sodiumImputationReference":
-					case "sugarImputationReference":
-					case "transfatImputationReference":
-					case "foodGuideServingMeasure":
-					case "tier4ServingMeasure":
-					case "satfatImputationReference":
+					//case "sodiumImputationReference":
+					//case "sugarImputationReference":
+					//case "transfatImputationReference":
+					//case "foodGuideServingMeasure":
+					//case "tier4ServingMeasure":
+					//case "satfatImputationReference":
 						// boolean values
-					case "containsAddedSodium":
-					case "containsAddedSugar":
-					case "containsFreeSugars":
-					case "containsAddedFat":
-					case "containsAddedTransfat":
-					case "containsCaffeine":
-					case "containsSugarSubstitutes":
-					case "rolledUp":
-					case "marketedToKids":
-					case "overrideSmallRaAdjustment":
+					//case "containsAddedSodium":
+					//case "containsAddedSugar":
+					//case "containsFreeSugars":
+					//case "containsAddedFat":
+					//case "containsAddedTransfat":
+					//case "containsCaffeine":
+					//case "containsSugarSubstitutes":
+					//case "rolledUp":
+					//case "marketedToKids":
+					//case "overrideSmallRaAdjustment":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
 							if(!this.validationFailed){
