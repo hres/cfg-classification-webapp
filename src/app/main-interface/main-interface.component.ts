@@ -917,6 +917,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return;
 		}
 
+		this.fillInMissingTransfatAmounts();
 		this.validateData();
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
@@ -949,6 +950,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				)
 			);
 			this.router.navigate(['/datasets']);
+		}
+	}
+
+	fillInMissingTransfatAmounts(){
+		for (let rowData of this.dataset.data){
+			rowData.transfatAmountPer100g.value = 0;
 		}
 	}
 
