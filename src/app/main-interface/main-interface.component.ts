@@ -55,6 +55,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 	private callbackSubmit:boolean;
 	private validationFailed:boolean=false;
+	private rowCount:number = 0;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
@@ -1460,9 +1461,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.onFilterChanged();
 	}
 	
-	private itemCount():number{
+	private setRowCount():void{
 		if(this.agGrid.api){
-			return this.agGrid.api.rowModel.rowsToDisplay.length;
+			this.rowCount = this.agGrid.api.rowModel.getRowCount();
 		}
 	}
 
