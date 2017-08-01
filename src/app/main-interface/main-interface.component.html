@@ -18,6 +18,9 @@
 				<span class="fa fa-list-alt fa-stack-1x" style="color:#31708f;cursor:pointer;font-size:30px" [routerLink]="['/manageRulesets']"></span>
 			</span>
 		</div>
+		<div *ngIf="dataset!=undefined && dataset.status=='New'" class="col-md-8 right" style="text-align:right">
+			<button class="btn btn-primary" (click)="onSaveClick()">Save</button>
+		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-8 right" style="text-align:right">
 			Submit to CFG Admin for validation:
 			<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>

@@ -725,7 +725,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.queryService.search().subscribe(
 			(res) => {
 				this.dataset.data = res;
-				this.dataset.status = "In Progress";
+				this.dataset.status = "New";
 				this.setDataset(this.dataset);
 			},
 			(err) =>{
