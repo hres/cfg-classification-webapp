@@ -1289,7 +1289,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			for (let num=0;num<this.dataset.data.length;num++){
 				// totalfatAmountPer100g
 				if(columnNum=="0"){
-					this.dataset.data[num].totalFatAmountPer100g.value = 69;
 					this.dataset.data[num].missingData = false;
 				}
 
