@@ -22,16 +22,13 @@
 			<button class="btn btn-primary" (click)="onSaveClick()">Save</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='In Progress'" class="col-md-8 right" style="text-align:right">
-			Submit to CFG Admin for validation:
 			<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Review'" class="col-md-8 right" style="text-align:right">
-			Resubmit to CFG Admin for validation:
 			<button class="btn btn-primary" (click)="onSubmitClick()">Resubmit</button>
 		</div>
 
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && readyToValidate" class="col-md-8 right" style="text-align:right">
-			Accept all analyst data changes.
 			<button class="btn btn-primary" (click)="onValidateClick()">Validate</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !readyToValidate" class="col-md-8 right" style="text-align:right">
@@ -42,7 +39,6 @@
 			<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
-			Commit data to Food Classification database
 			<button class="btn btn-primary" (click)="onClassifyClick()">Commit</button>
 			<button class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 		</div>
