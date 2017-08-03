@@ -51,7 +51,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	private getRulesets(){
 		this.rulesetsService.getRulesets().subscribe(
 			(res) => {
-				this.gridOptions.api.setRowData(res);
+				this.gridOptions.api.setRowData(res.rulesets);
 				this.gridOptions.api.sizeColumnsToFit();
 			},
 			(err) => {
