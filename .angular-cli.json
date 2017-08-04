@@ -30,6 +30,7 @@
       "environments": {
 		"local":"environments/environment.ts",
         "dev": "environments/environment.dev.ts",
+		"qa": "environments/environment.qa.ts",
         "prod": "environments/environment.prod.ts",
 		"imsd": "environments/environment.imsd.ts",
 		"raul": "environments/environment.raul.ts"
