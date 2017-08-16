@@ -81,7 +81,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			enableColResize: true,
 			isExternalFilterPresent: this.isExternalFilterPresent,
 			doesExternalFilterPass: this.doesExternalFilterPass,
-			rowSelection: 'multiple'
+			rowSelection: 'multiple',
+			suppressRowClickSelection: true,
 		};
 
 		this.gridOptions.debug = true;
