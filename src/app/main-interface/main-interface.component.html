@@ -87,15 +87,14 @@
 		{{rowCount}} items found
 	</div>
 	<div class="row" *ngIf="cfgModel.sandboxMode==true">
-		<div class="col-md-4">
-			<button class="btn btn-info" [routerLink]="['/datasets']">Quit</button>
-		</div>
-		<div class="col-md-8" style="text-align:right">
+		<div class="col-md-8 col-md-offset-4" style="text-align:right">
 			Run FCDR classification engine 
 			<button class="btn btn-primary" (click)="onClassifyClick('sandbox')">Classify</button> with ruleset 
-			<select class="form-control" style="display:inline-block;">
-				<option>My Ruleset</option>
-			</select>
+			<md-select class="form-control" style="display:inline-block;"
+				[(ngModel)]="selectedRuleset"
+				name="ruleset">
+				<md-option *ngFor="let rulesetOption of rulesets" [value]="rulesetOption.id">{{rulesetOption.name}}</md-option>
+			</md-select>
 		</div>
 	</div>
 	<div #showMissingDiv style="display:none;" class="row" >

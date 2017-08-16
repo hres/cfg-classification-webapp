@@ -57,6 +57,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private validationFailed:boolean=false;
 	private rowCount:number = 0;
 
+	private selectedRuleset: string;
+	private	rulesets;
+
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
 		private openService: OpenService,
@@ -702,11 +705,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//}
 		})
 
-		//this.rulesetsService.getList().subscribe(
-			//(res) => {
-				//console.log("got ruleset");
-			//}
-		//)
+		this.rulesetsService.getRulesets().subscribe(
+			(res) => {
+				this.rulesets = res.rulesets;
+
+				for(let ruleset of this.rulesets){
+					if (ruleset.isProd){
+						// Set initial ruleset
+						this.selectedRuleset = ruleset.id;
+					}
+				}
+			}
+		)
 
 		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
