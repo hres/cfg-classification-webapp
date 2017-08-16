@@ -854,7 +854,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	
 	private getAdjCellStyle(params:any){
 		if (params.context.mainInterface.dataset.status == "Classified"){
-			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#ffdecd'}/*red*/ : {backgroundColor: '#ff8d85'};
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#dff0d8'}/*green*/ : {backgroundColor: 'rgb(181,214,168)'};
 		}
 	}
 
@@ -876,13 +876,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private getFinalCfgCodeCellStyle(params:any):any{
 		if(params.value && params.data.cfgCode.value != params.value){
-			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#dff0d8'}/*light green*/ : {backgroundColor: 'rgb(181,214,168)'};
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#ffdecd'}/*light red*/ : {backgroundColor: '#ff8d85'};
 		}
 	}
 	
 	getNameCellStyle(params:any):any{
 		if(params.data.classifiedCfgCode && params.data.classifiedCfgCode != params.data.cfgCode.value){
-			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#dff0d8'}/*light green*/ : {backgroundColor: 'rgb(181,214,168)'};
+			return params.node.rowIndex % 2 == 0 ? {backgroundColor: '#ffdecd'}/*light red*/ : {backgroundColor: '#ff8d85'};
 		}
 	}
 
