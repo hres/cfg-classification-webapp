@@ -12,7 +12,7 @@ export class ClassifyService {
 
 		let restObj = this.restangular.oneUrl('classify', environment.servicesUrl + classifyEndpoint);
 
-		return restObj.customPOST(null, "classify", null, {});
+		return restObj.customPOST(null, "classify", null, {'Content-Type': 'application/json'});
 	}
 
 	classifySandbox(dataset:any){
