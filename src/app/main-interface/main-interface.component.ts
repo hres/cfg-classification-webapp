@@ -673,6 +673,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//////////////////////////////////////
 			{
 				headerName: "Shift Tier",
+				cellRenderer: this.getValueHideZero,
 				cellStyle: this.getAdjCellStyle,
 				field:"shift",
 				hide: true,
@@ -680,6 +681,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Absolute Tier",
+				cellRenderer: this.getValueOnAbsoluteTrue,
 				cellStyle: this.getAdjCellStyle,
 				field:"tier",
 				hide: true,
@@ -920,6 +922,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	getBooleanValue(param:any):any{
 		return param.value ? param.value.value: null;
+	}
+
+	getValueOnAbsoluteTrue(params:any):any{
+		return params.data.absolute ? params.value : null;
+	}
+
+	getValueHideZero(params:any):any{
+		return params.value == 0 ? null : params.value;
 	}
 
 	onSubmitClick(){
