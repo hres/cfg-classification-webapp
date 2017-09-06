@@ -11,7 +11,7 @@ if (environment.production) {
 
 //KeycloakService.init({ onLoad: 'check-sso', checkLoginIframeInterval: 1 })
 	//.then(() => {
-		//platformBrowserDynamic().bootstrapModule(AppModule);
+		platformBrowserDynamic().bootstrapModule(AppModule);
 	//})
 	//.catch((e: string) => {
 		//console.log('Error in ng2 bootstrap: ' + e);
