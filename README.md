@@ -8,7 +8,7 @@ This project is the user interface for the CFG-Classification IP346b initiative.
 Building this project requires the following.
 
 	-git
-	-npm
+	-npm (see section Installing NodeJS and NPM below)
 	-angular CLI 1.0.0-rc.0
 	
 Deploying this project requires:
