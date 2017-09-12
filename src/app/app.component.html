@@ -1,7 +1,7 @@
 <h1>
   {{title}}
 </h1>
-<!--<button *ngIf="!authenticated()" name="loginBtn" (click)="login()">Login</button>-->
+<button *ngIf="!authenticated()" name="loginBtn" (click)="login()">Login</button>
 <div (popup)="popupMessage($event)">
 	<router-outlet></router-outlet>
 </div>

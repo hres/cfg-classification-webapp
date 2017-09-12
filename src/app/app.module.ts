@@ -30,8 +30,8 @@ import { MissingNumericFilter } from './main-interface/missing-numeric-filter/mi
 import { MissingStringFilter } from './main-interface/missing-string-filter/missing-string-filter.component';
 import { MissingBooleanFilter } from './main-interface/missing-boolean-filter/missing-boolean-filter.component';
 
-//import { KeycloakService } from './keycloak-service/keycloak.service';
-//import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
+import { KeycloakService } from './keycloak-service/keycloak.service';
+import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -88,8 +88,8 @@ export function restangularConfigFactory(RestangularProvider){}
   ],
   entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
 	providers: [
-		//KeycloakService,
-		//KEYCLOAK_HTTP_PROVIDER
+		KeycloakService,
+		KEYCLOAK_HTTP_PROVIDER
 	],
   bootstrap: [AppComponent]
 })
