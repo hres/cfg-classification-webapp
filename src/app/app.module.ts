@@ -80,11 +80,11 @@ export function restangularConfigFactory(RestangularProvider){}
 			MissingBooleanFilter
 		]
 	),
-	AppRoutingModule,
     FormsModule,
     HttpModule,
 	RestangularModule.forRoot(restangularConfigFactory),
-	MaterialModule
+	MaterialModule,
+	AppRoutingModule
   ],
   entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
 	providers: [

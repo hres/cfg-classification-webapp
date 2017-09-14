@@ -35,13 +35,14 @@ const appRoutes:Routes =[
 	},
 	{
 		path: '',
-		redirectTo: '/datasets',
+		redirectTo: 'datasets',
 		pathMatch: 'full'
 	}
 ];
 
 @NgModule({
 	imports:[
+		//RouterModule.forRoot(appRoutes, { enableTracing:true })
 		RouterModule.forRoot(appRoutes)
 	],
 	exports:[

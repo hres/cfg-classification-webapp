@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -e local",
+    "start": "ng serve -bh /cfg-classification-webapp/ -d /cfg-classification-webapp/ -e local",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
