@@ -15,14 +15,18 @@ import { MdDialog, MdDialogRef, MdDialogConfig }from '@angular/material';
 export class AppComponent {
 	public title = 'CFG Classification';
 
-	constructor(private dialog:MdDialog, private kc: KeycloakService){}
+	constructor(private dialog:MdDialog, private keycloakService: KeycloakService){}
 
 	authenticated(): boolean {
-		return this.kc.authenticated();
+		return this.keycloakService.authenticated();
 	}
 
 	login() {
-		this.kc.login();
+		this.keycloakService.login();
+	}
+
+	logout(){
+		this.keycloakService.logout();
 	}
 
 	popupMessage(event:CustomEvent){

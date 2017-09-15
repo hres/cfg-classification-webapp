@@ -1,5 +1,17 @@
+<section id="wb-so">
+	<h2 class="wb-inv">Sign-on information</h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<p class="btn">Signed in as <span class="wb-so-uname">John Doe</span></p>
+				<button class="btn btn-default" type="button">Account settings</button>
+				<button class="btn btn-primary" type="button" (click)="logout()">Sign out</button>
+			</div>
+		</div>
+	</div>
+</section>
 <h1>
-  {{title}}
+	{{title}}
 </h1>
 <button *ngIf="!authenticated()" name="loginBtn" (click)="login()">Login</button>
 <div (popup)="popupMessage($event)">

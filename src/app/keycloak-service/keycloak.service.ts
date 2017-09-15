@@ -47,7 +47,7 @@ export class KeycloakService {
 	}
 
 	logout() {
-		KeycloakService.keycloakAuth.logout();
+		KeycloakService.keycloakAuth.logout(KeycloakService.keycloakAuth.createLogoutUrl());
 	}
 
 	account() {

@@ -269,8 +269,9 @@
 
         kc.createLogoutUrl = function(options) {
             var url = getRealmUrl()
-                + '/protocol/openid-connect/logout'
-                + '?redirect_uri=' + encodeURIComponent(adapter.redirectUri(options, false));
+				+ '/protocol/openid-connect/logout'
+                + '?redirect_uri=' + encodeURIComponent(getRealmUrl() + '/protocol/openid-connect/auth?client_id=cfg-classification-webapp&redirect_uri=' + encodeURIComponent(adapter.redirectUri())
+				+ '&response_type=code' );
 
             return url;
         }
@@ -919,7 +920,7 @@
                         } else if (kc.redirectUri) {
                             return kc.redirectUri;
                         } else {
-                            var redirectUri = location.protocol + '//' + location.hostname + '/cfg-classification-webapp';
+                            var redirectUri = location.protocol + '//' + location.host + '/cfg-classification-webapp';
                             if (location.hash && encodeHash) {
                                 redirectUri = redirectUri.substring(0, location.href.indexOf('#'));
                                 redirectUri += (redirectUri.indexOf('?') == -1 ? '?' : '&') + 'redirect_fragment=' + encodeURIComponent(location.hash.substring(1));
