@@ -28,8 +28,8 @@
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
-		"local":"environments/environment.ts",
-        "dev": "environments/environment.dev.ts",
+		"dev":"environments/environment.ts",
+		"local":"environments/environment.local.ts",
         "prod": "environments/environment.prod.ts",
 		"imsd": "environments/environment.imsd.ts",
 		"raul": "environments/environment.raul.ts",
