@@ -1,4 +1,4 @@
-import { Component } 			from '@angular/core';
+import { Component, OnInit } 			from '@angular/core';
 import { QueryService } 		from './services/query.service';
 import { CfgModel } 			from './model/cfg.model';
 import { KeycloakService } 	from './keycloak-service/keycloak.service';
@@ -12,10 +12,22 @@ import { MdDialog, MdDialogRef, MdDialogConfig }from '@angular/material';
 	providers: [QueryService, CfgModel]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
 	public title = 'CFG Classification';
+	private userFullName:string;
 
-	constructor(private dialog:MdDialog, private keycloakService: KeycloakService){}
+	constructor(private dialog:MdDialog, private keycloakService: KeycloakService, private cfgModel: CfgModel){}
+
+	ngOnInit(){
+		this.keycloakService.loadUserInfo()
+			.success((userInfo) =>{
+				this.cfgModel.userFullName = userInfo.name;
+			})
+			.error((error:any) =>{
+				console.log('eror');
+			});
+		this.cfgModel.isCfgAdmin = this.keycloakService.hasRealmRole('cfg-admin')
+	}
 
 	authenticated(): boolean {
 		return this.keycloakService.authenticated();

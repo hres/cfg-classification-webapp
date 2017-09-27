@@ -68,6 +68,7 @@ declare module KeycloakModule {
         hasRealmRole(role: string): boolean;
         hasResourceRole(role: string, resource?: string): boolean;
         loadUserProfile(): Promise;
+		loadUserInfo(): Promise;
         isTokenExpired(minValidity: number): boolean;
         updateToken(minValidity: number): Promise;
         clearToken(): any;

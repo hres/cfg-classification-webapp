@@ -5,4 +5,8 @@ export class CfgModel {
 
 	public sandboxMode:boolean=false;
 
+	// User Info
+	public userFullName:string;
+	public isCfgAdmin:boolean;
+
 }

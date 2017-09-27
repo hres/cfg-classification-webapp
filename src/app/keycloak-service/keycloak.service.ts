@@ -50,6 +50,18 @@ export class KeycloakService {
 		KeycloakService.keycloakAuth.logout(KeycloakService.keycloakAuth.createLogoutUrl());
 	}
 
+	hasRealmRole(role:string){
+		return KeycloakService.keycloakAuth.hasRealmRole(role);
+	}
+
+	loadUserInfo(){
+		return KeycloakService.keycloakAuth.loadUserInfo();
+	}
+
+	loadUserProfile(){
+		KeycloakService.keycloakAuth.loadUserProfile();
+	}
+
 	account() {
 		KeycloakService.keycloakAuth.accountManagement();
 	}
@@ -66,7 +78,7 @@ export class KeycloakService {
 						reject('Failed to refresh token');
 					});
 			} else {
-				reject('Not loggen in');
+				reject('Not logged in');
 			}
 		});
 	}
