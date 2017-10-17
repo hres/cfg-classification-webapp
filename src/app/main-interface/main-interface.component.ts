@@ -9,7 +9,7 @@ import { ClassifyService } from '../services/classify.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
@@ -65,7 +65,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private openService: OpenService,
 		private classifyService: ClassifyService,
 		private rulesetsService: RulesetsService,
-		private dialog: MdDialog,
+		private dialog: MatDialog,
 		private route:ActivatedRoute,
 		private cfgModel:CfgModel,
 		private element:ElementRef,
@@ -764,7 +764,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onSaveClick(userSave:boolean = false){
-		let config = new MdDialogConfig();
+		let config = new MatDialogConfig();
 		config.width = '600px';
 
 		//if first time save
@@ -1413,7 +1413,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private openColumnVisibility(){
-		let config = new MdDialogConfig();
+		let config = new MatDialogConfig();
 		config.width = '1100px';
 
 		let columnVisibilityPopup = this.dialog.open(ColumnVisibilityComponent, config);

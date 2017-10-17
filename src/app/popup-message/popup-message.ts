@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
 })
 
 export class PopupMessage {
+	// retValues
+	yesClicked:string = "yes";
+	noClicked:string = "no";
+	okClicked:string = "ok";
 
 	message:string;
 	showYesButton:boolean;

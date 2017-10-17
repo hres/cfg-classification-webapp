@@ -5,7 +5,11 @@ import { AgGridModule } from "ag-grid-angular/main";
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RestangularModule } from 'ngx-restangular';
-import { MaterialModule } from '@angular/material';
+import {
+	MatDialogModule,
+	MatSelectModule,
+	MatTooltipModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { MainInterfaceComponent }	from './main-interface/main-interface.component';
@@ -37,60 +41,62 @@ import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloa
 export function restangularConfigFactory(RestangularProvider){}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-	DatasetsComponent,
-    MainInterfaceComponent,
-    QueryViewComponent,
-    SaveViewComponent,
-	ColumnVisibilityComponent,
-    DatasetsActionComponent,
-    NumericEditorComponent,
-    BooleanEditorComponent,
-    StringEditorComponent,
-    PopupMessage,
-    BooleanRendererComponent,
-    ManageRulesetsComponent,
-    RulesetComponent,
-    RulesetEditorComponent,
-	NoSelectionRendererComponent,
-    CreateRulesetComponent,
-    MissingNumericFilter,
-    MissingStringFilter,
-    MissingBooleanFilter,
-  ],
-  imports: [
-    BrowserAnimationsModule,
-	BrowserModule,
-	AgGridModule.withComponents(
-		[
-			MainInterfaceComponent,
-			DatasetsComponent,
-			DatasetsActionComponent,
-			NumericEditorComponent,
-			BooleanEditorComponent,
-			BooleanRendererComponent,
-			StringEditorComponent,
-			ManageRulesetsComponent,
-			RulesetComponent,
-			RulesetEditorComponent,
-			NoSelectionRendererComponent,
-			MissingNumericFilter,
-			MissingStringFilter,
-			MissingBooleanFilter
-		]
-	),
-    FormsModule,
-    HttpModule,
-	RestangularModule.forRoot(restangularConfigFactory),
-	MaterialModule,
-	AppRoutingModule
-  ],
-  entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
+	exports:[MatSelectModule],
+	declarations: [
+		AppComponent,
+		DatasetsComponent,
+		MainInterfaceComponent,
+		QueryViewComponent,
+		SaveViewComponent,
+		ColumnVisibilityComponent,
+		DatasetsActionComponent,
+		NumericEditorComponent,
+		BooleanEditorComponent,
+		StringEditorComponent,
+		PopupMessage,
+		BooleanRendererComponent,
+		ManageRulesetsComponent,
+		RulesetComponent,
+		RulesetEditorComponent,
+		NoSelectionRendererComponent,
+		CreateRulesetComponent,
+		MissingNumericFilter,
+		MissingStringFilter,
+		MissingBooleanFilter,
+	],
+	imports: [
+		BrowserAnimationsModule,
+		BrowserModule,
+		AgGridModule.withComponents(
+			[
+				MainInterfaceComponent,
+				DatasetsComponent,
+				DatasetsActionComponent,
+				NumericEditorComponent,
+				BooleanEditorComponent,
+				BooleanRendererComponent,
+				StringEditorComponent,
+				ManageRulesetsComponent,
+				RulesetComponent,
+				RulesetEditorComponent,
+				NoSelectionRendererComponent,
+				MissingNumericFilter,
+				MissingStringFilter,
+				MissingBooleanFilter
+			]
+		),
+		FormsModule,
+		HttpModule,
+		MatDialogModule,
+		MatSelectModule,
+		RestangularModule.forRoot(restangularConfigFactory),
+		AppRoutingModule
+	],
+	entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
 	providers: [
 		KeycloakService,
 		KEYCLOAK_HTTP_PROVIDER
 	],
-  bootstrap: [AppComponent]
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

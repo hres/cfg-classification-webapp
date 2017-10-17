@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
 	selector: 'app-save-view',
@@ -11,7 +11,7 @@ export class SaveViewComponent {
 	datasetName:string;
 	datasetComments:string;
 
-	constructor(public dialogRef: MdDialogRef<SaveViewComponent>) { }
+	constructor(public dialogRef: MatDialogRef<SaveViewComponent>) { }
 
 	onSaveClose():any{
 		let retObj = {

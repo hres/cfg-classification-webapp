@@ -2,7 +2,7 @@
 	<label>{{message}}</label>
 </div>
 <div class="row" style="text-align:center;">
-	<button class="btn btn-primary" *ngIf="showYesButton" md-dialog-close="yes">Yes</button>
-	<button class="btn btn-primary" *ngIf="showNoButton"  md-dialog-close="no">No</button>
-	<button class="btn btn-primary" *ngIf="showOkButton"  md-dialog-close="ok">Ok</button>
+	<button mat-button class="btn btn-primary" *ngIf="showYesButton" [mat-dialog-close]="yesClicked">Yes</button>
+	<button mat-button class="btn btn-primary" *ngIf="showNoButton"  [mat-dialog-close]="noClicked">No</button>
+	<button mat-button class="btn btn-primary" *ngIf="showOkButton"  [mat-dialog-close]="okClicked">Ok</button>
 </div>
