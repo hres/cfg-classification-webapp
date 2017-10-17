@@ -708,19 +708,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			//}
 		})
 
-		// TODO this code is commented out until the multiple ruleset functionality is restored
-		//this.rulesetsService.getRulesets().subscribe(
-			//(res) => {
-				//this.rulesets = res.rulesets;
+		this.rulesetsService.getRulesets().subscribe(
+			(res) => {
+				this.rulesets = res.rulesets;
 
-				//for(let ruleset of this.rulesets){
-					//if (ruleset.isProd){
-						//// Set initial ruleset
-						//this.selectedRuleset = ruleset.id;
-					//}
-				//}
-			//}
-		//)
+				for(let ruleset of this.rulesets){
+					if (ruleset.isProd){
+						// Set initial ruleset
+						this.selectedRuleset = ruleset.id;
+					}
+				}
+			}
+		)
 
 		if(this.datasetId != undefined){
 			this.openService.open(this.datasetId).subscribe(
