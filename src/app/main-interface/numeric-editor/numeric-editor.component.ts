@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular/main';
-import { MdTooltip } 				from '@angular/material';
+import { MatTooltip } 				from '@angular/material';
 
 @Component({
 	selector: 'numeric-editor',
@@ -20,7 +20,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	@ViewChild('input', {read: ViewContainerRef})
 	public input;
 	
-	@ViewChild(MdTooltip)
+	@ViewChild(MatTooltip)
 	tooltip;
 
 	constructor() { }
