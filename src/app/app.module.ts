@@ -93,6 +93,7 @@ export function restangularConfigFactory(RestangularProvider){}
 		MatDialogModule,
 		MatProgressSpinnerModule,
 		MatSelectModule,
+		MatTooltipModule,
 		RestangularModule.forRoot(restangularConfigFactory),
 		AppRoutingModule
 	],

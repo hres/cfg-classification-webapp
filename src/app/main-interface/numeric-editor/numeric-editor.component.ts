@@ -4,7 +4,7 @@ import { MatTooltip } 				from '@angular/material';
 
 @Component({
 	selector: 'numeric-editor',
-	template: `<input #input mdTooltip="Please enter only numeric characters 0-9."
+	template: `<input #input matTooltip="Please enter only numeric characters 0-9."
 					(keypress)="onKeyPress($event)"
 					(blur)="onBlur($event)"
 					[(ngModel)]="value">
