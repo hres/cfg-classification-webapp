@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
 	selector: 'column-visibility',
@@ -12,5 +12,5 @@ export class ColumnVisibilityComponent {
 	public columns;
 	public datasetStatus;
 
-	constructor(public dialogRef: MdDialogRef<ColumnVisibilityComponent>) { }
+	constructor(public dialogRef: MatDialogRef<ColumnVisibilityComponent>) { }
 }
