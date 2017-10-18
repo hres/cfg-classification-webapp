@@ -8,6 +8,7 @@ import { RestangularModule } from 'ngx-restangular';
 import {
 	MatDialogModule,
 	MatSelectModule,
+	MatProgressSpinnerModule,
 	MatTooltipModule
 } from '@angular/material';
 
@@ -36,6 +37,7 @@ import { MissingBooleanFilter } from './main-interface/missing-boolean-filter/mi
 
 import { KeycloakService } from './keycloak-service/keycloak.service';
 import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
+import { SpinnerComponent } from './spinner-component/spinner.component';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -63,6 +65,7 @@ export function restangularConfigFactory(RestangularProvider){}
 		MissingNumericFilter,
 		MissingStringFilter,
 		MissingBooleanFilter,
+		SpinnerComponent,
 	],
 	imports: [
 		BrowserAnimationsModule,
@@ -88,11 +91,12 @@ export function restangularConfigFactory(RestangularProvider){}
 		FormsModule,
 		HttpModule,
 		MatDialogModule,
+		MatProgressSpinnerModule,
 		MatSelectModule,
 		RestangularModule.forRoot(restangularConfigFactory),
 		AppRoutingModule
 	],
-	entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage],
+	entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage, SpinnerComponent],
 	providers: [
 		KeycloakService,
 		KEYCLOAK_HTTP_PROVIDER

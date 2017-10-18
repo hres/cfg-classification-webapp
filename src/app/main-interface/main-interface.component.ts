@@ -8,6 +8,7 @@ import { RulesetsService } from '../services/rulesets.service';
 import { ClassifyService } from '../services/classify.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
+import { SpinnerComponent }			from '../spinner-component/spinner.component';
 import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -1000,6 +1001,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onClassifyClick(env:string='prod'){
+		let config = new MatDialogConfig();
+		config.width = '600px';
+		config.height= '400px';
+		config.disableClose = true;
+		config.panelClass = 'cfg-spinner';
+
+		let dialogRef = this.dialog.open(SpinnerComponent, config);
+		
 		if(env=='prod'){
 			this.classifyService.classify(this.dataset.id).subscribe(
 				(res) => {
@@ -1008,6 +1017,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				},
 				(err) => {
 					console.log(err);
+				},
+				() => {
+					dialogRef.close();
 				}
 			);
 		}else if (env=='sandbox'){
@@ -1018,6 +1030,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				},
 				(err) => {
 					console.log(err);
+				},
+				() => {
+					dialogRef.close();
 				}
 			)
 		}
