@@ -8,5 +8,5 @@ export class CfgModel {
 	// User Info
 	public userFullName:string;
 	public isCfgAdmin:boolean;
-
+	public isAnalyst:boolean;
 }

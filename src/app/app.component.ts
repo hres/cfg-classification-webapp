@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
 			.error((error:any) =>{
 				console.log('eror');
 			});
-		this.cfgModel.isCfgAdmin = this.keycloakService.hasRealmRole('cfg-admin')
+		this.cfgModel.isCfgAdmin = this.keycloakService.hasRealmRole('cfg-admin');
+		this.cfgModel.isAnalyst = this.keycloakService.hasRealmRole('user');
 	}
 
 	authenticated(): boolean {

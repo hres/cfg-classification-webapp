@@ -769,12 +769,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		//if first time save
 		if(this.dataset.name == undefined){
+			this.dataset.owner = this.cfgModel.userFullName;
 			let dialogRef = this.dialog.open(SaveViewComponent, config);
 			dialogRef.afterClosed().subscribe(saveObj => {
 				if (saveObj != "cancel"){
 					this.dataset.name=saveObj.datasetName;
 					this.dataset.status = "In Progress";
-					this.dataset.owner = "Daniel Robert";
 					this.dataset.comments=saveObj.datasetComments;
 					this.saveDataset(true);
 				}
@@ -790,6 +790,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		// do not save classified state
 		let datasetToSave = Object.assign({}, this.dataset);
+
 		if (datasetToSave.status == 'Classified'){
 			datasetToSave.status = 'Validated';
 		}
@@ -987,7 +988,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		);
 
-		this.gridOptions.columnApi.setColumnVisible('selection', this.hasValidatedColumn());
+		if (this.cfgModel.isCfgAdmin)
+			this.gridOptions.columnApi.setColumnVisible('selection', this.hasValidatedColumn());
 	}
 
 	onValidateClick(){

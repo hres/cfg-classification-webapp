@@ -28,7 +28,7 @@
 			<button class="btn btn-primary" (click)="onSubmitClick()">Resubmit</button>
 		</div>
 
-		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && readyToValidate" class="col-md-8 right" style="text-align:right">
+		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
 			<button class="btn btn-primary" (click)="onValidateClick()">Validate</button>
 		</div>
 		<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">

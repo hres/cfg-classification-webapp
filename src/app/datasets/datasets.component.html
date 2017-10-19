@@ -2,10 +2,11 @@
 	<div class="form-horizontal">
 		<div class="col-sm-8" style="padding-left:0;">
 			<label>Show:</label>
-			<select class="form-control" style="width:200px">
-				<option>All Datasets</option>
-				<option>My Datasets</option>
-			</select>
+			<mat-select class="form-control" style="width:200px" name="showDatasetCmb" [(ngModel)]="selectedShowDataset"
+				(change)=onShowChange($event)>
+				<mat-option value="all">All Datasets</mat-option>
+				<mat-option value="owner">My Datasets</mat-option>
+			</mat-select>
 		</div>
 		<div class="col-sm-4" style="text-align: right;padding-right:0;">
 			<button name="new" class="btn btn-primary" [routerLink]="['/query']">New Dataset</button>

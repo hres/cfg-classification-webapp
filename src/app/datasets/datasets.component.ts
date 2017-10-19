@@ -24,6 +24,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
 	height=200;
+	selectedShowDataset:string = "all";
 
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
@@ -31,12 +32,16 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				private cfgModel:CfgModel,
 				private saveService:SaveService,
 				private element:ElementRef) {
-		this.gridOptions = <GridOptions>{
+
+		this.gridOptions ={
 			context:{componentParent:this},
 			enableFilter: true,
 			enableSorting: true,
+			isExternalFilterPresent: this.isExternalFilterPresent.bind(this),
+			doesExternalFilterPass: this.doesExternalFilterPass.bind(this),
 			onCellValueChanged: this.onCellValueChanged
 		};
+
 		this.gridOptions.columnDefs=[
 			{
 				headerName: "Name",
@@ -151,4 +156,26 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			}
 		)
 	}
+	
+	private isExternalFilterPresent(){
+		return this.selectedShowDataset == 'owner';
+	}
+
+	private doesExternalFilterPass(node){
+		if(this.cfgModel.isCfgAdmin){
+			return node.data.status == "Pending Validation" ||
+					node.data.status == "Validated" ||
+					node.data.owner == this.cfgModel.userFullName;
+		}
+		else if(this.cfgModel.isAnalyst){
+			return (node.data.status == "In Progress" || node.data.status == "Review") &&
+					node.data.owner == this.cfgModel.userFullName;
+		}
+		return false;
+	}
+
+	private onShowChange(event){
+		this.gridOptions.api.onFilterChanged();
+	}
+
 }
