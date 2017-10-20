@@ -11,6 +11,7 @@ import { DatasetsActionComponent } from './datasets-action/datasets-action.compo
 import { Router } from '@angular/router';
 
 import { OwnerFilter } 		from './custom-filters/owner-filter/owner-filter.component';
+import { StatusFilter } 	from './custom-filters/status-filter/status-filter.component';
 
 @Component({
 	selector: 'app-datasets',
@@ -29,6 +30,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	selectedShowDataset:string = "all";
 
 	private ownersList:string[] = [];
+	private statusList:string[] = [];
 
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
@@ -63,6 +65,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Status",
 				field: "status",
+				filterFramework: StatusFilter,
 				width: 190
 			},
 			{
@@ -123,6 +126,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				this.gridOptions.api.setRowData(res);
 				this.gridOptions.api.sizeColumnsToFit();
 				this.buildOwnersList();
+				this.buildStatusList();
 			},
 			(err) => {
 				console.log(err);
@@ -190,7 +194,18 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.forEachNode(
 			(node) => {
 				if(!this.ownersList.some(x => x === node.data.owner)){
-					this.ownersList.push(node.data.owner)
+					this.ownersList.push(node.data.owner);
+				}
+			}
+		);
+	}
+
+	private buildStatusList(){
+		this.statusList=[];
+		this.gridOptions.api.forEachNode(
+			(node) => {
+				if(!this.statusList.some(x => x === node.data.status)){
+					this.statusList.push(node.data.status);
 				}
 			}
 		);
