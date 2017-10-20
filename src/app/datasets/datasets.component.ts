@@ -10,6 +10,8 @@ import { CfgModel }			from '../model/cfg.model';
 import { DatasetsActionComponent } from './datasets-action/datasets-action.component';
 import { Router } from '@angular/router';
 
+import { OwnerFilter } 		from './custom-filters/owner-filter/owner-filter.component';
+
 @Component({
 	selector: 'app-datasets',
 	templateUrl: './datasets.component.html',
@@ -25,6 +27,8 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	gridData: Dataset[];
 	height=200;
 	selectedShowDataset:string = "all";
+
+	private ownersList:string[] = [];
 
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
@@ -52,6 +56,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Owner",
 				field: "owner",
+				filterFramework: OwnerFilter,
 				minWidth: 160,
 				width: 110
 			},
@@ -117,6 +122,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			(res) => {
 				this.gridOptions.api.setRowData(res);
 				this.gridOptions.api.sizeColumnsToFit();
+				this.buildOwnersList();
 			},
 			(err) => {
 				console.log(err);
@@ -158,7 +164,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 	
 	private isExternalFilterPresent(){
-		return this.selectedShowDataset == 'owner';
+		return this.selectedShowDataset == 'myDatasets';
 	}
 
 	private doesExternalFilterPass(node){
@@ -178,4 +184,15 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.onFilterChanged();
 	}
 
+	//build the ownersList[] 
+	private buildOwnersList(){
+		this.ownersList=[];
+		this.gridOptions.api.forEachNode(
+			(node) => {
+				if(!this.ownersList.some(x => x === node.data.owner)){
+					this.ownersList.push(node.data.owner)
+				}
+			}
+		);
+	}
 }

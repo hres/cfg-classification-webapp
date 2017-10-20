@@ -38,6 +38,7 @@ import { MissingBooleanFilter } from './main-interface/missing-boolean-filter/mi
 import { KeycloakService } from './keycloak-service/keycloak.service';
 import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 import { SpinnerComponent } from './spinner-component/spinner.component';
+import { OwnerFilter } from './datasets/custom-filters/owner-filter/owner-filter.component';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -66,6 +67,7 @@ export function restangularConfigFactory(RestangularProvider){}
 		MissingStringFilter,
 		MissingBooleanFilter,
 		SpinnerComponent,
+		OwnerFilter,
 	],
 	imports: [
 		BrowserAnimationsModule,
@@ -85,7 +87,8 @@ export function restangularConfigFactory(RestangularProvider){}
 				NoSelectionRendererComponent,
 				MissingNumericFilter,
 				MissingStringFilter,
-				MissingBooleanFilter
+				MissingBooleanFilter,
+				OwnerFilter
 			]
 		),
 		FormsModule,
