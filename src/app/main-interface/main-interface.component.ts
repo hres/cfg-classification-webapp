@@ -20,8 +20,9 @@ import { NoSelectionRendererComponent } from './no-selection-renderer/no-selecti
 //import { CalendarHeaderComponent2 } 		from './calendar-header2/calendar-header2.component';
 
 import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-filter.component';
-import { MissingStringFilter }				from './missing-string-filter/missing-string-filter.component';
-import { MissingBooleanFilter }				from './missing-boolean-filter/missing-boolean-filter.component';
+import { MissingStringFilter }		from './missing-string-filter/missing-string-filter.component';
+import { MissingBooleanFilter }		from './missing-boolean-filter/missing-boolean-filter.component';
+import { FoodRecipeFilter }			from './custom-filters/food-recipe-filter/food-recipe-filter.component';
 
 @Component({
 	selector: 'app-main-interface',
@@ -123,6 +124,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "Type",
 				cellRendererFramework: NoSelectionRendererComponent,
 				field: "type",
+				filterFramework: FoodRecipeFilter,
 				width: 65
 			},
 			{

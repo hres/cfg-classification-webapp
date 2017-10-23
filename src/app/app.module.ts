@@ -40,6 +40,7 @@ import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloa
 import { SpinnerComponent } from './spinner-component/spinner.component';
 import { OwnerFilter } from './datasets/custom-filters/owner-filter/owner-filter.component';
 import { StatusFilter } from './datasets/custom-filters/status-filter/status-filter.component';
+import { FoodRecipeFilter } from './main-interface/custom-filters/food-recipe-filter/food-recipe-filter.component';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -69,7 +70,8 @@ export function restangularConfigFactory(RestangularProvider){}
 		MissingBooleanFilter,
 		SpinnerComponent,
 		OwnerFilter,
-		StatusFilter
+		StatusFilter,
+		FoodRecipeFilter
 	],
 	imports: [
 		BrowserAnimationsModule,
@@ -91,7 +93,8 @@ export function restangularConfigFactory(RestangularProvider){}
 				MissingStringFilter,
 				MissingBooleanFilter,
 				OwnerFilter,
-				StatusFilter
+				StatusFilter,
+				FoodRecipeFilter	
 			]
 		),
 		FormsModule,
