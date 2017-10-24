@@ -51,7 +51,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.columnDefs=[
 			{
 				headerName: "Name",
-				editable: true,
+				editable: this.isNameEditable,
 				field: "name",
 				width: 200,
 			},
@@ -70,7 +70,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Comments",
-				editable: true,
+				editable: this.isCommentsEditable,
 				field: "comments",
 				width: 250
 			},
@@ -89,6 +89,20 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				width:190
 			}
 		]	
+	}
+
+	private isNameEditable(value):boolean{
+		if(value.node.data.owner == value.context.componentParent.cfgModel.userFullName &&
+			(value.context.componentParent.cfgModel.isCfgAdmin || 
+			 value.context.componentParent.cfgModel.isAnalyst)
+		){
+			return true;
+		}
+		return false;
+	}
+	
+	private isCommentsEditable(value):boolean{
+		return value.context.componentParent.isNameEditable(value);
 	}
 
 	private onCellValueChanged(event){
