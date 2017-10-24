@@ -41,6 +41,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	@ViewChild('showMissingDiv')
 	showMissingDiv:any;
 
+	@ViewChild('showInReviewDiv')
+	showInReviewDiv:any;
+
 	@ViewChild('showAllDiv')
 	showAllDiv:any;
 
@@ -754,6 +757,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
 		this.setSelectedRows();
+		
+		if(dataset.status == 'Review'){
+			this.showAllDiv.nativeElement.style.display = "inline";
+			this.gridOptions.api.onFilterChanged();
+		}
 	}
 
 	private hasValidatedColumn():boolean{
@@ -1466,6 +1474,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		//this.gridOptions.api.sizeColumnsToFit();
 	}
 
+	private onShowInReviewClick(){
+		this.showInReviewDiv.nativeElement.style.display='none';
+		this.showAllDiv.nativeElement.style.display='inline';
+		this.gridOptions.api.onFilterChanged();
+	}
+
 	private onShowMissingClick(){
 		this.showMissingDiv.nativeElement.style.display='none';
 		this.showAllDiv.nativeElement.style.display='inline';
@@ -1473,7 +1487,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private isExternalFilterPresent(){
-		if ((<any>this).context.mainInterface.dataset.status != 'In Progress'){
+		if((<any>this).context.mainInterface.showAllDiv.nativeElement.style.display=="none"){
+			return false;
+		}else if ((<any>this).context.mainInterface.dataset.status == 'Review'){
+			return true;
+		}else if ((<any>this).context.mainInterface.dataset.status != 'In Progress'){
 			return false;
 		}
 
@@ -1481,15 +1499,23 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private doesExternalFilterPass(node){
-		if((<any>this).context.mainInterface.showMissingDiv.nativeElement.style.display=="inline"){
-			return true;
+		if((<any>this).context.mainInterface.dataset.status == "Review"){
+			console.log('validated == ' + node.data.validated);
+			return node.data.validated == false;
 		}
 		return node.data.missingData;
 	}
 
 	private onShowAllClick($event){
-		this.showMissingDiv.nativeElement.style.display='inline';
 		this.showAllDiv.nativeElement.style.display='none';
+
+		if(this.dataset.status == 'Review'){
+			this.showInReviewDiv.nativeElement.style.display='inline';
+		}else if (this.dataset.status == 'In Progress'){
+			this.showMissingDiv.nativeElement.style.display='inline';
+		}else{
+			console.log('No operation coded here...');
+		}
 		this.gridOptions.api.onFilterChanged();
 	}
 	
