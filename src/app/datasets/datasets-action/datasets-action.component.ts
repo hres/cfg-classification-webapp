@@ -8,14 +8,14 @@ import { ICellRendererAngularComp } from "ag-grid-angular/main";
 					style="color:#31708f;cursor:pointer">Prod
 				</span>
 				<span class="wb-inv">Open Production</span>
-				<span *ngIf="status=='Validated';else hideSandbox" (click)="openDataset(true)"
+				<span *ngIf="status=='Validated' && params.context.componentParent.cfgModel.isCfgAdmin;else hideSandbox" (click)="openDataset(true)"
 					class="glyphicon glyphicon-eye-open action-icon"
 					style="color:#3c763d;cursor:pointer">Sandbox
 				</span>
 				<ng-template #hideSandbox>
 					<span class="glyphicon glyphicon-eye-open action-icon" style="visibility:hidden">Sandbox</span>
 				</ng-template>
-				<span class="wb-inv">Open Sandbox</span>
+				<span *ngIf="status=='Validated' && params.context.componentParent.cfgModel.isCfgAdmin" class="wb-inv">Open Sandbox</span>
 				<span *ngIf="params.context.componentParent.cfgModel.isCfgAdmin || params.context.componentParent.cfgModel.userFullName == params.data.owner" (click)="deleteDataset()"
 					class="glyphicon glyphicon-trash action-icon"
 					style="color:#a94442;cursor:pointer">Delete
