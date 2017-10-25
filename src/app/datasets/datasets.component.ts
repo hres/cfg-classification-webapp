@@ -182,11 +182,16 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	}
 	
 	private isExternalFilterPresent(){
-		return this.selectedShowDataset == 'myDatasets';
+		return this.selectedShowDataset == 'myDatasets' || 
+				!(this.cfgModel.isCfgAdmin || this.cfgModel.isAnalyst);
 	}
 
 	private doesExternalFilterPass(node){
-		if(this.cfgModel.isCfgAdmin){
+		// If you are a viewer you can't see the in "Review" datasets
+		if (!(this.cfgModel.isCfgAdmin || this.cfgModel.isAnalyst)){
+			return node.data.status == "Review" ? false : true;
+		}
+		else if(this.cfgModel.isCfgAdmin){
 			return node.data.status == "Pending Validation" ||
 					node.data.status == "Validated" ||
 					node.data.owner == this.cfgModel.userFullName;
