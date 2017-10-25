@@ -1545,4 +1545,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		return retValue;
 	}
+
+	private isReadOnlyUser():boolean{
+		return !this.cfgModel.isCfgAdmin && !this.cfgModel.isAnalyst;
+	}
 }
