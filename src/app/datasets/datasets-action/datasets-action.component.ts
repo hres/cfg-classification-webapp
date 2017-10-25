@@ -16,10 +16,11 @@ import { ICellRendererAngularComp } from "ag-grid-angular/main";
 					<span class="glyphicon glyphicon-eye-open action-icon" style="visibility:hidden">Sandbox</span>
 				</ng-template>
 				<span class="wb-inv">Open Sandbox</span>
-				<span (click)="deleteDataset()"
+				<span *ngIf="params.context.componentParent.cfgModel.isCfgAdmin || params.context.componentParent.cfgModel.userFullName == params.data.owner" (click)="deleteDataset()"
 					class="glyphicon glyphicon-trash action-icon"
 					style="color:#a94442;cursor:pointer">Delete
-				</span>`,
+				</span>
+				<span *ngIf="params.context.componentParent.cfgModel.isCfgAdmin || params.context.componentParent.cfgModel.userFullName == params.data.owner" class="wb-inv">Delete Dataset</span>`,
 	styleUrls:['./datasets-action.component.css']
 })
 
