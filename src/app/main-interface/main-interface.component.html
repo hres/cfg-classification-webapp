@@ -35,9 +35,9 @@
 			<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 				<button *ngIf="readyToValidate" class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
-				<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
+				<button *ngIf="cfgModel.isCfgAdmin" class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 			</div>
 			<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onClassifyClick()">Commit</button>
