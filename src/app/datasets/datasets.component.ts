@@ -11,6 +11,7 @@ import { DatasetsActionComponent } from './datasets-action/datasets-action.compo
 import { Router } from '@angular/router';
 
 import { OwnerFilter } 		from './custom-filters/owner-filter/owner-filter.component';
+import { OwnerEditor  } 	from './custom-editors/owner-editor/owner-editor.component';
 import { StatusFilter } 	from './custom-filters/status-filter/status-filter.component';
 
 @Component({
@@ -57,6 +58,8 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Owner",
+				cellEditorFramework: OwnerEditor,
+				editable: this.cfgModel.isCfgAdmin,
 				field: "owner",
 				filterFramework: OwnerFilter,
 				minWidth: 160,
@@ -217,6 +220,10 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				}
 			}
 		);
+
+		if(!this.ownersList.some(x => x === this.cfgModel.userFullName)){
+			this.ownersList.push(this.cfgModel.userFullName);
+		}
 	}
 
 	private buildStatusList(){

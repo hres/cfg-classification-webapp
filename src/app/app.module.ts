@@ -39,8 +39,11 @@ import { KeycloakService } from './keycloak-service/keycloak.service';
 import { KeycloakHttp, KEYCLOAK_HTTP_PROVIDER } from './keycloak-service/keycloak.http';
 import { SpinnerComponent } from './spinner-component/spinner.component';
 import { OwnerFilter } from './datasets/custom-filters/owner-filter/owner-filter.component';
+import { OwnerEditor } from './datasets/custom-editors/owner-editor/owner-editor.component';
 import { StatusFilter } from './datasets/custom-filters/status-filter/status-filter.component';
 import { FoodRecipeFilter } from './main-interface/custom-filters/food-recipe-filter/food-recipe-filter.component';
+
+//import { FileSelectDirective } from 'ng2-file-upload';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -70,8 +73,10 @@ export function restangularConfigFactory(RestangularProvider){}
 		MissingBooleanFilter,
 		SpinnerComponent,
 		OwnerFilter,
+		OwnerEditor,
 		StatusFilter,
-		FoodRecipeFilter
+		FoodRecipeFilter,
+		//FileSelectDirective
 	],
 	imports: [
 		BrowserAnimationsModule,
@@ -93,6 +98,7 @@ export function restangularConfigFactory(RestangularProvider){}
 				MissingStringFilter,
 				MissingBooleanFilter,
 				OwnerFilter,
+				OwnerEditor,
 				StatusFilter,
 				FoodRecipeFilter	
 			]
