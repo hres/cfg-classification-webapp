@@ -43,10 +43,6 @@
 				<button *ngIf="cfgModel.isCfgAdmin"class="btn btn-primary" (click)="onClassifyClick()">Commit</button>
 				<button class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Rejected'" class="col-md-8 right" style="text-align:right">
-				<button class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
-				<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
-			</div>
 		</div>
 		<div *ngIf="isReadOnlyUser() && dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false">
 			<div class="col-md-8 right" style="text-align:right">

@@ -3,10 +3,13 @@ import { ICellRendererAngularComp } from "ag-grid-angular/main";
 
 @Component({
 	selector: 'datasets-action',
-	template: `<span (click)="openDataset()"
+	template: `<span *ngIf="canEdit();else hideOpenProd"(click)="openDataset()"
 					class="glyphicon glyphicon-eye-open action-icon" 
 					style="color:#31708f;cursor:pointer">Prod
 				</span>
+				<ng-template #hideOpenProd>
+					<span class="glyphicon glyphicon-eye-open action-icon" style="visibility:hidden">Prod</span>
+				</ng-template>
 				<span class="wb-inv">Open Production</span>
 				<span *ngIf="status=='Validated' && params.context.componentParent.cfgModel.isCfgAdmin;else hideSandbox" (click)="openDataset(true)"
 					class="glyphicon glyphicon-eye-open action-icon"
@@ -39,5 +42,15 @@ export class DatasetsActionComponent implements ICellRendererAngularComp {
 
 	private deleteDataset(){
 		this.params.context.componentParent.deleteDataset(this.params.value);
+	}
+
+	private canEdit():boolean{
+		if(this.params.context.componentParent.cfgModel.isCfgAdmin){
+			return true;
+		}else if(this.params.context.componentParent.cfgModel.isAnalyst &&	(this.status == "In Progress" || this.status == "Review")){
+			return true;
+		}
+
+		return false;
 	}
 }
