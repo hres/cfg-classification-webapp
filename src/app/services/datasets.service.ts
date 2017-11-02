@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Dataset } from '../dtos/dataset';
-import { DATASETS } from './mock-datasets';
 import { Restangular } from 'ngx-restangular';
 import { environment } from '../../environments/environment';
 
