@@ -73,7 +73,7 @@ export class KeycloakService {
 						reject('Failed to refresh token');
 					});
 			} else {
-				reject('Not logged in');
+				resolve('Raul's token');
 			}
 		});
 	}

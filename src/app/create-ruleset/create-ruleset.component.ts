@@ -20,11 +20,9 @@ export class CreateRulesetComponent implements OnInit {
 	private authToken:string;
 
 	constructor(private keycloakService: KeycloakService) {
-		if(keycloakService.authenticated){
-			keycloakService.getToken().then((token)=>{
-				this.authToken=token;
-			})
-		}
+		keycloakService.getToken().then((token)=>{
+			this.authToken=token;
+		})
 	}
 
 	ngOnInit() {}
