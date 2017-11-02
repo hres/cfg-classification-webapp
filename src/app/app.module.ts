@@ -43,7 +43,8 @@ import { OwnerEditor } from './datasets/custom-editors/owner-editor/owner-editor
 import { StatusFilter } from './datasets/custom-filters/status-filter/status-filter.component';
 import { FoodRecipeFilter } from './main-interface/custom-filters/food-recipe-filter/food-recipe-filter.component';
 
-//import { FileSelectDirective } from 'ng2-file-upload';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploaderCustom }  from './create-ruleset/file-uploader-custom';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -76,7 +77,7 @@ export function restangularConfigFactory(RestangularProvider){}
 		OwnerEditor,
 		StatusFilter,
 		FoodRecipeFilter,
-		//FileSelectDirective
+		FileSelectDirective
 	],
 	imports: [
 		BrowserAnimationsModule,
