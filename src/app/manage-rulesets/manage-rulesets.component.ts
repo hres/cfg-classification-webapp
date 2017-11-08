@@ -21,7 +21,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 
 	constructor(private rulesetsService:RulesetsService) { 
 		this.gridOptions = <GridOptions>{
-			debug: true,
+			context:{componentParent:this},
 			suppressCellSelection: true
 		}
 		this.gridOptions.columnDefs=[
@@ -60,4 +60,25 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 		);
 	}
 
+	private deleteRuleset(rulesetId:string){
+		this.rulesetsService.deleteRuleset(rulesetId).subscribe(
+			(res) => {
+				this.getRulesets();
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
+	}
+
+	private promoteRuleset(rulesetId:string){
+		this.rulesetsService.promoteRuleset(rulesetId).subscribe(
+			(res) => {
+				this.getRulesets();
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
+	}
 }

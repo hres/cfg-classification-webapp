@@ -21,9 +21,13 @@ export class RulesetComponent implements ICellRendererAngularComp {
 	params:any;
 	hovering:boolean;
 
-	constructor() { }
+	constructor(){}
 
 	agInit(params:any) {
+		if(params.data.isProd){
+			params.value+= " *";
+		}
+
 		this.params = params;
 		this.params.eGridCell.addEventListener('click', (this.onClick).bind(this));
 	}
@@ -31,11 +35,12 @@ export class RulesetComponent implements ICellRendererAngularComp {
 	private onPromoteClick($event){
 		event.stopPropagation();
 		console.log('onPromoteClick()');
+		this.params.context.componentParent.promoteRuleset(this.params.data.rulesetId);
 	}
 	
 	private onDeleteClick($event){
 		event.stopPropagation();
-		console.log('onDeleteClick()');
+		this.params.context.componentParent.deleteRuleset(this.params.data.rulesetId);
 	}
 
 	private onClick($event:any){

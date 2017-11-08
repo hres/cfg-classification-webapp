@@ -18,4 +18,21 @@ export class RulesetsService {
 
 		return element;
 	}
+
+	deleteRuleset(id:string){
+		let restObj = this.restangular.oneUrl('delete', environment.servicesUrl + "service/rulesets/" + id).remove();
+
+		return restObj;
+	}
+
+	promoteRuleset(rulesetId:string){
+		let rulesetEndpoint:string = "service/rulesets";
+
+		let restObj = this.restangular.allUrl('asdf', environment.servicesUrl + rulesetEndpoint);
+
+		let request:any = {};
+		request.isProd = true;
+
+		return restObj.customPUT(request, rulesetId, undefined, {'Content-Type': 'application/json'});
+	}
 }
