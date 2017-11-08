@@ -820,7 +820,7 @@
                 if (realmUrl.charAt(0) === '/') {
                     loginIframe.iframeOrigin = getOrigin();
                 } else {
-                    loginIframe.iframeOrigin = realmUrl.substring(0, realmUrl.indexOf('/', 8));
+                    loginIframe.iframeOrigin = realmUrl.substring(0, realmUrl.indexOf('/', 8)).replace(':443','');
                 }
                 promise.setSuccess();
 

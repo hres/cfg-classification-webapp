@@ -33,7 +33,8 @@
         "prod": "environments/environment.prod.ts",
 		"imsd": "environments/environment.imsd.ts",
 		"raul": "environments/environment.raul.ts",
-		"luc": "environments/environment.luc.ts"
+		"luc": "environments/environment.luc.ts",
+		"azure": "environments/environment.azure.ts"
       }
     }
   ],
