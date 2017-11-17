@@ -5,5 +5,5 @@
 
 export const environment = {
 	production: false,
-	servicesUrl: "http://10.148.178.250:8080/cfg-task-service/"
+	servicesUrl: "http://10.148.181.159:8080/cfg-task-service/"
 };
