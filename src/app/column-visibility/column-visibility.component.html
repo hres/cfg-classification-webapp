@@ -1,15 +1,15 @@
-<h1 md-dialog-title>Column Visibility</h1>
-<div md-dialog-content>
+<h1 mat-dialog-title>Column Visibility</h1>
+<div mat-dialog-content>
 	<div class="form-vertical">
-		<md-tab-group>
-			<md-tab label="Base">
+		<mat-tab-group>
+			<mat-tab label="Base">
 				<div *ngFor="let column of columns;index as i">
 					<label *ngIf="i<5">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
-			</md-tab>
-			<md-tab label="Extended Data">
+			</mat-tab>
+			<mat-tab label="Extended Data">
 				<div class="row">
 					<div class="col-md-6">
 						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
@@ -26,31 +26,31 @@
 						</ng-template>
 					</div>
 				</div>
-			</md-tab>
-			<md-tab *ngIf="datasetStatus=='Classified'" label="Reference Amount">
+			</mat-tab>
+			<mat-tab *ngIf="datasetStatus=='Classified'" label="Reference Amount">
 				<div *ngFor="let column of columns;index as i">
 					<label *ngIf="i>31&&i<53">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
-			</md-tab>
-			<md-tab *ngIf="datasetStatus=='Classified'" label="Threshold">
+			</mat-tab>
+			<mat-tab *ngIf="datasetStatus=='Classified'" label="Threshold">
 				<div *ngFor="let column of columns;index as i">
 					<label *ngIf="i>52&&i<66">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
-			</md-tab>
-			<md-tab *ngIf="datasetStatus=='Classified'" label="Adjustments">
+			</mat-tab>
+			<mat-tab *ngIf="datasetStatus=='Classified'" label="Adjustments">
 				<div *ngFor="let column of columns;index as i">
 					<label *ngIf="i>65&&i<69">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
-			</md-tab>
-		</md-tab-group>
+			</mat-tab>
+		</mat-tab-group>
 	</div>
-	<div md-dialog-actions>
+	<div mat-dialog-actions>
 		<button class="btn btn-primary" (click)="dialogRef.close(columns)">Close</button>
 	</div>
 </div>
