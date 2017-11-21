@@ -21,4 +21,7 @@ export class NoSelectionRendererComponent implements ICellRendererAngularComp {
 		event.stopImmediatePropagation();
 	}
 
+	refresh(params:any):boolean{
+		return false;
+	}
 }
