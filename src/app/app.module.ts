@@ -4,14 +4,17 @@ import { NgModule } from '@angular/core';
 import { AgGridModule } from "ag-grid-angular/main";
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RestangularModule } from 'ngx-restangular';
+import { HttpClientModule } from '@angular/common/http';
 import {
+	MatButtonModule,
 	MatDialogModule,
 	MatSelectModule,
 	MatProgressSpinnerModule,
+	MatTabsModule,
 	MatTooltipModule
 } from '@angular/material';
 
+import { RestangularModule } from 'ngx-restangular';
 import { AppComponent } from './app.component';
 import { MainInterfaceComponent }	from './main-interface/main-interface.component';
 import { QueryViewComponent }		from './query-view/query-view.component';
@@ -106,9 +109,11 @@ export function restangularConfigFactory(RestangularProvider){}
 		),
 		FormsModule,
 		HttpModule,
+		MatButtonModule,
 		MatDialogModule,
 		MatProgressSpinnerModule,
 		MatSelectModule,
+		MatTabsModule,
 		MatTooltipModule,
 		RestangularModule.forRoot(restangularConfigFactory),
 		AppRoutingModule

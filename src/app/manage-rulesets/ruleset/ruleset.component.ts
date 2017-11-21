@@ -51,4 +51,8 @@ export class RulesetComponent implements ICellRendererAngularComp {
 			
 		this.params.api.startEditingCell(startEditingParams);
 	}
+
+	refresh(params:any):boolean{
+		return false;
+	}
 }

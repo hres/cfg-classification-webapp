@@ -49,8 +49,14 @@ export class DatasetsActionComponent implements ICellRendererAngularComp {
 			return true;
 		}else if(this.params.context.componentParent.cfgModel.isAnalyst &&	(this.status == "In Progress" || this.status == "Review")){
 			return true;
+		}else if(!this.params.context.componentParent.isCfgAdmin && !this.params.context.componentParent.isAnalyst){ // is a Reader only
+			return true;
 		}
 
+		return false;
+	}
+
+	refresh(params:any):boolean{
 		return false;
 	}
 }

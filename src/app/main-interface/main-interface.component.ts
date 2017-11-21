@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { GridOptions } from 'ag-grid';
 
 import { QueryService } from '../services/query.service';
@@ -11,7 +13,6 @@ import { SaveViewComponent } from '../save-view/save-view.component';
 import { SpinnerComponent }			from '../spinner-component/spinner.component';
 import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
@@ -704,6 +705,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
+		//if (!this.cfgModel.isCfgAdmin && !this.cfgModel.isAnalyst){ // is a read only user
+		//gridOptions.fu
+		//}
+
 		this.route.params.subscribe(params =>{
 			this.datasetId = params['id'];
 
@@ -756,12 +761,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
-		this.setSelectedRows();
 		
 		if(dataset.status == 'Review'){
 			this.showAllDiv.nativeElement.style.display = "inline";
 			this.gridOptions.api.onFilterChanged();
 		}
+
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+		
+		this.setSelectedRows();
 	}
 
 	private hasValidatedColumn():boolean{
@@ -954,7 +962,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validateData();
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
-		this.gridOptions.api.refreshView();
+		this.gridOptions.api.redrawRows();
 		this.saveDataset();
 
 		if(this.validationFailed){
@@ -998,8 +1006,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		);
 
-		if (this.cfgModel.isCfgAdmin)
+		if (this.cfgModel.isCfgAdmin){
 			this.gridOptions.columnApi.setColumnVisible('selection', this.hasValidatedColumn());
+		}
 	}
 
 	onValidateClick(){
@@ -1007,7 +1016,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
 		this.gridOptions.columnApi.setColumnVisible('selection', false);
-		this.gridOptions.api.refreshView();
+		this.gridOptions.api.redrawRows();
 		this.dataset.status = "Validated";
 		this.saveDataset();
 	}
@@ -1113,7 +1122,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	resetColumnVisibility(){
 		for (let columnNum in this.gridOptions.columnDefs){
- 			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","totalFatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","totalFatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = false;
 			}else{
 				(<any>this.gridOptions.columnDefs[columnNum]).hide = true;
@@ -1549,4 +1558,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private isReadOnlyUser():boolean{
 		return !this.cfgModel.isCfgAdmin && !this.cfgModel.isAnalyst;
 	}
+
+	private isReadOnly():boolean{
+		if(this.isReadOnlyUser()){
+			return true;
+		}else if(this.cfgModel.isAnalyst && (this.dataset.status != 'In Progress' || this.dataset.status != 'Review')){
+			return true;
+		}
+
+		return false;
+	}
 }
+
