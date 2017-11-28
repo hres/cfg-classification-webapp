@@ -1,4 +1,4 @@
 export const environment = {
 	production: false,
-	servicesUrl: "https://java-dev.hres.ca/cfg-task-service/"
+	servicesUrl: "https://java-dev.canadaeast.cloudapp.azure.com/cfg-task-service/"
 };

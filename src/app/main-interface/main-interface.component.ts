@@ -63,7 +63,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private validationFailed:boolean=false;
 	private rowCount:number = 0;
 
-	private selectedRuleset: string;
+	private selectedRuleset: any;
 	private	rulesets;
 
 	constructor(private queryService: QueryService,
@@ -726,7 +726,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				for(let ruleset of this.rulesets){
 					if (ruleset.isProd){
 						// Set initial ruleset
-						this.selectedRuleset = ruleset.id;
+						this.selectedRuleset = ruleset.rulesetId;
 					}
 				}
 			}
@@ -1021,7 +1021,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.saveDataset();
 	}
 
-	onClassifyClick(env:string='prod'){
+	onClassifyClick(env:string='prod', rulesetId:number=0){
 		let config = new MatDialogConfig();
 		config.width = '600px';
 		config.height= '400px';
@@ -1044,7 +1044,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			);
 		}else if (env=='sandbox'){
-			this.classifyService.classifySandbox(this.dataset).subscribe(
+			this.classifyService.classifySandbox(this.dataset, rulesetId).subscribe(
 				(res) => {
 					this.setBaseClassified();
 					this.setDataset(res);

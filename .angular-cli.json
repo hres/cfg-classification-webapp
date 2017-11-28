@@ -34,7 +34,7 @@
 		"imsd": "environments/environment.imsd.ts",
 		"raul": "environments/environment.raul.ts",
 		"luc": "environments/environment.luc.ts",
-		"azure": "environments/environment.azure.ts"
+		"qa": "environments/environment.qa.ts"
       }
     }
   ],

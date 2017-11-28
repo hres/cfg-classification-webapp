@@ -92,12 +92,12 @@
 		<div class="row" *ngIf="cfgModel.sandboxMode==true">
 			<div class="col-md-8 col-md-offset-4" style="text-align:right">
 				Run FCDR classification engine 
-				<button class="btn btn-primary" (click)="onClassifyClick('sandbox')">Classify</button> with ruleset 
+				<button class="btn btn-primary" (click)="onClassifyClick('sandbox', selectedRuleset)">Classify</button> with ruleset 
 				<mat-form-field>
 					<mat-select class="form-control"
 				 [(ngModel)]="selectedRuleset"
 				 name="ruleset">
-						<mat-option *ngFor="let rulesetOption of rulesets" [value]="rulesetOption.id">{{rulesetOption.name}}</mat-option>
+						<mat-option *ngFor="let rulesetOption of rulesets" [value]="rulesetOption.rulesetId">{{rulesetOption.name}}</mat-option>
 					</mat-select>
 				</mat-form-field>
 			</div>

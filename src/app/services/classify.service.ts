@@ -15,8 +15,8 @@ export class ClassifyService {
 		return restObj.customPOST(null, "classify", null, {'Content-Type': 'application/json'});
 	}
 
-	classifySandbox(dataset:any){
-		let classifyEndpoint = "service/datasets/";
+	classifySandbox(dataset:any, rulesetId:number){
+		let classifyEndpoint = "service/datasets/classify";
 		let sandboxDataset:any = {
 									data: dataset.data,
 									name:dataset.name,
@@ -25,6 +25,6 @@ export class ClassifyService {
 		let restObj = this.restangular.oneUrl('classify', environment.servicesUrl + classifyEndpoint);
 
 		// [elem, path, params, headers]
-		return restObj.customPOST(sandboxDataset, 'classify', null, {});
+		return restObj.customPOST(sandboxDataset, rulesetId, null, {});
 	}
 }
