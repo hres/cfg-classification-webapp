@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
 	ngOnInit(){
 		this.keycloakService.loadUserInfo()
-			.success((userInfo) =>{
+			.success((userInfo:any) =>{
 				this.cfgModel.userFullName = userInfo.name;
 			})
 			.error((error:any) =>{

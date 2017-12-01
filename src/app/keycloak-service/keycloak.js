@@ -33,6 +33,13 @@
             interval: 5
         };
 
+        var scripts = document.getElementsByTagName('script');
+        for (var i = 0; i < scripts.length; i++) {
+            if ((scripts[i].src.indexOf('keycloak.js') !== -1 || scripts[i].src.indexOf('keycloak.min.js') !== -1) && scripts[i].src.indexOf('version=') !== -1) {
+                kc.iframeVersion = scripts[i].src.substring(scripts[i].src.indexOf('version=') + 8).split('&')[0];
+            }
+        }
+
         kc.init = function (initOptions) {
             kc.authenticated = false;
 
@@ -43,7 +50,7 @@
             } else if (initOptions && initOptions.adapter === 'default') {
                 adapter = loadAdapter();
             } else {
-                if (window.Cordova) {
+                if (window.Cordova || window.cordova) {
                     adapter = loadAdapter('cordova');
                 } else {
                     adapter = loadAdapter();
@@ -157,7 +164,7 @@
                     processCallback(callback, initPromise);
                     return;
                 } else if (initOptions) {
-                    if (initOptions.refreshToken) {
+                    if (initOptions.token && initOptions.refreshToken) {
                         setToken(initOptions.token, initOptions.refreshToken, initOptions.idToken);
 
                         if (loginIframe.enable) {
@@ -214,7 +221,7 @@
             var callbackState = {
                 state: state,
                 nonce: nonce,
-                redirectUri: encodeURIComponent(redirectUri),
+                redirectUri: encodeURIComponent(redirectUri)
             }
 
             if (options && options.prompt) {
@@ -588,7 +595,7 @@
 
                 req.onreadystatechange = function () {
                     if (req.readyState == 4) {
-                        if (req.status == 200) {
+                        if (req.status == 200 || fileLoaded(req)) {
                             var config = JSON.parse(req.responseText);
 
                             kc.authServerUrl = config['auth-server-url'];
@@ -632,6 +639,10 @@
             }
 
             return promise.promise;
+        }
+
+        function fileLoaded(xhr) {
+            return xhr.status == 0 && xhr.responseText && xhr.responseURL.startsWith('file:');
         }
 
         function setToken(token, refreshToken, idToken, timeLocal) {
@@ -828,7 +839,12 @@
             }
 
             var src = getRealmUrl() + '/protocol/openid-connect/login-status-iframe.html';
+            if (kc.iframeVersion) {
+                src = src + '?version=' + kc.iframeVersion;
+            }
+
             iframe.setAttribute('src', src );
+            iframe.setAttribute('title', 'keycloak-session-iframe' );
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
 
@@ -1134,7 +1150,7 @@
                             break;
                         default:
                             if (responseMode != 'query' || !handleQueryParam(param, queryParams[param], oauth)) {
-                                oauth.newUrl += (oauth.newUrl.indexOf('?') == -1 ? '?' : '&') + param + '=' + queryParams[param];
+                                oauth.newUrl += (oauth.newUrl.indexOf('?') == -1 ? '?' : '&') + param + '=' + encodeURIComponent(queryParams[param]);
                             }
                             break;
                     }

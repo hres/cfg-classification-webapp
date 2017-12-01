@@ -18,10 +18,10 @@
 /// <reference path="keycloak.d.ts"/>
 
 import {Injectable} from '@angular/core';
-type LogoutOptions = KeycloakModule.LogoutOptions;
+//type LogoutOptions = Keycloak.LogoutOptions;
 
 var Keycloak = require("./keycloak"); // load keycloak.js locally
-type KeycloakClient = KeycloakModule.KeycloakClient;
+type KeycloakClient = Keycloak.KeycloakInstance;//Client;
 
 @Injectable()
 export class KeycloakService {
@@ -48,10 +48,10 @@ export class KeycloakService {
 	}
 
 	logout() {
-		let logoutOptions:LogoutOptions;
-		logoutOptions.redirectUri = KeycloakService.keycloakAuth.createLogoutUrl();
+		//let logoutOptions:LogoutOptions;
+		//logoutOptions.redirectUri = KeycloakService.keycloakAuth.createLogoutUrl();
 
-		KeycloakService.keycloakAuth.logout(logoutOptions);
+		KeycloakService.keycloakAuth.logout();//logoutOptions);
 	}
 
 	hasRealmRole(role:string){
