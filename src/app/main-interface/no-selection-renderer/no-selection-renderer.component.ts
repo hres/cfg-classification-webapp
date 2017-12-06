@@ -3,7 +3,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular/main';
 
 @Component({
 	selector: 'app-no-selection-renderer',
-	template: `{{params.value}}`,
+	template: `{{roundToTwo()}}`,
 	styleUrls: ['./no-selection-renderer.component.css']
 })
 
@@ -23,5 +23,12 @@ export class NoSelectionRendererComponent implements ICellRendererAngularComp {
 
 	refresh(params:any):boolean{
 		return false;
+	}
+
+	roundToTwo(something):any{
+		if(isNaN(this.params.value))
+			return this.params.value;
+		else
+			return Math.floor(this.params.value*100)/100;
 	}
 }

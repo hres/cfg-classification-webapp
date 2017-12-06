@@ -28,6 +28,7 @@ import { BooleanEditorComponent } from './main-interface/boolean-editor/boolean-
 import { StringEditorComponent } from './main-interface/string-editor/string-editor.component';
 import { BooleanRendererComponent } from './main-interface/boolean-renderer/boolean-renderer.component';
 import { NoSelectionRendererComponent } from './main-interface/no-selection-renderer/no-selection-renderer.component';
+import { TwoDecimalRendererComponent } from './main-interface/two-decimal-renderer/two-decimal-renderer.component';
 
 import { AppRoutingModule }	from './app-routing.module';
 import { ManageRulesetsComponent } from './manage-rulesets/manage-rulesets.component';
@@ -71,6 +72,7 @@ export function restangularConfigFactory(RestangularProvider){}
 		RulesetComponent,
 		RulesetEditorComponent,
 		NoSelectionRendererComponent,
+		TwoDecimalRendererComponent,
 		CreateRulesetComponent,
 		MissingNumericFilter,
 		MissingStringFilter,
@@ -98,6 +100,7 @@ export function restangularConfigFactory(RestangularProvider){}
 				RulesetComponent,
 				RulesetEditorComponent,
 				NoSelectionRendererComponent,
+				TwoDecimalRendererComponent,
 				MissingNumericFilter,
 				MissingStringFilter,
 				MissingBooleanFilter,

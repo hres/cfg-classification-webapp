@@ -19,6 +19,7 @@ import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.co
 import { StringEditorComponent } from './string-editor/string-editor.component';
 import { NoSelectionRendererComponent } from './no-selection-renderer/no-selection-renderer.component';
 //import { CalendarHeaderComponent2 } 		from './calendar-header2/calendar-header2.component';
+import { TwoDecimalRendererComponent }	from './two-decimal-renderer/two-decimal-renderer.component';
 
 import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-filter.component';
 import { MissingStringFilter }		from './missing-string-filter/missing-string-filter.component';
@@ -163,11 +164,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "energyKcal",
 				filter: 'number',
+				valueFormatter: this.roundToTwoDecimal,
 				width: 100
 			},
 			{
 				headerName: "Sodium (mg/100g)",
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				editable: true,
@@ -193,7 +195,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sugar (g/100g)",
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				editable: true,
@@ -219,7 +221,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "TransFat (g/100g)",
 				editable: true,
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
@@ -246,7 +248,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "SatFat (g/100g)",
 				editable: true,
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "satfatAmountPer100g",
@@ -272,7 +274,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "TotalFat (g/100g)",
 				editable: true,
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "totalFatAmountPer100g",
@@ -404,6 +406,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountG",
 				filter: 'number',
+				valueFormatter: this.roundToTwoDecimal,
 				width: 100
 			},
 			{
@@ -423,7 +426,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Food Guide Serving (g)",
 				editable: true,
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "foodGuideServingG",
@@ -449,7 +452,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Tier 4 Serving (g)",
 				editable: true,
-				cellRenderer: this.getNumValue,
+				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
 				field: "tier4ServingG",
@@ -537,6 +540,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"adjustedReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			{
@@ -544,6 +548,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"sodiumPerReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			{
@@ -551,6 +556,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"sugarPerReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			{
@@ -558,6 +564,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"transFatPerReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			{
@@ -565,6 +572,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"satFatPerReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			{
@@ -572,6 +580,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getRefAmountCellStyle,
 				field:"fatPerReferenceAmount",
 				hide: true,
+				valueFormatter: this.roundToTwoDecimal,
 				width:118
 			},
 			/////////////////////////////
@@ -1567,6 +1576,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 
 		return false;
+	}
+
+	private roundToTwoDecimal(num):string{
+		return "" + Math.floor(num.value*100) / 100;
 	}
 }
 
