@@ -1352,33 +1352,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 
 				switch((<any>this.gridOptions.columnDefs[columnNum]).field){
-					// Num values
 					case "cfgCode":
-					case "sodiumAmountPer100g":
-					case "sugarAmountPer100g":
-					case "transfatAmountPer100g":
-					case "satfatAmountPer100g":
-					case "totalFatAmountPer100g":
-					case "foodGuideServingG":
-					case "tier4ServingG":
-					//// String values	
-					//case "sodiumImputationReference":
-					//case "sugarImputationReference":
-					//case "transfatImputationReference":
-					case "foodGuideServingMeasure":
-					case "tier4ServingMeasure":
-					//case "satfatImputationReference":
-					//// boolean values
-					case "containsAddedSodium":
-					case "containsAddedSugar":
-					case "containsFreeSugars":
-					case "containsAddedFat":
-					case "containsAddedTransfat":
-					case "containsCaffeine":
-					case "containsSugarSubstitutes":
-					case "rolledUp":
-					case "marketedToKids":
-					case "overrideSmallRaAdjustment":
 						if(this.dataset.data[num][(<any>this.gridOptions.columnDefs[columnNum]).field].value == null){
 							console.log('Validation Failed: found null on field ' + (<any>this.gridOptions.columnDefs[columnNum]).field);
 							if(!this.validationFailed){
