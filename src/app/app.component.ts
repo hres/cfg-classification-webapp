@@ -28,6 +28,10 @@ export class AppComponent implements OnInit {
 			});
 		this.cfgModel.isCfgAdmin = this.keycloakService.hasRealmRole('cfg-admin');
 		this.cfgModel.isAnalyst = this.keycloakService.hasRealmRole('analyst');
+		
+		if(!this.authenticated()){
+			this.login();
+		}
 	}
 
 	authenticated(): boolean {
