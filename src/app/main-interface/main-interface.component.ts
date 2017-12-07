@@ -856,7 +856,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	ngAfterContentChecked(){
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
-			this.height = 68 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight + 20;
+			this.height = 67 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
 		}
 
 		if(this.gridPlaceHolder.nativeElement.clientHeight < this.height){
@@ -942,7 +942,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumValue(params:any):any{
-		return params.value ? params.value.value : null;
+		return params.value ? params.value.value.toString() : null;
 	}
 
 	getStringValue(param:any):any{
