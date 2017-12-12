@@ -6,7 +6,6 @@ import { MatTooltip } 				from '@angular/material';
 	selector: 'numeric-editor',
 	template: `<input #input matTooltip="Please enter only numeric characters 0-9."
 					(keypress)="onKeyPress($event)"
-					(blur)="onBlur($event)"
 					[(ngModel)]="value">
 				`
 })
@@ -61,10 +60,6 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 		}
 	}
 
-	onBlur(event):void{
-		this.params.stopEditing();
-	}
-
 	// dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
 	ngAfterViewInit() {
 		this.oldValue = this.value;
@@ -83,6 +78,6 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 	private isKeyPressedNumeric(event): boolean {
 		var charCode = this.getCharCodeFromEvent(event);
 		var charStr = String.fromCharCode(charCode);
-		return this.isCharNumeric(charStr) || charCode == 8;
+		return this.isCharNumeric(charStr) || charCode == 8 || charCode == 46;
 	}
 }
