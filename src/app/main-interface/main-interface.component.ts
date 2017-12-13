@@ -200,7 +200,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
-				editable: true,
+				editable: this.isEditableSugarPer100,
 				field: "sugarAmountPer100g",
 				width: 151
 			},
@@ -944,7 +944,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumValue(params:any):any{
-		return params.value ? params.value.value.toString() : null;
+		return params.value && params.value.value ? params.value.value.toString() : null;
 	}
 
 	getStringValue(param:any):any{
@@ -1556,6 +1556,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private roundToTwoDecimal(num):string{
 		return "" + Math.floor(num.value*100) / 100;
+	}
+
+	private isEditableSugarPer100(params:any):boolean{
+		return params.node.data.sugarAmountPer100g.value == undefined || params.node.data.sugarImputationReference.value != undefined;
 	}
 
 	private onCommitClick():void{

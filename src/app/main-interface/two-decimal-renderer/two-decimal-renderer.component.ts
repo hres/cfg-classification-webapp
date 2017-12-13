@@ -12,6 +12,7 @@ export class TwoDecimalRendererComponent implements ICellRendererAngularComp {
 
 	agInit(params:any):void {
 		this.params = params;
+		params.eGridCell.style.textAlign = 'right';
 	}
 
 	refresh(params:any):boolean{
