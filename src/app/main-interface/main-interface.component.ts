@@ -8,6 +8,7 @@ import { SaveService } from '../services/save.service';
 import { OpenService } from '../services/open.service';
 import { RulesetsService } from '../services/rulesets.service';
 import { ClassifyService } from '../services/classify.service';
+import { CommitService } from '../services/commit.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { SpinnerComponent }			from '../spinner-component/spinner.component';
@@ -30,7 +31,7 @@ import { FoodRecipeFilter }			from './custom-filters/food-recipe-filter/food-rec
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService, OpenService, ClassifyService, RulesetsService]
+	providers: [SaveService, OpenService, ClassifyService, RulesetsService, CommitService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -71,6 +72,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private saveService: SaveService,
 		private openService: OpenService,
 		private classifyService: ClassifyService,
+		private commitService: CommitService,
 		private rulesetsService: RulesetsService,
 		private dialog: MatDialog,
 		private route:ActivatedRoute,
@@ -1555,5 +1557,37 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private roundToTwoDecimal(num):string{
 		return "" + Math.floor(num.value*100) / 100;
 	}
-}
 
+	private onCommitClick():void{
+		let changedTierFoods = [];
+
+		for(let foodItem of this.dataset.data){
+			if (foodItem.classifiedCfgCode != foodItem.cfgCode.value){
+				changedTierFoods.push({	"code":foodItem.code,
+										"cfgCode": foodItem.classifiedCfgCode
+										});
+			}
+		}
+
+		this.commitService.commit(changedTierFoods, this.dataset.id).subscribe(
+			(res) => {
+				this.element.nativeElement.dispatchEvent(
+					new CustomEvent(
+						'popup',
+						{
+							detail: {
+								message: "CFG Classification database successfully updated.",
+								showOkButton: true
+							},
+							bubbles:true
+						}
+					)
+				);
+			},
+			(err) => {
+				console.log(err);
+			}
+		);
+
+	}
+}
