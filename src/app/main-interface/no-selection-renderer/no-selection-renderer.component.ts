@@ -25,7 +25,7 @@ export class NoSelectionRendererComponent implements ICellRendererAngularComp {
 		return false;
 	}
 
-	roundToTwo(something):any{
+	roundToTwo():any{
 		if(isNaN(this.params.value))
 			return this.params.value;
 		else
