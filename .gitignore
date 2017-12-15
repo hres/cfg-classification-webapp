@@ -8,3 +8,6 @@ tslint.json
 tsconfig.json
 protractor.conf.js
 src/tsconfig.spec.json
+src/npm-debug.log
+src/app/npm-debug.log
+src/environments/npm-debug.log
