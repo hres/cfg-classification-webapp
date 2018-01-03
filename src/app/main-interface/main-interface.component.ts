@@ -941,7 +941,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null||params.value.value=="")){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
-		else if(params.value != null && params.value.modified == true){
+		else if(params.node.data[params.column.colId].modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
 		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
 			return params.context.mainInterface.getExtendedCellStyle(params);
@@ -953,7 +953,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
-			return {backgroundColor: '#FFBFBC'};
+			return {backgroundColor: '#FFBFBC'};//light red
 		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
 			return params.context.mainInterface.getExtendedCellStyle(params);
 		}
