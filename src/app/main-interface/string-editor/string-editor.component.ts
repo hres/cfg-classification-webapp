@@ -4,7 +4,6 @@ import { ICellEditorAngularComp } from 'ag-grid-angular/main';
 @Component({
   selector: 'string-editor',
   template: `<input #input class="ag-cell-edit-input" type="text"
-					(blur)="onBlur($event)"
 					[(ngModel)]="valueObj.value"/>
 			`
 })
