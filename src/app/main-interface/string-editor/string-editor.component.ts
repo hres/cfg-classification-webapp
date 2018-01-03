@@ -1,41 +1,46 @@
-import { Component, ViewChild, ViewContainerRef  } from '@angular/core';
-import { AgEditorComponent } from 'ag-grid-angular/main'; 
+import { Component, ViewChild, ViewContainerRef, AfterViewInit  } from '@angular/core';
+import { ICellEditorAngularComp } from 'ag-grid-angular/main'; 
 
 @Component({
   selector: 'string-editor',
   template: `<input #input class="ag-cell-edit-input" type="text"
 					(blur)="onBlur($event)"
-					[(ngModel)]="value"/>`
+					[(ngModel)]="valueObj.value"/>
+			`
 })
 
-export class StringEditorComponent implements AgEditorComponent {
+export class StringEditorComponent implements ICellEditorAngularComp, AfterViewInit {
 	private params:any;
-	public value:string;
-	private oldValue:string;
+	public valueObj = {value:null, modified:false};
+	private oldValue:any;
+	private cancelBeforeStart: boolean = false;
 
 	@ViewChild('input', {read: ViewContainerRef})
 	public input;
 	
+	constructor(){}
+
 	agInit(params:any):void{
 		this.params = params;
-		this.value = this.params.value ? this.params.value.value:null;
+		this.valueObj = this.params.node.data[params.column.colId];
 	}
 
 	getValue():any{
-		if(this.value != this.oldValue){
-			this.params.value.value = this.value;
+		if(this.valueObj.value !== this.oldValue){
+			this.params.value = this.valueObj;
+			this.params.value.value = this.valueObj.value;
 			this.params.value.modified = true;
 		} 
 		
-		return this.params.value;
+		return this.valueObj;
 	}
 
 	ngAfterViewInit(){
-		this.oldValue = this.value;
+		this.oldValue = this.valueObj.value;
 		this.input.element.nativeElement.focus();
 	}
 
-	private onBlur(event):void{
-		this.params.stopEditing();
+	isCancelBeforeStart():boolean{
+		return this.cancelBeforeStart;
 	}
 }

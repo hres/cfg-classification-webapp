@@ -6,13 +6,13 @@ import { MatTooltip } 				from '@angular/material';
 	selector: 'numeric-editor',
 	template: `<input #input matTooltip="Please enter only numeric characters 0-9."
 					(keypress)="onKeyPress($event)"
-					[(ngModel)]="value">
+					[(ngModel)]="valueObj.value"/>
 				`
 })
 
 export class NumericEditorComponent implements ICellEditorAngularComp, AfterViewInit {
 	private params: any;
-	public value: number;
+	public valueObj = {value:null, modified:false};
 	private oldValue:number;
 	private cancelBeforeStart: boolean = false;
 
@@ -26,29 +26,34 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 
 	agInit(params: any): void {
 		this.params = params;
-		this.value = this.params.value.value;
+		this.valueObj = this.params.node.data[params.column.colId];
 		// only start edit if key pressed is a number, not a letter
 		// this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
 	}
 
 	getValue(): any {
-		if(this.value !== this.oldValue){
-			this.params.value.value = this.value.toString() == '' ? null : this.value * 1;
+		if(this.valueObj.value !== this.oldValue){
+			this.params.value = this.valueObj;
+			this.params.value.value = this.valueObj.value.toString() == '' ? null : this.valueObj.value * 1;
 			this.params.value.modified = true;
 		}
 	
-		return this.params.value;
+		return this.valueObj;
+	}
+
+	ngAfterViewInit() {
+		this.oldValue = this.valueObj.value;
+		this.input.element.nativeElement.focus();
 	}
 
 	isCancelBeforeStart(): boolean {
 		return this.cancelBeforeStart;
-
 	}
 
 	// will reject the number if it greater than 1,000,000
 	// not very practical, but demonstrates the method.
 	isCancelAfterEnd(): boolean {
-		return this.value > 1000000;
+		return this.valueObj.value > 1000000;
 	};
 
 	onKeyPress(event): void {
@@ -58,12 +63,6 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 
 			if (event.preventDefault) event.preventDefault();
 		}
-	}
-
-	// dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
-	ngAfterViewInit() {
-		this.oldValue = this.value;
-		this.input.element.nativeElement.focus();
 	}
 
 	private getCharCodeFromEvent(event): any {

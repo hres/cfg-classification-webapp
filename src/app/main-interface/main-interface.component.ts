@@ -149,6 +149,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				field: "cfgCode",
 				filter: "number",
+				valueGetter: this.getObjectValue,
 				width: 90
 			},
 			{
@@ -177,15 +178,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				field: "sodiumAmountPer100g",
 				filterFramework: MissingNumericFilter,
+				valueGetter: this.getObjectValue,
 				width: 127
 			},
 			{
 				headerName: "Sodium Imputation Reference",
+				editable: true,
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
 				field: "sodiumImputationReference",
+				valueGetter: this.getObjectValue,
 				width: 142
 			},
 			{
@@ -202,6 +205,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				editable: this.isEditableSugarPer100,
 				field: "sugarAmountPer100g",
+				valueGetter: this.getObjectValue,
 				width: 151
 			},
 			{
@@ -211,6 +215,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "sugarImputationReference",
+				valueGetter: this.getObjectValue,
 				width: 151
 			},
 			{
@@ -228,6 +233,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "transfatAmountPer100g",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width: 151
 			},
 			{
@@ -237,6 +243,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getStringCellStyle,
 				editable: true,
 				field: "transfatImputationReference",
+				valueGetter: this.getObjectValue,
 				width: 152
 			},
 
@@ -255,15 +262,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "satfatAmountPer100g",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width: 152
 			},
 			{
 				headerName: "SatFat Imputation Reference",
+				editable: true,
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
 				field: "satfatImputationReference",
+				valueGetter: this.getObjectValue,
 				width: 124
 			},
 			{
@@ -281,6 +290,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "totalFatAmountPer100g",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width: 100
 			},
 			{
@@ -433,6 +443,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "foodGuideServingG",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width: 150
 			},
 			{
@@ -442,6 +453,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
 				field: "foodGuideServingMeasure",
+				valueGetter: this.getObjectValue,
 				width: 150
 			},
 			{
@@ -459,6 +471,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getNumCellStyle,
 				field: "tier4ServingG",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width: 150
 			},
 			{
@@ -469,6 +482,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				editable: true,
 				field: "tier4ServingMeasure",
 				filterFramework: MissingStringFilter,
+				valueGetter: this.getObjectValue,
 				width: 150
 			},
 			{
@@ -517,21 +531,23 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Replacement Code",
+				editable: true,
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
-				editable: true,
 				field: "replacementCode",
 				filter: 'number',
+				valueGetter: this.getObjectValue,
 				width:118
 			},
 			{
 				headerName: "Comments",
+				editable: true,
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
 				field: "comments",
+				valueGetter: this.getObjectValue,
 				width: 200
 			},
 			///////////////////////
@@ -897,11 +913,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumCellStyle(params:any):any{
-		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
+		if(params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && params.value == null){
 			return {backgroundColor: '#FFFFCC'};//light yellow
-		}else if (params.context.validationMode && params.column.colId == 'cfgCode' && (params.value.value.toString().length < 3 || params.value.value.toString().length > 4)){
+		}else if (params.context.validationMode && params.column.colId == 'cfgCode' && (params.value.toString().length < 3 || params.value.toString().length > 4)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
-		}else if(params.value != null && params.value.modified == true){
+		}else if(params.node.data[params.column.colId].modified == true){
 			return {backgroundColor: '#FFBFBC'};//light red
 		}else if(params.context.mainInterface.isExtendedData(params.column.colId)){
 			return params.context.mainInterface.getExtendedCellStyle(params);
@@ -944,15 +960,15 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getNumValue(params:any):any{
-		return params.value && params.value.value ? params.value.value.toString() : null;
+		return params.value ? params.value.toString() : null;
 	}
 
-	getStringValue(param:any):any{
-		return param.value ? param.value.value : null;
+	getStringValue(params:any):any{
+		return params.value ? params.value.toString() : null;
 	}
 
-	getBooleanValue(param:any):any{
-		return param.value ? param.value.value: null;
+	getBooleanValue(params:any):any{
+		return params.value ? params.value.value: null;
 	}
 
 	getValueOnAbsoluteTrue(params:any):any{
@@ -1594,4 +1610,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		);
 
 	}
+
+	getObjectValue(params){
+		return params.data[params.column.colId].value;
+	}
+
 }

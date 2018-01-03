@@ -20,11 +20,10 @@ export class TwoDecimalRendererComponent implements ICellRendererAngularComp {
 	}
 
 	roundToTwo():any{
-		if(this.params.value==null || this.params.value.value == null)
+		if(this.params.value==null)
 			return null;
-		else if(this.params.value.value != undefined)
-			return  Math.floor(this.params.value.value*100)/100;
 		else
 			return Math.floor(this.params.value*100)/100;
 	}
+
 }
