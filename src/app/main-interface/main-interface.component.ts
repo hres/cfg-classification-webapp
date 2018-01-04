@@ -184,7 +184,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Sodium Imputation Reference",
-				editable: true,
+				editable: this.isEditableSodiumImputation,
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
@@ -214,7 +214,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
+				editable: this.isEditableSugarImputation,
 				field: "sugarImputationReference",
 				valueGetter: this.getObjectValue,
 				width: 151
@@ -242,7 +242,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
+				editable: this.isEditableTransfatImputation,
 				field: "transfatImputationReference",
 				valueGetter: this.getObjectValue,
 				width: 152
@@ -268,7 +268,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "SatFat Imputation Reference",
-				editable: true,
+				editable: this.isEditableSatfatImputation,
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
@@ -1579,16 +1579,32 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		return params.node.data.sodiumAmountPer100g.value == undefined || params.node.data.sodiumImputationReference.value != undefined;
 	}
 
+	private isEditableSodiumImputation(params:any):boolean{
+		return params.node.data.sodiumImputationReference.value != undefined;
+	}
+
 	private isEditableSugarPer100(params:any):boolean{
 		return params.node.data.sugarAmountPer100g.value == undefined || params.node.data.sugarImputationReference.value != undefined;
+	}
+
+	private isEditableSugarImputation(params:any):boolean{
+		return params.node.data.sugarImputationReference.value != undefined;
 	}
 
 	private isEditableTransfatPer100(params:any):boolean{
 		return params.node.data.transfatAmountPer100g.value == undefined || params.node.data.transfatImputationReference.value != undefined;
 	}
 
+	private isEditableTransfatImputation(params:any):boolean{
+		return params.node.data.transfatImputationReference.value != undefined;
+	}
+
 	private isEditableSatfatPer100(params:any):boolean{
 		return params.node.data.satfatAmountPer100g.value == undefined || params.node.data.satfatImputationReference.value != undefined;
+	}
+
+	private isEditableSatfatImputation(params:any):boolean{
+		return params.node.data.satfatImputationReference.value != undefined;
 	}
 
 	private onCommitClick():void{
