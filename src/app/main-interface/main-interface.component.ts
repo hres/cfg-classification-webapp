@@ -14,6 +14,7 @@ import { SaveViewComponent } from '../save-view/save-view.component';
 import { SpinnerComponent }			from '../spinner-component/spinner.component';
 import { ColumnVisibilityComponent }	from '../column-visibility/column-visibility.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+
 import { NumericEditorComponent } from './numeric-editor/numeric-editor.component';
 import { BooleanEditorComponent } from './boolean-editor/boolean-editor.component';
 import { BooleanRendererComponent } from './boolean-renderer/boolean-renderer.component';
@@ -175,7 +176,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
-				editable: true,
+				editable: this.isEditableSodiumPer100,
 				field: "sodiumAmountPer100g",
 				filterFramework: MissingNumericFilter,
 				valueGetter: this.getObjectValue,
@@ -227,7 +228,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "TransFat (g/100g)",
-				editable: true,
+				editable: this.isEditableTransfatPer100,
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -256,7 +257,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "SatFat (g/100g)",
-				editable: true,
+				editable: this.isEditableSatfatPer100,
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -1574,8 +1575,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		return "" + Math.floor(num.value*100) / 100;
 	}
 
+	private isEditableSodiumPer100(params:any):boolean{
+		return params.node.data.sodiumAmountPer100g.value == undefined || params.node.data.sodiumImputationReference.value != undefined;
+	}
+
 	private isEditableSugarPer100(params:any):boolean{
 		return params.node.data.sugarAmountPer100g.value == undefined || params.node.data.sugarImputationReference.value != undefined;
+	}
+
+	private isEditableTransfatPer100(params:any):boolean{
+		return params.node.data.transfatAmountPer100g.value == undefined || params.node.data.transfatImputationReference.value != undefined;
+	}
+
+	private isEditableSatfatPer100(params:any):boolean{
+		return params.node.data.satfatAmountPer100g.value == undefined || params.node.data.satfatImputationReference.value != undefined;
 	}
 
 	private onCommitClick():void{
