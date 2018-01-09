@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 form-group" style="margin-right:0;">
+			<div class="col-md-1 form-group" style="margin-right:0;">
 				<label for="dataSourceCmb">Data Source</label>
 				<select class="form-control" id="dataSourceCmb"
 							   [(ngModel)]="cfgRequest.source"
@@ -18,13 +18,14 @@
 					<option *ngFor="let source of dataSource" [ngValue]="source.id">{{source.name}}</option>
 				</select>
 			</div>
-			<div class="form-group col-md-4">
+			<div class="form-group col-md-3">
 				<label for="name">Food/Recipe Name</label>
 				<input type="text" class="form-control" id="name"
 											 [(ngModel)]="cfgRequest.name"
 											 name="name"
 											#name="ngModel"
-											#spy>
+											style="width:300px"
+											>
 				<div [hidden]="name.valid || name.pristine"	class="alert alert-danger">
 						Name is required
 				</div>
@@ -33,34 +34,30 @@
 				<label for="code">Food/Recipe Code</label>
 				<input type="text" class="form-control" name="code" [(ngModel)]="cfgRequest.code">
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6 form-inline form-group" style="margin-right:0;">
+			<div class="col-md-4 form-inline form-group" style="margin-right:0;">
 				<label for="commitDateBegin">Commit Date<span class="datepicker-format">(<abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span></label>
 				<div>
 					<input class="form-control" type="date" id="commitDateBegin" name="commitDateBegin" [(ngModel)]="cfgRequest.commitDateBegin"> - 
 					<input class="form-control" type="date" name="commitDateEnd" [(ngModel)]="cfgRequest.commitDateEnd">
 				</div>
 			</div>
-			<div class="col-md-2 form-group">
-			</div>
-			<div class="col-md-4 form-group">
-				<label class="control-label" for="cnfCode">CNF Group Code:</label>
-				<input id="cnfCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
-			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-4 form-group" style="margin-right:0;"> 	
-				<label for="subCode">Sub Group Code</label>
-				<input class="form-control" type="text" id="subCode" style="width: 60px" name="subGroupCode" [(ngModel)]="cfgRequest.subGroupCode">
-			</div>
-			<div class="col-md-4 form-vertical form-group">
+			<div class="col-md-1 form-vertical form-group">
 				<label class="control-label" for="tierCmb">CFG Tier:</label>
 				<select class="form-control" id="tierCmb"
 							  [(ngModel)]="cfgRequest.cfgTier"
 							  name="cfgTier">
 					<option *ngFor="let tier of cfgTiers" [ngValue]="tier.id">{{tier.name}}</option>
 				</select>
+			</div>
+			<div class="col-md-3 form-group">
+				<label class="control-label" for="cnfCode">CNF Group Code:</label>
+				<input id="cnfCode" type="text" class="form-control" style="width: 100px" [(ngModel)]="cfgRequest.cnfCode" name="cnfCode">
+			</div>
+			<div class="col-md-4 form-group" style="margin-right:0;"> 	
+				<label for="subCode">Sub Group Code</label>
+				<input class="form-control" type="text" id="subCode" style="width: 60px" name="subGroupCode" [(ngModel)]="cfgRequest.subGroupCode">
 			</div>
 			<div [hidden]="cfgRequest.source==1" class="col-md-4 form-group">
 				<label class="control-label" for="rollUpDownCmb">Recipe:</label>
@@ -72,7 +69,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group form-vertical col-md-4" style="margin-right:0;">
+			<div class="form-group form-vertical col-md-2" style="margin-right:0;margin-bottom:0">
 				<label>Contains Added</label>
 				<fieldset class="well">
 					<div class="container form-group form-horizontal" style="width: 100%">
@@ -133,7 +130,7 @@
 					</div>
 				</fieldset>
 			</div>
-			<div class="form-group form-vertical col-md-8">
+			<div class="form-group form-vertical col-md-4">
 				<label class="control-label">Missing Values</label>
 				<div class="well form-horizontal" style="overflow:hidden">
 					<div class="col-md-4 form-group">
@@ -165,18 +162,12 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="form-group col-md-4" style="margin-right:0;">
-				<label for="comment">Comments:</label>
-				<textarea id="comment" class="form-control" style="width:100%;height:195px;" name="comments" [(ngModel)]="cfgRequest.comments"></textarea>
-			</div>
-			<div class="form-group col-md-8">
-				<fieldset class="well">
-					<div>
-						<label class="control-label">Last Updated Date</label>
-						<input class="form-control" style="float:right;" type="date" name="lastUpdateDateBegin" [(ngModel)]="cfgRequest.lastUpdateDateBegin">
-						<input class="form-control" style="float:right;" type="date" name="lastUpdateDateEnd" [(ngModel)]="cfgRequest.lastUpdateDateEnd">
+			<div class="form-group col-md-6">
+				<label class="control-label">Last Updated Date</label>
+				<fieldset class="well" style="padding-top:0px">
+					<div class="row" style="display:inline-flex">
+						<input class="form-control" type="date" name="lastUpdateDateBegin" [(ngModel)]="cfgRequest.lastUpdateDateBegin"> - 
+						<input class="form-control" type="date" name="lastUpdateDateEnd" [(ngModel)]="cfgRequest.lastUpdateDateEnd">
 					</div>
 					<div>
 						<div class="form-vertical col-md-4">
@@ -203,8 +194,14 @@
 					</div>
 				</fieldset>	
 			</div>
-		</div>
 
+		</div>
+		<div class="row">
+			<div class="form-group col-md-4" style="margin-right:0;">
+				<label for="comment">Comments:</label>
+				<textarea id="comment" class="form-control" style="width:100%;height:100px;" name="comments" [(ngModel)]="cfgRequest.comments"></textarea>
+			</div>
+		</div>
 	</form>
 </div>
 
