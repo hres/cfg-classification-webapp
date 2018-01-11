@@ -27,6 +27,7 @@ import { MissingNumericFilter } from './missing-numeric-filter/missing-numeric-f
 import { MissingStringFilter }		from './missing-string-filter/missing-string-filter.component';
 import { MissingBooleanFilter }		from './missing-boolean-filter/missing-boolean-filter.component';
 import { FoodRecipeFilter }			from './custom-filters/food-recipe-filter/food-recipe-filter.component';
+import * as moment 			from 'moment';
 
 @Component({
 	selector: 'app-main-interface',
@@ -157,6 +158,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				headerName: "CFG Code Last Update",
 				field: "cfgCodeUpdateDate",
 				hide: true,
+				valueFormatter: this.getDate,
 				width: 120
 			},
 			//////////////////////////
@@ -197,6 +199,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "sodiumImputationDate",
 				hide: true,
+				valueFormatter: this.getDate,
 				width: 150
 			},
 			{
@@ -224,6 +227,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "sugarImputationDate",
 				hide: true,
+				valueFormatter: this.getDate,
 				width: 156
 			},
 			{
@@ -253,6 +257,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "transfatImputationDate",
 				hide: true,
+				valueFormatter: this.getDate,
 				width: 151
 			},
 			{
@@ -281,10 +286,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "satfatImputationDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 100
 			},
 			{
-				headerName: "TotalFat (g/100g)",
+				headerName: "Total Fat (g/100g)",
 				editable: !this.isReadOnlyUser(),
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
@@ -294,6 +300,24 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width: 100
 			},
+			//{
+				//headerName: "Total Fat Imputation Reference",
+				//editable: this.isEditableTotalfatImputation,
+				//cellRenderer: this.getStringValue,
+				//cellEditorFramework: StringEditorComponent,
+				//cellStyle: this.getStringCellStyle,
+				//field: "totalfatImputationReference",
+				//valueGetter: this.getObjectValue,
+				//width: 124
+			//},
+			//{
+				//headerName: "Total Fat Imputation Last Update",
+				//cellStyle: this.getExtendedCellStyle,
+				//field: "totalfatImputationDate",
+				//hide: true,	
+				//valueFormatter: this.getDate,
+				//width: 100
+			//},
 			{
 				headerName: "Contains Added Sodium",
 				editable: !this.isReadOnlyUser(),
@@ -309,6 +333,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedSodiumUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 170
 			},
 			{
@@ -326,6 +351,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedSugarUdpateDate",
 				hide: true,
+				valueFormatter: this.getDate,
 				width: 165
 			},
 			{
@@ -343,6 +369,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsFreeSugarsUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 165
 			},
 			{
@@ -360,6 +387,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedFatUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 165
 			},
 			{
@@ -377,6 +405,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsAddedTransfatUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 180
 			},
 			{
@@ -394,6 +423,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsCaffeineUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 150
 			},
 			{
@@ -411,6 +441,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "containsSugarSubstituteUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 100
 			},
 			{
@@ -434,6 +465,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "referenceAmountUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 100
 			},
 			{
@@ -462,6 +494,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "foodGuideUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 150
 			},
 			{
@@ -491,6 +524,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "tier4ServingUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 150
 			},
 			{
@@ -508,6 +542,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellStyle: this.getExtendedCellStyle,
 				field: "rolledUpUpdateDate",
 				hide: true,	
+				valueFormatter: this.getDate,
 				width: 150
 			},
 			{
@@ -520,6 +555,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				filterFramework: MissingBooleanFilter,
 				width: 150
 			},
+			//{
+				//headerName: "Override Small RA Adj Last Update Date",
+				//cellStyle: this.getExtendedCellStyle,
+				//field: "overrideSmallRaAdjustmentUpdateDate",
+				//hide: true,	
+				//valueFormatter: this.getDate,
+				//width: 150
+			//},
 			{
 				headerName: "Toddler Item",
 				cellEditorFramework: BooleanEditorComponent,
@@ -530,6 +573,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				filterFramework: MissingBooleanFilter,
 				width: 118
 			},
+			//{
+				//headerName: "Toddler Item Last Update Date",
+				//cellStyle: this.getExtendedCellStyle,
+				//field: "marketedToKidsUpdateDate",
+				//hide: true,	
+				//valueFormatter: this.getDate,
+				//width: 150
+			//},
 			{
 				headerName: "Replacement Code",
 				editable: !this.isReadOnlyUser(),
@@ -541,6 +592,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width:118
 			},
+			//{
+				//headerName: "Replacement Code Last Update Date",
+				//cellStyle: this.getExtendedCellStyle,
+				//field: "replacementCodeUpdateDate",
+				//hide: true,	
+				//valueFormatter: this.getDate,
+				//width: 150
+			//},
 			{
 				headerName: "Comments",
 				editable: !this.isReadOnlyUser(),
@@ -551,6 +610,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width: 200
 			},
+			//{
+				//headerName: "Comments Last Update Date",
+				//cellStyle: this.getExtendedCellStyle,
+				//field: "commentsUpdateDate",
+				//hide: true,	
+				//valueFormatter: this.getDate,
+				//width: 150
+			//},
 			///////////////////////
 			// STEP 1 RA Adjustments
 			////////////////////////
@@ -1365,7 +1432,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		for (let columnNum in this.gridOptions.columnDefs){
 			for (let num=0;num<this.dataset.data.length;num++){
-				// totalfatAmountPer100g
 				if(columnNum=="0"){
 					this.dataset.data[num].missingData = false;
 				}
@@ -1676,4 +1742,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		return params.data[params.column.colId].value;
 	}
 
+	getDate(params){
+		if (params.value == null)
+			return null;
+		else
+			return moment(params.value).format('LL')
+	}
 }
