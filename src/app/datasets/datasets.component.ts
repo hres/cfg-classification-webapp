@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { OwnerFilter } 		from './custom-filters/owner-filter/owner-filter.component';
 import { OwnerEditor  } 	from './custom-editors/owner-editor/owner-editor.component';
 import { StatusFilter } 	from './custom-filters/status-filter/status-filter.component';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-datasets',
@@ -80,6 +81,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Last Update Date",
 				field: "modifiedDate",
+				valueFormatter: this.getDate,
 				width: 250
 			},
 			{
@@ -235,5 +237,12 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				}
 			}
 		);
+	}
+
+	private getDate(params){
+		if(params.value == null)
+			return null;
+		else
+			return moment(params.value).format('LL');
 	}
 }
