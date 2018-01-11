@@ -147,7 +147,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "cfgCode",
 				filter: "number",
 				valueGetter: this.getObjectValue,
@@ -285,7 +285,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "TotalFat (g/100g)",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -296,7 +296,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sodium",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
@@ -313,7 +313,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Sugar",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
@@ -330,7 +330,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Free Sugars",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
@@ -347,7 +347,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains Added Fat",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
@@ -364,7 +364,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Contains TransFat",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
@@ -384,7 +384,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "containsCaffeine",
 				filterFramework: MissingBooleanFilter, 
 				width: 128
@@ -401,7 +401,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "containsSugarSubstitutes",
 				filterFramework: MissingBooleanFilter, 
 				width: 116
@@ -438,7 +438,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Food Guide Serving (g)",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -449,7 +449,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Food Guide Serving (measure)",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
@@ -466,7 +466,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Tier 4 Serving (g)",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -480,7 +480,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "tier4ServingMeasure",
 				filterFramework: MissingStringFilter,
 				valueGetter: this.getObjectValue,
@@ -498,7 +498,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "rolledUp",
 				filterFramework: MissingBooleanFilter,
 				width: 150
@@ -515,7 +515,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field: "overrideSmallRaAdjustment",
 				filterFramework: MissingBooleanFilter,
 				width: 150
@@ -525,14 +525,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				cellEditorFramework: BooleanEditorComponent,
 				cellRendererFramework: BooleanRendererComponent,
 				cellStyle: this.getBooleanCellStyle,
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				field:"marketedToKids",
 				filterFramework: MissingBooleanFilter,
 				width: 118
 			},
 			{
 				headerName: "Replacement Code",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRenderer: this.getNumValue,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -543,7 +543,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Comments",
-				editable: true,
+				editable: !this.isReadOnlyUser(),
 				cellRenderer: this.getStringValue,
 				cellEditorFramework: StringEditorComponent,
 				cellStyle: this.getStringCellStyle,
@@ -1576,34 +1576,66 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private isEditableSodiumPer100(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.sodiumAmountPer100g.value == undefined || params.node.data.sodiumImputationReference.value != undefined;
 	}
 
 	private isEditableSodiumImputation(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.sodiumImputationReference.value != undefined;
 	}
 
 	private isEditableSugarPer100(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.sugarAmountPer100g.value == undefined || params.node.data.sugarImputationReference.value != undefined;
 	}
 
 	private isEditableSugarImputation(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.sugarImputationReference.value != undefined;
 	}
 
 	private isEditableTransfatPer100(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.transfatAmountPer100g.value == undefined || params.node.data.transfatImputationReference.value != undefined;
 	}
 
 	private isEditableTransfatImputation(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.transfatImputationReference.value != undefined;
 	}
 
 	private isEditableSatfatPer100(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.satfatAmountPer100g.value == undefined || params.node.data.satfatImputationReference.value != undefined;
 	}
 
 	private isEditableSatfatImputation(params:any):boolean{
+		if(this.isReadOnlyUser()){
+			return false;
+		}
+
 		return params.node.data.satfatImputationReference.value != undefined;
 	}
 
