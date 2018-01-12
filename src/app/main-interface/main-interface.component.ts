@@ -967,7 +967,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private isNonMandatoryEditable(field:string):boolean{
-		return ['replacementCode','comments'].indexOf(field) > -1;
+		return ['sodiumAmountPer100g','sodiumImputationReference','sugarAmountPer100g','sugarImputationReference','transfatAmountPer100g',
+				'transfatImputationReference','satfatAmountPer100g','satfatImputationReference','totalFatAmountPer100g','totalfatImputationReference',
+				'containsAddedSodium','containsAddedSugar','containsFreeSugars','containsAddedFat','containsAddedTransfat','containsCaffeine',
+				'containsSugarSubstitutes','foodGuideServingG','foodGuideServingMeasure','tier4ServingG','tier4ServingMeasure','rolledUp',
+				'overrideSmallRaAdjustment','marketedToKids','replacementCode','comments'].indexOf(field) > -1;
 	}
 
 	getNumCellStyle(params:any):any{
@@ -1007,7 +1011,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getBooleanCellStyle(params:any):any{
-		if (params.context.validationMode && (params.value==null||params.value.value==null)){
+		if (params.context.validationMode && !params.context.mainInterface.isNonMandatoryEditable(params.colDef.field) && (params.value==null||params.value.value==null)){
 			return {backgroundColor: '#FFFFCC'};//light yellow
 		}
 		else if(params.value != null && params.value.modified == true){
@@ -1039,6 +1043,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	onSubmitClick(){
 		if(this.dataset.name == null){
+			console.log("is this still happening?, seems like this shouldn't be possible anymore with the save button.");
 			this.callbackSubmit=true;
 			this.onSaveClick();
 			return;
@@ -1097,6 +1102,29 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onValidateClick(){
+		this.validateData();
+		this.validationMode = true;
+		this.gridOptions.context.validationMode = true;
+		this.gridOptions.api.redrawRows();
+
+		if(this.validationFailed){
+			this.element.nativeElement.dispatchEvent(
+				new CustomEvent('popup', {
+					detail:{
+						message:"Validation failed, please verify all amber field values.",
+						showOkButton: true
+					},
+					bubbles:true
+				}
+				)
+			);
+			this.showMissingDiv.nativeElement.style.display = "none";
+			this.showAllDiv.nativeElement.style.display = "inline";
+			this.gridOptions.api.onFilterChanged();
+
+			return;
+		}
+
 		this.clearModifiedFlags();
 		this.validationMode = false;
 		this.gridOptions.context.validationMode = false;
@@ -1455,11 +1483,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}		
 
-		if(this.validationFailed){
-			return;
+		if(!this.validationFailed){
+			this.dataset.status = "Pending Validation";
 		}
-
-		this.dataset.status = "Pending Validation";
 	}
 
 	/*
@@ -1556,7 +1582,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private isExternalFilterPresent(){
 		if((<any>this).context.mainInterface.showAllDiv.nativeElement.style.display=="none"){
 			return false;
-		}else if ((<any>this).context.mainInterface.dataset.status == 'Review'){
+		}else if ((<any>this).context.mainInterface.dataset.status == 'Review' ||
+					(<any>this).context.mainInterface.dataset.status == 'Pending Validation')){
 			return true;
 		}else if ((<any>this).context.mainInterface.dataset.status != 'In Progress'){
 			return false;
@@ -1578,7 +1605,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		if(this.dataset.status == 'Review'){
 			this.showInReviewDiv.nativeElement.style.display='inline';
-		}else if (this.dataset.status == 'In Progress'){
+		}else if (this.dataset.status == 'In Progress' || this.dataset.status == 'Pending Validation'){
 			this.showMissingDiv.nativeElement.style.display='inline';
 		}else{
 			console.log('No operation coded here...');
