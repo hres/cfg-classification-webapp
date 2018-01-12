@@ -54,7 +54,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	height=200;
-	private datasetId:string;
 	private validationMode:boolean = false;
 	private	dataset:any = {"name":null,status:''};
 	private btnBarState={
@@ -800,18 +799,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngOnInit() {
-		//if (!this.cfgModel.isCfgAdmin && !this.cfgModel.isAnalyst){ // is a read only user
-		//gridOptions.fu
-		//}
-
 		this.route.params.subscribe(params =>{
-			this.datasetId = params['id'];
-
-			//todo fix this properly
-			//if(this.datasetId == 'prod' || this.datasetId == 'sandbox'){
-				//this.env = this.datasetId;
-				//this.datasetId = undefined;
-			//}
+			if(params['id'] != undefined)
+				this.cfgModel.datasetId = params['id'];
 		})
 
 		this.rulesetsService.getRulesets().subscribe(
@@ -827,8 +817,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		)
 
-		if(this.datasetId != undefined){
-			this.openService.open(this.datasetId).subscribe(
+		if(this.cfgModel.datasetId != undefined){
+			this.openService.open(this.cfgModel.datasetId).subscribe(
 				(res) => {
 					this.setDataset(res);
 				},
