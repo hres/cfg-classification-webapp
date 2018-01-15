@@ -1583,7 +1583,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if((<any>this).context.mainInterface.showAllDiv.nativeElement.style.display=="none"){
 			return false;
 		}else if ((<any>this).context.mainInterface.dataset.status == 'Review' ||
-					(<any>this).context.mainInterface.dataset.status == 'Pending Validation')){
+					(<any>this).context.mainInterface.dataset.status == 'Pending Validation'){
 			return true;
 		}else if ((<any>this).context.mainInterface.dataset.status != 'In Progress'){
 			return false;
