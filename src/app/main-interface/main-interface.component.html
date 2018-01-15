@@ -25,7 +25,7 @@
 			<div *ngIf="dataset!=undefined && dataset.status=='In Progress' && dataset.owner==cfgModel.userFullName" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Review' && dataset.owner==cfgModel.userFullName" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && dataset.status=='Review' && (dataset.owner==cfgModel.userFullName || cfgModel.isCfgAdmin)" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSubmitClick()">Resubmit</button>
 			</div>
 
