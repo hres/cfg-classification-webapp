@@ -29,6 +29,7 @@ export class StringEditorComponent implements ICellEditorAngularComp, AfterViewI
 			this.params.value = this.valueObj;
 			this.params.value.value = this.valueObj.value;
 			this.params.value.modified = true;
+			this.params.context.mainInterface.modified = true;
 		} 
 		
 		return this.valueObj;

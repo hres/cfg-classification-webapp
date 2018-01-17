@@ -30,6 +30,7 @@ export class BooleanEditorComponent implements ICellEditorAngularComp {
 		if(this.value != this.oldValue){
 			this.params.value.value = this.value;
 			this.params.value.modified = true;
+			this.params.context.mainInterface.modified = true;
 		}
 
 		return this.params.value;

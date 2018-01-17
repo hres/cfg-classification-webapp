@@ -68,6 +68,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private selectedRuleset: any;
 	private	rulesets;
+	modified:boolean=false;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
@@ -900,6 +901,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		this.saveService.save(datasetToSave).subscribe(
 			(res) => {
+				this.modified = false;
+
 				//if first time save, assign id
 				if(this.dataset.id == undefined){
 					this.dataset.id = res.id;

@@ -36,6 +36,7 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 			this.params.value = this.valueObj;
 			this.params.value.value = this.valueObj.value.toString() == '' ? null : this.valueObj.value * 1;
 			this.params.value.modified = true;
+			this.params.context.mainInterface.modified = true;
 		}
 	
 		return this.valueObj;

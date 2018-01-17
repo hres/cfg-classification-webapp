@@ -19,27 +19,27 @@
 			</span>
 		</div>
 		<div *ngIf="!isReadOnlyUser()">
-			<div *ngIf="dataset!=undefined && dataset.status=='New'" class="col-md-8 right" style="text-align:right">
-				<button class="btn btn-primary" (click)="onSaveClick()">Save</button>
+			<div *ngIf="dataset!=undefined && (dataset.status=='New' || modified == true)" class="col-md-8 right" style="text-align:right">
+				<button class="btn btn-primary" (click)="onSaveClick(true)">Save</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='In Progress' && dataset.owner==cfgModel.userFullName" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='In Progress' && dataset.owner==cfgModel.userFullName" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Review' && (dataset.owner==cfgModel.userFullName || cfgModel.isCfgAdmin)" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Review' && (dataset.owner==cfgModel.userFullName || cfgModel.isCfgAdmin)" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSubmitClick()">Resubmit</button>
 			</div>
 
-			<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Pending Validation' && readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onValidateClick()">Validate</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Pending Validation' && !readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Pending Validation' && !readyToValidate && cfgModel.isCfgAdmin" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Validated' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 				<button *ngIf="readyToValidate" class="btn btn-primary" (click)="onClassifyClick()">Classify</button>
 				<button *ngIf="cfgModel.isCfgAdmin" class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 			</div>
-			<div *ngIf="dataset!=undefined && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
+			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
 				<button *ngIf="cfgModel.isCfgAdmin"class="btn btn-primary" (click)="onCommitClick()">Commit</button>
 				<button class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 			</div>
