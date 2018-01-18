@@ -888,7 +888,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	saveDataset(userSave:boolean = false){
+	saveDataset(userSave:boolean = false, route:string = null){
 		//ToDo
 		//if(status) this.dataset.status = status;
 
@@ -926,6 +926,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				if(this.callbackSubmit){
 					this.callbackSubmit = false;
 					this.onSubmitClick();
+				}else if (route != null){
+					this.router.navigate([route]);
 				}
 			},
 			(err) => {
@@ -1056,7 +1058,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.validationMode = true;
 		this.gridOptions.context.validationMode = true;
 		this.gridOptions.api.redrawRows();
-		this.saveDataset();
 
 		if(this.validationFailed){
 			this.element.nativeElement.dispatchEvent(
@@ -1083,7 +1084,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 				)
 			);
-			this.router.navigate(['/datasets']);
+			this.saveDataset(false, '/datasets');
 		}
 	}
 
@@ -1202,8 +1203,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 
 		this.dataset.status="Review";
-		this.saveDataset();
-		this.router.navigate(['/datasets']);
+		this.saveDataset(false, '/datasets');
 	}
 
 	onExportClick(){
