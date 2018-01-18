@@ -1762,6 +1762,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 						}
 					)
 				);
+				this.router.navigate(['/datasets']);
 			},
 			(err) => {
 				console.log(err);
