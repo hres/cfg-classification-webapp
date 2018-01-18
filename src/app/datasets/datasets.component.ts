@@ -24,7 +24,10 @@ import * as moment from 'moment';
 
 export class DatasetsComponent implements OnInit, AfterContentChecked {
 	@ViewChild('agGrid')
-	agGrid;
+	agGrid:any;
+	
+	@ViewChild('gridPlaceHolder')
+	gridPlaceHolder:any;
 	
 	private gridOptions: GridOptions;
 	gridData: Dataset[];
@@ -136,7 +139,10 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			// the 110 below is hardcoded for now, it is the header height + the element padding-top
 			this.height = 110 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
-			this.gridOptions.api.sizeColumnsToFit();
+		}
+
+		if(this.gridPlaceHolder.nativeElement.clientHeight < this.height){
+			this.height = this.gridPlaceHolder.nativeElement.clientHeight;
 		}
 	}
 
