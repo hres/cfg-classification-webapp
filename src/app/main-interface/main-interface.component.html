@@ -21,6 +21,7 @@
 		<div *ngIf="!isReadOnlyUser()">
 			<div *ngIf="dataset!=undefined && (dataset.status=='New' || modified == true)" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSaveClick(true)">Save</button>
+				<button *ngIf="dataset!=undefined && modified == true && dataset.status=='Validated'" class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 			</div>
 			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='In Progress' && dataset.owner==cfgModel.userFullName" class="col-md-8 right" style="text-align:right">
 				<button class="btn btn-primary" (click)="onSubmitClick()">Submit</button>
@@ -40,7 +41,7 @@
 				<button *ngIf="cfgModel.isCfgAdmin" class="btn btn-warning" (click)="onSendForReviewClick()">Send for Review</button>
 			</div>
 			<div *ngIf="dataset!=undefined && modified == false && dataset.status=='Classified' && cfgModel.sandboxMode==false" class="col-md-8 right" style="text-align:right">
-				<button *ngIf="cfgModel.isCfgAdmin"class="btn btn-primary" (click)="onCommitClick()">Commit</button>
+				<button *ngIf="cfgModel.isCfgAdmin" class="btn btn-primary" (click)="onCommitClick()">Commit</button>
 				<button class="btn btn-warning" (click)="onUndoClick()">Undo</button>
 			</div>
 		</div>

@@ -1178,19 +1178,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onUndoClick(){
-		if(this.dataset.status=="Validated"){
-			this.openService.open(this.cfgModel.datasetId).subscribe(
-				(res) => {
-					this.setDataset(res);
-				},
-				(err) => {
-					console.log(err);
-				}
-			)
-		}else{
+		if(this.dataset.status=="Classified"){
 			this.dataset.status="Validated";
 			this.resetColumnVisibility();
 		}
+
+		this.openService.open(this.cfgModel.datasetId).subscribe(
+			(res) => {
+				this.setDataset(res);
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
 	}
 
 	onSendForReviewClick(){
