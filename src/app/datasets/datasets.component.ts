@@ -127,6 +127,7 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		let body = document.getElementsByTagName('body')[0];
 		body.setAttribute("style","background-color:#d9edf7");//light blue
 		this.cfgModel.sandboxMode = false;
+		this.cfgModel.datasetId = undefined;
 
 		this.getDatasets();
 	}
