@@ -1738,6 +1738,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private onCommitClick():void{
+		this.onValidateClick();
+		if(this.validationFailed){
+			return;
+		}
+
 		let changedTierFoods = [];
 
 		for(let foodItem of this.dataset.data){
