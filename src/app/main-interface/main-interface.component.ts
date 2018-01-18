@@ -845,6 +845,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private	setDataset(dataset:any){
+		this.modified = false;
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
 		
@@ -1177,8 +1178,19 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	onUndoClick(){
-		this.dataset.status="Validated";
-		this.resetColumnVisibility();
+		if(this.dataset.status=="Validated"){
+			this.openService.open(this.cfgModel.datasetId).subscribe(
+				(res) => {
+					this.setDataset(res);
+				},
+				(err) => {
+					console.log(err);
+				}
+			)
+		}else{
+			this.dataset.status="Validated";
+			this.resetColumnVisibility();
+		}
 	}
 
 	onSendForReviewClick(){
