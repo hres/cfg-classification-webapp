@@ -55,7 +55,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	height=200;
 	private validationMode:boolean = false;
-	private	dataset:any = {"name":null,status:''};
+	private	dataset:any = {"name":null,status:'New'};
 	private btnBarState={
 		"showBase":false,
 		"showRa":false,
@@ -836,7 +836,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.queryService.search().subscribe(
 			(res) => {
 				this.dataset.data = res;
-				this.dataset.status = "New";
 				this.setDataset(this.dataset);
 			},
 			(err) =>{
@@ -1674,7 +1673,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private isReadOnly():boolean{
 		if(this.isReadOnlyUser()){
 			return true;
-		}else if(this.cfgModel.isAnalyst && (this.dataset.status != 'In Progress' || this.dataset.status != 'Review')){
+		}else if(this.cfgModel.isAnalyst && !(this.dataset.status == "New" || this.dataset.status == 'In Progress' || this.dataset.status == 'Review')){
 			return true;
 		}
 
