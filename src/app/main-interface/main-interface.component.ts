@@ -68,7 +68,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private selectedRuleset: any;
 	private	rulesets;
-	modified:boolean=false;
+	private modified:boolean=false;
+	private isSearchResult:boolean=false;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
@@ -828,6 +829,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			)
 		}else{
+			this.isSearchResult = true;
 			this.search();
 		}	
 	}
@@ -1270,12 +1272,16 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				bubbles:true
 			}));
 		}else{
-			this.router.navigate(['/datasets']);
+			this.exitConfirmed();
 		}
 	}
 
 	private exitConfirmed = () => {
-		this.router.navigate(['/datasets']);
+		if(this.isSearchResult){
+			this.router.navigate(['/query']);
+		}else{
+			this.router.navigate(['/datasets']);
+		}
 	}
 
 	resetColumnVisibility(){
