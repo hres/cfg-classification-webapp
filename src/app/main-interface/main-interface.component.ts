@@ -1259,6 +1259,25 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.refreshView();
 	}
 
+	onBackArrowClick(){
+		if(this.modified){
+			this.element.nativeElement.dispatchEvent(new CustomEvent('popup', {
+				detail:{message: "Are you sure you want to exit without saving?",
+						showYesButton: true,
+						showNoButton: true,
+						callback: this.exitConfirmed
+				},
+				bubbles:true
+			}));
+		}else{
+			this.router.navigate(['/datasets']);
+		}
+	}
+
+	private exitConfirmed = () => {
+		this.router.navigate(['/datasets']);
+	}
+
 	resetColumnVisibility(){
 		for (let columnNum in this.gridOptions.columnDefs){
 			if(["name","type","code","cfgCode","energyKcal","sodiumAmountPer100g","sodiumImputationReference","sugarAmountPer100g","sugarImputationReference","transfatAmountPer100g","transfatImputationReference","satfatAmountPer100g","satfatImputationReference","totalFatAmountPer100g","containsAddedSodium","containsAddedSugar","containsFreeSugars","containsAddedFat","containsAddedTransfat","containsCaffeine","containsSugarSubstitutes","referenceAmountG","referenceAmountMeasure","foodGuideServingG","foodGuideServingMeasure","tier4ServingG","tier4ServingMeasure","rolledUp","overrideSmallRaAdjustment","marketedToKids","replacementCode","comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
