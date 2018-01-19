@@ -79,6 +79,7 @@
 		<ag-grid-angular #agGrid style="width: 100%; height: 100%;" class="ag-fresh"
 															  [gridOptions]="gridOptions"
 															  (rowSelected)="onRowSelected($event)"
+															  (userRowSelected)="onUserRowSelected(event)"
 															  (modelUpdated)="setRowCount()"
 															  >
 		</ag-grid-angular>

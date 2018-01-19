@@ -100,12 +100,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.columnDefs=[
 			{
 				headerName: '',
+				checkboxSelection: true,
 				field: "selection",
 				headerCheckboxSelection: true,
 				headerCheckboxSelectionFilteredOnly: true,
 				hide: true,
 				pinned: "left",
-				checkboxSelection: true,
 				suppressSorting: true,
 				suppressFilter: true,
 				width: 25
@@ -1098,12 +1098,24 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}else if(node.data.validated){
 					node.setSelected(true);
 				}
+
+				node.addEventListener('rowSelected',
+					(event)=>{
+						event.node.gridApi.gridCore.eGridDiv.dispatchEvent(
+							new CustomEvent('userRowSelected')
+						);
+					}
+				)
 			}
 		);
 
 		if (this.cfgModel.isCfgAdmin){
 			this.gridOptions.columnApi.setColumnVisible('selection', this.hasValidatedColumn());
 		}
+	}
+
+	private onUserRowSelected($event){
+		this.modified = true;
 	}
 
 	onValidateClick(){
