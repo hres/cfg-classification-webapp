@@ -938,12 +938,20 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	ngAfterContentChecked(){
+		let footerActionButtonHeight=0;
+
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			this.height = 67 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
 		}
 
-		if(this.gridPlaceHolder.nativeElement.clientHeight < this.height){
-			this.height = this.gridPlaceHolder.nativeElement.clientHeight;
+		if(this.showMissingDiv.nativeElement.style.display=='inline' 
+			|| this.showAllDiv.nativeElement.style.display=='inline'
+			|| this.showInReviewDiv.nativeElement.style.display=='inline'){
+			footerActionButtonHeight = 35;
+		}
+
+		if((this.gridPlaceHolder.nativeElement.clientHeight - footerActionButtonHeight) < this.height){
+			this.height = this.gridPlaceHolder.nativeElement.clientHeight - footerActionButtonHeight;
 		}
 	}
 
