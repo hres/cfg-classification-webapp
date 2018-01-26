@@ -5,5 +5,5 @@
 
 export const environment = {
 	production: false,
-	servicesUrl: "https://10.148.180.111/cfg-task-service/"
+	servicesUrl: "https://java-dev.canadaeast.cloudapp.azure.com:8443/cfg-task-service/"
 };
