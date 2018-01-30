@@ -2,10 +2,10 @@ import { Component, ViewChild, ViewContainerRef, AfterViewInit  } from '@angular
 import { ICellEditorAngularComp } from 'ag-grid-angular/main'; 
 
 @Component({
-  selector: 'string-editor',
-  template: `<input #input class="ag-cell-edit-input" type="text"
+	selector: 'string-editor',
+	template: `<input #input class="ag-cell-edit-input" type="text"
 					[(ngModel)]="valueObj.value"/>
-			`
+				`
 })
 
 export class StringEditorComponent implements ICellEditorAngularComp, AfterViewInit {
@@ -16,7 +16,7 @@ export class StringEditorComponent implements ICellEditorAngularComp, AfterViewI
 
 	@ViewChild('input', {read: ViewContainerRef})
 	public input;
-	
+
 	constructor(){}
 
 	agInit(params:any):void{
@@ -31,7 +31,20 @@ export class StringEditorComponent implements ICellEditorAngularComp, AfterViewI
 			this.params.value.modified = true;
 			this.params.context.mainInterface.modified = true;
 		} 
-		
+
+		this.input.element.nativeElement.dispatchEvent(
+			new CustomEvent(
+				'valueChanged',
+				{
+					detail:{
+						colId: this.params.column.colId,
+						node: this.params.node
+					},
+					bubbles:true
+				}
+			)
+		)
+
 		return this.valueObj;
 	}
 

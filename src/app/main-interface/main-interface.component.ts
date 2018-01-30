@@ -1849,8 +1849,85 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private stampLastUpdateDate(colId:string, node:any){
 
 		switch(colId){
+			case "cfgCode":
+				break;
 			case "sodiumAmountPer100g":
 				node.data.sodiumImputationDate = (new Date()).getTime();
+				break;
+			case "sodiumImputationReference":
+				node.data.sodiumImputationDate = (new Date()).getTime();
+				break;
+			case "sugarAmountPer100g":
+				node.data.sugarImputationDate = (new Date()).getTime();
+				break;
+			case "sugarImputationReference":
+				node.data.sugarImputationDate = (new Date()).getTime();
+				break;
+			case "transfatAmountPer100g":
+				node.data.transfatImputationDate = (new Date()).getTime();
+				break;
+			case "transfatImputationReference":
+				node.data.transfatImputationDate = (new Date()).getTime();
+				break;
+			case "satfatAmountPer100g":
+				node.data.satfatImputationDate = (new Date()).getTime();
+				break;
+			case "satfatImputationReference":
+				node.data.satfatImputationDate = (new Date()).getTime();
+				break;
+			case "totalFatAmountPer100g":
+				node.data.totalFatImputationDate = (new Date()).getTime();
+				break;
+			case "totalFatImputationReference":
+				node.data.totalFatImputationDate = (new Date()).getTime();
+				break;
+			case "containsAddedSodium":
+				node.data.containsAddedSodiumUpdateDate = (new Date()).getTime();
+				break;
+			case "containsAddedSugar":
+				node.data.containsAddedSugarUpdateDate = (new Date()).getTime();
+				break;
+			case "containsAddedFreeSugars":
+				node.data.containsAddedFreeSugarsUpdateDate = (new Date()).getTime();
+				break;
+			case "containsAddedFat":
+				node.data.containsAddedFatUpdateDate = (new Date()).getTime();
+				break;
+			case "containsAddedTransfat":
+				node.data.containsAddedTransfatUpdateDate = (new Date()).getTime();
+				break;
+			case "containsCaffeine":
+				node.data.containsCaffeineUpdateDate = (new Date()).getTime();
+				break;
+			case "containsSugarSubstitute":
+				node.data.containsSugarSubstituteUpdateDate = (new Date()).getTime();
+				break;
+			case "foodGuideServingG":
+				node.data.foodGuideUpdateDate = (new Date()).getTime();
+				break;
+			case "foodGuideServingMeasure":
+				node.data.foodGuideUpdateDate = (new Date()).getTime();
+				break;
+			case "tier4ServingG":
+				node.data.tier4ServingUpdateDate = (new Date()).getTime();
+				break;
+			case "tier4ServingMeasure":
+				node.data.tier4ServingUpdateDate = (new Date()).getTime();
+				break;
+			case "rolledUp":
+				node.data.rolledUpUpdateDate = (new Date()).getTime();
+				break;
+			case "overrideSmallRaAdjustment":
+				node.data.overrideSmallRaUpdateDate = (new Date()).getTime();
+				break;
+			case "marketedToKids":
+				node.data.marketedToKidsUpdateDate = (new Date()).getTime();
+				break;
+			case "replacementCode":
+				node.data.replacementCodeUpdateDate = (new Date()).getTime();
+				break;
+			case "comments":
+				node.data.commentsUpdateDate = (new Date()).getTime();
 				break;
 		}
 	}
