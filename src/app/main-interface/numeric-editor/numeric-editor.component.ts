@@ -37,6 +37,19 @@ export class NumericEditorComponent implements ICellEditorAngularComp, AfterView
 			this.params.value.value = this.valueObj.value.toString() == '' ? null : this.valueObj.value * 1;
 			this.params.value.modified = true;
 			this.params.context.mainInterface.modified = true;
+
+			this.input.element.nativeElement.dispatchEvent(
+				new CustomEvent(
+					'valueChanged',
+					{
+						detail:{
+							colId: this.params.column.colId,
+							node: this.params.node
+						},
+						bubbles:true
+					}
+				)
+			)
 		}
 	
 		return this.valueObj;

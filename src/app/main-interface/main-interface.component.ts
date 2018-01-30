@@ -556,14 +556,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				filterFramework: MissingBooleanFilter,
 				width: 150
 			},
-			//{
-				//headerName: "Override Small RA Adj Last Update Date",
-				//cellStyle: this.getExtendedCellStyle,
-				//field: "overrideSmallRaAdjustmentUpdateDate",
-				//hide: true,	
-				//valueFormatter: this.getDate,
-				//width: 150
-			//},
+			{
+				headerName: "Override Small RA Adj Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
+				field: "overrideSmallRaAdjustmentUpdateDate",
+				hide: true,	
+				valueFormatter: this.getDate,
+				width: 150
+			},
 			{
 				headerName: "Toddler Item",
 				cellEditorFramework: BooleanEditorComponent,
@@ -574,14 +574,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				filterFramework: MissingBooleanFilter,
 				width: 118
 			},
-			//{
-				//headerName: "Toddler Item Last Update Date",
-				//cellStyle: this.getExtendedCellStyle,
-				//field: "marketedToKidsUpdateDate",
-				//hide: true,	
-				//valueFormatter: this.getDate,
-				//width: 150
-			//},
+			{
+				headerName: "Toddler Item Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
+				field: "marketedToKidsUpdateDate",
+				hide: true,	
+				valueFormatter: this.getDate,
+				width: 150
+			},
 			{
 				headerName: "Replacement Code",
 				editable: !this.isReadOnly(),
@@ -593,14 +593,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width:118
 			},
-			//{
-				//headerName: "Replacement Code Last Update Date",
-				//cellStyle: this.getExtendedCellStyle,
-				//field: "replacementCodeUpdateDate",
-				//hide: true,	
-				//valueFormatter: this.getDate,
-				//width: 150
-			//},
+			{
+				headerName: "Replacement Code Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
+				field: "replacementCodeUpdateDate",
+				hide: true,	
+				valueFormatter: this.getDate,
+				width: 150
+			},
 			{
 				headerName: "Comments",
 				editable: !this.isReadOnly(),
@@ -611,14 +611,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width: 200
 			},
-			//{
-				//headerName: "Comments Last Update Date",
-				//cellStyle: this.getExtendedCellStyle,
-				//field: "commentsUpdateDate",
-				//hide: true,	
-				//valueFormatter: this.getDate,
-				//width: 150
-			//},
+			{
+				headerName: "Comments Last Update Date",
+				cellStyle: this.getExtendedCellStyle,
+				field: "commentsUpdateDate",
+				hide: true,	
+				valueFormatter: this.getDate,
+				width: 150
+			},
 			///////////////////////
 			// STEP 1 RA Adjustments
 			////////////////////////
@@ -847,6 +847,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private	setDataset(dataset:any){
 		this.modified = false;
+		dataset.creationDate=923423423;
+		dataset.modifiedDate=923423422;
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
 		
@@ -1787,17 +1789,26 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return;
 		}
 
-		let changedTierFoods = [];
+		let modifiedFoods = [];
 
 		for(let foodItem of this.dataset.data){
+			let changedItem = {"code":foodItem.code};
+
 			if (foodItem.classifiedCfgCode != foodItem.cfgCode.value){
-				changedTierFoods.push({	"code":foodItem.code,
-										"cfgCode": foodItem.classifiedCfgCode
-										});
+				changedItem.cfgCode=foodItem.classifiedCfgCode;
+			}
+			if(foodItem.sodiumImputationDate != null && foodItem.sodiumImputationDate > this.dataset.creationDate){
+				changedItem.sodiumAmountPer100g = foodItem.sodiumAmountPer100g.value;
+				changedItem.sodiumImputationReference = foodItem.sodiumImputationReference.value;
+				changedItem.sodiumImputationDate = foodItem.sodiumImputationDate;
+			}
+
+			if(Object.keys(changedItem).length > 1){
+				modifiedFoods.push(changedItem);
 			}
 		}
 
-		this.commitService.commit(changedTierFoods, this.dataset.id).subscribe(
+		this.commitService.commit(modifiedFoods, this.dataset.id).subscribe(
 			(res) => {
 				this.element.nativeElement.dispatchEvent(
 					new CustomEvent(
@@ -1830,4 +1841,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		else
 			return moment(params.value).format('LL')
 	}
+
+	private onValueChanged($event){
+		this.stampLastUpdateDate($event.detail.colId, $event.detail.node);
+	}
+
+	private stampLastUpdateDate(colId:string, node:any){
+
+		switch(colId){
+			case "sodiumAmountPer100g":
+				node.data.sodiumImputationDate = (new Date()).getTime();
+				break;
+		}
+	}
+
 }
