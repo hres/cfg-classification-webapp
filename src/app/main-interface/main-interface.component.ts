@@ -1792,7 +1792,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		let modifiedFoods = [];
 
 		for(let foodItem of this.dataset.data){
-			let changedItem = {"code":foodItem.code};
+			let changedItem:any = {"code":foodItem.code};
 
 			if (foodItem.classifiedCfgCode != foodItem.cfgCode.value){
 				changedItem.cfgCode=foodItem.classifiedCfgCode;
