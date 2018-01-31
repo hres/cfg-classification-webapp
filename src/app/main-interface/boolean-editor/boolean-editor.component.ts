@@ -33,7 +33,7 @@ export class BooleanEditorComponent implements ICellEditorAngularComp {
 			this.params.context.mainInterface.modified = true;
 		}
 
-		this.input.element.nativeElement.dispatchEvent(
+		this.mdSelect._elementRef.nativeElement.dispatchEvent(
 			new CustomEvent(
 				'valueChanged',
 				{

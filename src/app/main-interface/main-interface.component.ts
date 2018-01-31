@@ -292,7 +292,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			},
 			{
 				headerName: "Total Fat (g/100g)",
-				editable: !this.isReadOnly(),
+				editable: this.isEditableTotalFatPer100,
 				cellRendererFramework: TwoDecimalRendererComponent,
 				cellEditorFramework: NumericEditorComponent,
 				cellStyle: this.getNumCellStyle,
@@ -301,24 +301,24 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				valueGetter: this.getObjectValue,
 				width: 100
 			},
-			//{
-				//headerName: "Total Fat Imputation Reference",
-				//editable: this.isEditableTotalfatImputation,
-				//cellRenderer: this.getStringValue,
-				//cellEditorFramework: StringEditorComponent,
-				//cellStyle: this.getStringCellStyle,
-				//field: "totalfatImputationReference",
-				//valueGetter: this.getObjectValue,
-				//width: 124
-			//},
-			//{
-				//headerName: "Total Fat Imputation Last Update",
-				//cellStyle: this.getExtendedCellStyle,
-				//field: "totalfatImputationDate",
-				//hide: true,	
-				//valueFormatter: this.getDate,
-				//width: 100
-			//},
+			{
+				headerName: "Total Fat Imputation Reference",
+				editable: this.isEditableTotalfatImputation,
+				cellRenderer: this.getStringValue,
+				cellEditorFramework: StringEditorComponent,
+				cellStyle: this.getStringCellStyle,
+				field: "totalFatImputationReference",
+				valueGetter: this.getObjectValue,
+				width: 124
+			},
+			{
+				headerName: "Total Fat Imputation Last Update",
+				cellStyle: this.getExtendedCellStyle,
+				field: "totalFatImputationDate",
+				hide: true,	
+				valueFormatter: this.getDate,
+				width: 100
+			},
 			{
 				headerName: "Contains Added Sodium",
 				editable: !this.isReadOnly(),
@@ -440,7 +440,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Sugar Substitutes Last Update Date",
 				cellStyle: this.getExtendedCellStyle,
-				field: "containsSugarSubstituteUpdateDate",
+				field: "containsSugarSubstitutesUpdateDate",
 				hide: true,	
 				valueFormatter: this.getDate,
 				width: 100
@@ -847,8 +847,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private	setDataset(dataset:any){
 		this.modified = false;
-		dataset.creationDate=923423423;
+
+		//TODO remove below 2 lines
+		dataset.creationDate=1518004800999;
 		dataset.modifiedDate=923423422;
+
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
 		
@@ -985,7 +988,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private isNonMandatoryEditable(field:string):boolean{
 		return ['sodiumAmountPer100g','sodiumImputationReference','sugarAmountPer100g','sugarImputationReference','transfatAmountPer100g',
-				'transfatImputationReference','satfatAmountPer100g','satfatImputationReference','totalFatAmountPer100g','totalfatImputationReference',
+				'transfatImputationReference','satfatAmountPer100g','satfatImputationReference','totalFatAmountPer100g','totalFatImputationReference',
 				'containsAddedSodium','containsAddedSugar','containsFreeSugars','containsAddedFat','containsAddedTransfat','containsCaffeine',
 				'containsSugarSubstitutes','foodGuideServingG','foodGuideServingMeasure','tier4ServingG','tier4ServingMeasure','rolledUp',
 				'overrideSmallRaAdjustment','marketedToKids','replacementCode','comments'].indexOf(field) > -1;
@@ -1782,6 +1785,22 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		return params.node.data.satfatImputationReference.value != undefined;
 	}
+	
+	private isEditableTotalFatPer100(params:any):boolean{
+		if(params.context.mainInterface.isReadOnly()){
+			return false;
+		}
+
+		return params.node.data.totalFatAmountPer100g.value == undefined || params.node.data.totalFatImputationReference.value != undefined;
+	}
+
+	private isEditableTotalfatImputation(params:any):boolean{
+		if(params.context.mainInterface.isReadOnly()){
+			return false;
+		}
+
+		return params.node.data.totalFatImputationReference.value != undefined;
+	}
 
 	private onCommitClick():void{
 		this.onValidateClick();
@@ -1794,13 +1813,96 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		for(let foodItem of this.dataset.data){
 			let changedItem:any = {"code":foodItem.code};
 
+			if (foodItem.cfgCodeUpdateDate != null && foodItem.cfgCodeUpdateDate > this.dataset.creationDate){
+				changedItem.cfgCode = foodItem.cfgCode.value;
+			}
+
 			if (foodItem.classifiedCfgCode != foodItem.cfgCode.value){
 				changedItem.cfgCode=foodItem.classifiedCfgCode;
 			}
+
 			if(foodItem.sodiumImputationDate != null && foodItem.sodiumImputationDate > this.dataset.creationDate){
 				changedItem.sodiumAmountPer100g = foodItem.sodiumAmountPer100g.value;
 				changedItem.sodiumImputationReference = foodItem.sodiumImputationReference.value;
-				changedItem.sodiumImputationDate = foodItem.sodiumImputationDate;
+			}
+
+			
+			if (foodItem.sugarImputationDate != null && foodItem.sugarImputationDate > this.dataset.creationDate){
+				changedItem.sugarAmountPer100g = foodItem.sugarAmountPer100g.value;
+				changedItem.sugarImputationReference = foodItem.sugarImputationReference.value;
+			}
+
+			if (foodItem.transfatImputationDate != null && foodItem.transfatImputationDate > this.dataset.creationDate){
+				changedItem.transfatAmountPer100g = foodItem.transfatAmountPer100g.value;
+				changedItem.transfatImputationReference = foodItem.transfatImputationReference.value;
+			}
+
+			if (foodItem.satfatImputationDate != null && foodItem.satfatImputationDate > this.dataset.creationDate){
+				changedItem.satfatAmountPer100g = foodItem.satfatAmountPer100g.value;
+				changedItem.satfatImputationReference = foodItem.satfatImputationReference.value;
+			}
+
+			if (foodItem.totalFatImputationDate != null && foodItem.totalFatImputationDate > this.dataset.creationDate){
+				changedItem.totalFatAmountPer100g = foodItem.totalFatAmountPer100g.value;
+				changedItem.totalFatImputationReference = foodItem.totalFatImputationReference.value;
+			}
+
+			if (foodItem.containsAddedSodiumUpdateDate != null && foodItem.containsAddedSodiumUpdateDate > this.dataset.creationDate){
+				changedItem.containsAddedSodium = foodItem.containsAddedSodium.value;
+			}
+
+			if (foodItem.containsAddedSugarUpdateDate != null && foodItem.containsAddedSugarUpdateDate > this.dataset.creationDate){
+				changedItem.containsAddedSugar = foodItem.containsAddedSugar.value;
+			}
+
+			if (foodItem.containsFreeSugarsUpdateDate != null && foodItem.containsFreeSugarsUpdateDate > this.dataset.creationDate){
+				changedItem.containsFreeSugars = foodItem.containsFreeSugars.value;
+			}
+
+			if (foodItem.containsAddedFatUpdateDate != null && foodItem.containsAddedFatUpdateDate > this.dataset.creationDate){
+				changedItem.containsAddedFat = foodItem.containsAddedFat.value;
+			}
+
+			if (foodItem.containsAddedTransfatUpdateDate != null && foodItem.containsAddedTransfatUpdateDate > this.dataset.creationDate){
+				changedItem.containsAddedTransfat = foodItem.containsAddedTransfat.value;
+			}
+
+			if (foodItem.containsCaffeineUpdateDate != null && foodItem.containsCaffeineUpdateDate > this.dataset.creationDate){
+				changedItem.containsCaffeine = foodItem.containsCaffeine.value;
+			}
+
+			if (foodItem.containsSugarSubstitutesUpdateDate != null && foodItem.containsSugarSubstitutesUpdateDate > this.dataset.creationDate){
+				changedItem.containsSugarSubstitutes = foodItem.containsSugarSubstitutes.value;
+			}
+
+			if (foodItem.foodGuideUpdateDate != null && foodItem.foodGuideUpdateDate > this.dataset.creationDate){
+				changedItem.foodGuideServingG = foodItem.foodGuideServingG.value;
+				changedItem.foodGuideServingMeasure = foodItem.foodGuideServingMeasure.value;
+			}
+
+			if (foodItem.tier4ServingUpdateDate != null && foodItem.tier4ServingUpdateDate > this.dataset.creationDate){
+				changedItem.tier4ServingG = foodItem.tier4ServingG.value;
+				changedItem.tier4ServingMeasure = foodItem.tier4ServingMeasure.value;
+			}
+
+			if (foodItem.rolledUpUpdateDate != null && foodItem.rolledUpUpdateDate > this.dataset.creationDate){
+				changedItem.rolledUp = foodItem.rolledUp.value;
+			}
+
+			if (foodItem.overrideSmallRaAdjustmentUpdateDate != null && foodItem.overrideSmallRaAdjustmentUpdateDate > this.dataset.creationDate){
+				changedItem.overrideSmallRaAdjustment = foodItem.overrideSmallRaAdjustment.value;
+			}
+
+			if (foodItem.marketedToKidsUpdateDate != null && foodItem.marketedToKidsUpdateDate > this.dataset.creationDate){
+				changedItem.marketedToKids = foodItem.marketedToKids.value;
+			}
+
+			if (foodItem.replacementCodeUpdateDate != null && foodItem.replacementCodeUpdateDate > this.dataset.creationDate){
+				changedItem.replacementCode = foodItem.replacementCode.value;
+			}
+
+			if (foodItem.commentsUpdateDate != null && foodItem.commentsUpdateDate > this.dataset.creationDate){
+				changedItem.comments = foodItem.comments.value;
 			}
 
 			if(Object.keys(changedItem).length > 1){
@@ -1808,27 +1910,41 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			}
 		}
 
-		this.commitService.commit(modifiedFoods, this.dataset.id).subscribe(
-			(res) => {
-				this.element.nativeElement.dispatchEvent(
-					new CustomEvent(
-						'popup',
-						{
-							detail: {
-								message: "CFG Classification database successfully updated.",
-								showOkButton: true
-							},
-							bubbles:true
-						}
-					)
-				);
-				this.router.navigate(['/datasets']);
-			},
-			(err) => {
-				console.log(err);
-			}
-		);
-
+		if(modifiedFoods.length > 0){
+			this.commitService.commit(modifiedFoods, this.dataset.id).subscribe(
+				(res) => {
+					this.element.nativeElement.dispatchEvent(
+						new CustomEvent(
+							'popup',
+							{
+								detail: {
+									message: "CFG Classification database successfully updated.",
+									showOkButton: true
+								},
+								bubbles:true
+							}
+						)
+					);
+					this.router.navigate(['/datasets']);
+				},
+				(err) => {
+					console.log(err);
+				}
+			);
+		}else{
+			this.element.nativeElement.dispatchEvent(
+				new CustomEvent(
+					'popup',
+					{
+						detail: {
+							message: "No changes found in dataset.",
+							showOkButton: true
+						},
+						bubbles:true
+					}
+				)
+			);
+		}
 	}
 
 	getObjectValue(params){
@@ -1850,6 +1966,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		switch(colId){
 			case "cfgCode":
+				node.data.cfgCodeUpdateDate = (new Date()).getTime();
 				break;
 			case "sodiumAmountPer100g":
 				node.data.sodiumImputationDate = (new Date()).getTime();
@@ -1887,8 +2004,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			case "containsAddedSugar":
 				node.data.containsAddedSugarUpdateDate = (new Date()).getTime();
 				break;
-			case "containsAddedFreeSugars":
-				node.data.containsAddedFreeSugarsUpdateDate = (new Date()).getTime();
+			case "containsFreeSugars":
+				node.data.containsFreeSugarsUpdateDate = (new Date()).getTime();
 				break;
 			case "containsAddedFat":
 				node.data.containsAddedFatUpdateDate = (new Date()).getTime();
@@ -1899,8 +2016,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			case "containsCaffeine":
 				node.data.containsCaffeineUpdateDate = (new Date()).getTime();
 				break;
-			case "containsSugarSubstitute":
-				node.data.containsSugarSubstituteUpdateDate = (new Date()).getTime();
+			case "containsSugarSubstitutes":
+				node.data.containsSugarSubstitutesUpdateDate = (new Date()).getTime();
 				break;
 			case "foodGuideServingG":
 				node.data.foodGuideUpdateDate = (new Date()).getTime();
@@ -1918,7 +2035,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				node.data.rolledUpUpdateDate = (new Date()).getTime();
 				break;
 			case "overrideSmallRaAdjustment":
-				node.data.overrideSmallRaUpdateDate = (new Date()).getTime();
+				node.data.overrideSmallRaAdjustmentUpdateDate = (new Date()).getTime();
 				break;
 			case "marketedToKids":
 				node.data.marketedToKidsUpdateDate = (new Date()).getTime();
