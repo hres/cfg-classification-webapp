@@ -13,14 +13,25 @@
 				<div class="row">
 					<div class="col-md-6">
 						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
-							<label *ngIf="i>4&&i<21">
+							<label *ngIf="i>4&&i<23" style="width:350px;">
 								<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 							</label>
 						</ng-template>
 					</div>
 					<div class="col-md-6">
 						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
-							<label *ngIf="i>20&&i<54">
+							<label *ngIf="i>36&&i<56" style="width:350px">
+								<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
+							</label>
+						</ng-template>
+					</div>
+				</div>
+			</mat-tab>
+			<mat-tab label="Contains">
+				<div class="row">
+					<div class="col-md-5">
+						<ng-template ngFor let-i="index" let-column [ngForOf]="columns">
+							<label *ngIf="i>22&&i<37">
 								<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 							</label>
 						</ng-template>
@@ -29,21 +40,21 @@
 			</mat-tab>
 			<mat-tab *ngIf="datasetStatus=='Classified'" label="Reference Amount">
 				<div *ngFor="let column of columns;index as i">
-					<label *ngIf="i>31&&i<53">
+					<label *ngIf="i>55&&i<62">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
 			</mat-tab>
 			<mat-tab *ngIf="datasetStatus=='Classified'" label="Threshold">
 				<div *ngFor="let column of columns;index as i">
-					<label *ngIf="i>52&&i<66">
+					<label *ngIf="i>61&&i<76">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
 			</mat-tab>
 			<mat-tab *ngIf="datasetStatus=='Classified'" label="Adjustments">
 				<div *ngFor="let column of columns;index as i">
-					<label *ngIf="i>65&&i<69">
+					<label *ngIf="i>75&&i<79">
 						<input name="column.field" [(ngModel)]=column.selected type="checkbox">{{column.name}}
 					</label>
 				</div>
