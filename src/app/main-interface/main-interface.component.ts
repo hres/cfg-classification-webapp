@@ -849,7 +849,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.modified = false;
 
 		//TODO remove below 2 lines
-		dataset.creationDate=1518004800999;
+		dataset.creationDate=(new Date()).getTime();
 		dataset.modifiedDate=923423422;
 
 		this.dataset=dataset;
