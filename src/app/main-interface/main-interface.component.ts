@@ -350,7 +350,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			{
 				headerName: "Contains Added Sugar Last Update Date",
 				cellStyle: this.getExtendedCellStyle,
-				field: "containsAddedSugarUdpateDate",
+				field: "containsAddedSugarUpdateDate",
 				hide: true,
 				valueFormatter: this.getDate,
 				width: 165
@@ -849,7 +849,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.modified = false;
 
 		//TODO remove below 2 lines
-		dataset.creationDate=(new Date()).getTime();
+		dataset.creationDate=(new Date()).getTime()-86400000;
 		dataset.modifiedDate=923423422;
 
 		this.dataset=dataset;
@@ -1417,6 +1417,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	/* 
 	 * Unwraps the grid data object values.  Sets the grid data to equal the value property.  This
 	 * is data loss so remember to save data prior if you need it.
+	 * Converts all dates to human readable format.
 	 */
 	private exportData(){
 		for (let columnNum in this.gridOptions.columnDefs){
@@ -1425,11 +1426,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "cfgCode":
 						this.dataset.data[num].cfgCode = this.dataset.data[num].cfgCode.value;
 						break;
+					case "cfgCodeUpdateDate":
+						this.dataset.data[num].cfgCodeUpdateDate = this.dataset.data[num].cfgCodeUpdateDate == null ? null : moment(this.dataset.data[num].cfgCodeUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "sodiumAmountPer100g":
 						this.dataset.data[num].sodiumAmountPer100g= this.dataset.data[num].sodiumAmountPer100g.value;
 						break;
 					case "sodiumImputationReference":
 						this.dataset.data[num].sodiumImputationReference= this.dataset.data[num].sodiumImputationReference.value;
+						break;
+					case "sodiumImputationDate":
+						this.dataset.data[num].sodiumImputationDate = this.dataset.data[num].sodiumImputationDate == null ? null : moment(this.dataset.data[num].sodiumImputationDate).format('YYYY-MM-DD');
 						break;
 					case "sugarAmountPer100g":
 						this.dataset.data[num].sugarAmountPer100g = this.dataset.data[num].sugarAmountPer100g.value;
@@ -1437,11 +1444,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "sugarImputationReference":
 						this.dataset.data[num].sugarImputationReference = this.dataset.data[num].sugarImputationReference.value;
 						break;
+					case "sugarImputationDate":
+						this.dataset.data[num].sugarImputationDate = this.dataset.data[num].sugarImputationDate == null ? null : moment(this.dataset.data[num].sugarImputationDate).format('YYYY-MM-DD');
+						break;
 					case "transfatAmountPer100g":
 						this.dataset.data[num].transfatAmountPer100g = this.dataset.data[num].transfatAmountPer100g.value;
 						break;
 					case "transfatImputationReference":
 						this.dataset.data[num].transfatImputationReference = this.dataset.data[num].transfatImputationReference.value;
+						break;
+					case "transfatImputationDate":
+						this.dataset.data[num].transfatImputationDate = this.dataset.data[num].transfatImputationDate == null ? null : moment(this.dataset.data[num].transfatImputationDate).format('YYYY-MM-DD');
 						break;
 					case "satfatAmountPer100g":
 						this.dataset.data[num].satfatAmountPer100g = this.dataset.data[num].satfatAmountPer100g.value;
@@ -1449,29 +1462,59 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "satfatImputationReference":
 						this.dataset.data[num].satfatImputationReference = this.dataset.data[num].satfatImputationReference.value;
 						break;
+					case "satfatImputationDate":
+						this.dataset.data[num].satfatImputationDate = this.dataset.data[num].satfatImputationDate == null ? null : moment(this.dataset.data[num].satfatImputationDate).format('YYYY-MM-DD');
+						break;
 					case "totalFatAmountPer100g":
 						this.dataset.data[num].totalFatAmountPer100g = this.dataset.data[num].totalFatAmountPer100g.value;
+						break;
+					case "totalFatImputationReference":
+						this.dataset.data[num].totalFatImputationReference = this.dataset.data[num].totalFatImputationReference.value;
+						break;
+					case "totalFatImputationDate":
+						this.dataset.data[num].totalFatImputationDate = this.dataset.data[num].totalFatImputationDate == null ? null : moment(this.dataset.data[num].totalFatImputationDate).format('YYYY-MM-DD');
 						break;
 					case "containsAddedSodium":
 						this.dataset.data[num].containsAddedSodium = this.dataset.data[num].containsAddedSodium.value;
 						break;
+					case "containsAddedSodiumUpdateDate":
+						this.dataset.data[num].containsAddedSodiumUpdateDate = this.dataset.data[num].containsAddedSodiumUpdateDate == null ? null : moment(this.dataset.data[num].containsAddedSodiumUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "containsAddedSugar":
 						this.dataset.data[num].containsAddedSugar = this.dataset.data[num].containsAddedSugar.value;
+						break;
+					case "containsAddedSugarUpdateDate":
+						this.dataset.data[num].containsAddedSugarUpdateDate = this.dataset.data[num].containsAddedSugarUpdateDate == null ? null : moment(this.dataset.data[num].containsAddedSugarUpdateDate).format('YYYY-MM-DD');
 						break;
 					case "containsFreeSugars":
 						this.dataset.data[num].containsFreeSugars = this.dataset.data[num].containsFreeSugars.value;
 						break;
+					case "containsFreeSugarsUpdateDate":
+						this.dataset.data[num].containsFreeSugarsUpdateDate = this.dataset.data[num].containsFreeSugarsUpdateDate == null ? null : moment(this.dataset.data[num].containsFreeSugarsUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "containsAddedFat":
 						this.dataset.data[num].containsAddedFat = this.dataset.data[num].containsAddedFat.value;
+						break;
+					case "containsAddedFatUpdateDate":
+						this.dataset.data[num].containsAddedFatUpdateDate = this.dataset.data[num].containsAddedFatUpdateDate == null ? null : moment(this.dataset.data[num].containsAddedFatUpdateDate).format('YYYY-MM-DD');
 						break;
 					case "containsAddedTransfat":
 						this.dataset.data[num].containsAddedTransfat = this.dataset.data[num].containsAddedTransfat.value;
 						break;
+					case "containsAddedTransfatUpdateDate":
+						this.dataset.data[num].containsAddedTransfatUpdateDate = this.dataset.data[num].containsAddedTransfatUpdateDate == null ? null : moment(this.dataset.data[num].containsAddedTransfatUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "containsCaffeine":
 						this.dataset.data[num].containsCaffeine = this.dataset.data[num].containsCaffeine.value;
 						break;
+					case "containsCaffeineUpdateDate":
+						this.dataset.data[num].containsCaffeineUpdateDate = this.dataset.data[num].containsCaffeineUpdateDate == null ? null : moment(this.dataset.data[num].containsCaffeineUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "containsSugarSubstitutes":
 						this.dataset.data[num].containsSugarSubstitutes = this.dataset.data[num].containsSugarSubstitutes.value;
+						break;
+					case "containsSugarSubstitutesUpdateDate":
+						this.dataset.data[num].containsSugarSubstitutesUpdateDate = this.dataset.data[num].containsSugarSubstitutesUpdateDate == null ? null : moment(this.dataset.data[num].containsSugarSubstitutesUpdateDate).format('YYYY-MM-DD');
 						break;
 					case "foodGuideServingG":
 						this.dataset.data[num].foodGuideServingG = this.dataset.data[num].foodGuideServingG.value;
@@ -1479,26 +1522,47 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 					case "foodGuideServingMeasure":
 						this.dataset.data[num].foodGuideServingMeasure = this.dataset.data[num].foodGuideServingMeasure.value;
 						break;
+					case "foodGuideUpdateDate":
+						this.dataset.data[num].foodGuideUpdateDate = this.dataset.data[num].foodGuideUpdateDate == null ? null : moment(this.dataset.data[num].foodGuideUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "tier4ServingG":
 						this.dataset.data[num].tier4ServingG = this.dataset.data[num].tier4ServingG.value;
 						break;
 					case "tier4ServingMeasure":
 						this.dataset.data[num].tier4ServingMeasure = this.dataset.data[num].tier4ServingMeasure.value;
 						break;
+					case "tier4ServingUpdateDate":
+						this.dataset.data[num].tier4ServingUpdateDate = this.dataset.data[num].tier4ServingUpdateDate == null ? null : moment(this.dataset.data[num].tier4ServingUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "rolledUp":
 						this.dataset.data[num].rolledUp = this.dataset.data[num].rolledUp.value;
+						break;
+					case "rolledUpUpdateDate":
+						this.dataset.data[num].rolledUpUpdateDate = this.dataset.data[num].rolledUpUpdateDate == null ? null : moment(this.dataset.data[num].rolledUpUpdateDate).format('YYYY-MM-DD');
 						break;
 					case "overrideSmallRaAdjustment":
 						this.dataset.data[num].overrideSmallRaAdjustment = this.dataset.data[num].overrideSmallRaAdjustment.value;
 						break;
+					case "overrideSmallRaAdjustmentUpdateDate":
+						this.dataset.data[num].overrideSmallRaAdjustmentUpdateDate = this.dataset.data[num].overrideSmallRaAdjustmentUpdateDate == null ? null : moment(this.dataset.data[num].overrideSmallRaAdjustmentUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "marketedToKids":
 						this.dataset.data[num].marketedToKids = this.dataset.data[num].marketedToKids.value;
+						break;
+					case "marketedToKidsUpdateDate":
+						this.dataset.data[num].marketedToKidsUpdateDate = this.dataset.data[num].marketedToKidsUpdateDate == null ? null : moment(this.dataset.data[num].marketedToKidsUpdateDate).format('YYYY-MM-DD');
 						break;
 					case "replacementCode":
 						this.dataset.data[num].replacementCode = this.dataset.data[num].replacementCode.value;
 						break;
+					case "replacementCodeUpdateDate":
+						this.dataset.data[num].replacementCodeUpdateDate = this.dataset.data[num].replacementCodeUpdateDate == null ? null : moment(this.dataset.data[num].replacementCodeUpdateDate).format('YYYY-MM-DD');
+						break;
 					case "comments":
 						this.dataset.data[num].comments = this.dataset.data[num].comments.value;
+						break;
+					case "commentsUpdateDate":
+						this.dataset.data[num].commentsUpdateDate = this.dataset.data[num].commentsUpdateDate == null ? null : moment(this.dataset.data[num].commentsUpdateDate).format('YYYY-MM-DD');
 						break;
 				}
 			}
@@ -1948,7 +2012,10 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	getObjectValue(params){
-		return params.data[params.column.colId].value;
+		if(params.data[params.column.colId] == null)
+			return null;
+
+		return params.data[params.column.colId].value === undefined ? params.data[params.column.colId] : params.data[params.column.colId].value;
 	}
 
 	getDate(params){
