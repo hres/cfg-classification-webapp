@@ -840,9 +840,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.modified = false;
 
-		//TODO remove below 2 lines
+		//TODO remove below line
 		dataset.creationDate=(new Date()).getTime()-86400000;
-		dataset.modifiedDate=923423422;
 
 		this.dataset=dataset;
 		this.gridOptions.api.setRowData(dataset.data);
@@ -2030,6 +2029,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			);
 		}else{
+			this.toggleEditables();
 			this.element.nativeElement.dispatchEvent(
 				new CustomEvent(
 					'popup',
