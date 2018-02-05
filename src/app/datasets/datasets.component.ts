@@ -250,6 +250,6 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		if(params.value == null)
 			return null;
 		else
-			return moment(params.value).format('LL');
+			return moment(params.value).format('YYYY-MM-DD');
 	}
 }

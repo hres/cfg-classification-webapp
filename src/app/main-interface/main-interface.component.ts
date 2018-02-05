@@ -895,16 +895,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
+	/**
+	 * @param route The route to navigate to on successful save
+	 */
 	saveDataset(userSave:boolean = false, route:string = null){
-		//ToDo
-		//if(status) this.dataset.status = status;
-
-		// do not save classified state
 		let datasetToSave = Object.assign({}, this.dataset);
 
-		if (datasetToSave.status == 'Classified'){
+		// do not save classified state, 
+		if (datasetToSave.status == 'Classified' || (datasetToSave.status == 'Committed') && userSave == true){
 			datasetToSave.status = 'Validated';
 		}
+
 
 		this.saveService.save(datasetToSave).subscribe(
 			(res) => {
@@ -1171,6 +1172,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		config.height= '400px';
 		config.disableClose = true;
 		config.panelClass = 'cfg-spinner';
+		this.toggleEditables();
 
 		let dialogRef = this.dialog.open(SpinnerComponent, config);
 		
@@ -1203,10 +1205,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}
 	}
 
-	onUndoClick(){
+	onBackClick(){
 		if(this.dataset.status=="Classified"){
 			this.dataset.status="Validated";
 			this.resetColumnVisibility();
+			this.toggleEditables();
 		}
 
 		this.openService.open(this.cfgModel.datasetId).subscribe(
@@ -1308,6 +1311,41 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
 	}
 	
+	toggleEditables(){
+		console.log("toggleEditables()");
+		for (let columnNum in this.gridOptions.columnDefs){
+			if(["cfgCode",
+				"sodiumAmountPer100g",
+				"sodiumImputationReference",
+				"sugarAmountPer100g",
+				"sugarImputationReference",
+				"transfatAmountPer100g",
+				"transfatImputationReference",
+				"satfatAmountPer100g",
+				"satfatImputationReference",
+				"totalFatAmountPer100g",
+				"containsAddedSodium",
+				"containsAddedSugar",
+				"containsFreeSugars",
+				"containsAddedFat",
+				"containsAddedTransfat",
+				"containsCaffeine",
+				"containsSugarSubstitutes",
+				"referenceAmountG",
+				"foodGuideServingG",
+				"tier4ServingG",
+				"tier4ServingMeasure",
+				"rolledUp",
+				"overrideSmallRaAdjustment",
+				"marketedToKids",
+				"replacementCode",
+				"comments"].includes((<any>this.gridOptions.columnDefs[columnNum]).field)==true){
+				(<any>this.gridOptions.columnDefs[columnNum]).editable = !(<any>this.gridOptions.columnDefs[columnNum]).editable;
+			}
+		}
+		this.gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
+	}
+
 	private isExtendedData(colId:string):boolean{
 		return ["energyKcal",
 				"sodiumAmountPer100g",
@@ -1777,6 +1815,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			return true;
 		}else if(this.cfgModel.isAnalyst && !(this.dataset.status == "New" || this.dataset.status == 'In Progress' || this.dataset.status == 'Review')){
 			return true;
+		}else if(this.dataset.status=="Classified"){
+			return true;
 		}
 
 		return false;
@@ -1977,6 +2017,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if(modifiedFoods.length > 0){
 			this.commitService.commit(modifiedFoods, this.dataset.id).subscribe(
 				(res) => {
+					this.dataset.status = "Committed";
 					this.element.nativeElement.dispatchEvent(
 						new CustomEvent(
 							'popup',
@@ -1989,7 +2030,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 							}
 						)
 					);
-					this.router.navigate(['/datasets']);
+					this.replaceCfgCodes();
+					this.saveDataset(false, '/datasets');
 				},
 				(err) => {
 					console.log(err);
@@ -2022,7 +2064,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		if (params.value == null)
 			return null;
 		else
-			return moment(params.value).format('LL')
+			return moment(params.value).format('YYYY-MM-DD')
 	}
 
 	private onValueChanged($event){
@@ -2113,6 +2155,13 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			case "comments":
 				node.data.commentsUpdateDate = (new Date()).getTime();
 				break;
+		}
+	}
+
+
+	private replaceCfgCodes(){
+		for (let foodItem of this.dataset.data){
+			foodItem.cfgCode.value = foodItem.classifiedCfgCode;
 		}
 	}
 
