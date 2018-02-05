@@ -838,12 +838,8 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private	setDataset(dataset:any){
-		this.modified = false;
-
-		//TODO remove below line
-		dataset.creationDate=(new Date()).getTime()-86400000;
-
 		this.dataset=dataset;
+		this.modified = false;
 		this.gridOptions.api.setRowData(dataset.data);
 		
 		if(dataset.status == 'Review'){
