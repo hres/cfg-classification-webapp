@@ -462,14 +462,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 150
 			},
 			{
-				headerName: "Reference Amount Last Update Date",
-				cellStyle: this.getExtendedCellStyle,
-				field: "referenceAmountUpdateDate",
-				hide: true,	
-				valueFormatter: this.getDate,
-				width: 100
-			},
-			{
 				headerName: "Food Guide Serving (g)",
 				editable: !this.isReadOnly(),
 				cellRendererFramework: TwoDecimalRendererComponent,
@@ -1331,7 +1323,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				"containsAddedTransfat",
 				"containsCaffeine",
 				"containsSugarSubstitutes",
-				"referenceAmountG",
 				"foodGuideServingG",
 				"tier4ServingG",
 				"tier4ServingMeasure",
@@ -1725,6 +1716,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	}
 
 	private setColumnVisibility(columns){
+		console.log(columns);
 		for (let columnNum in this.gridOptions.columnDefs){
 			(<any>this.gridOptions.columnDefs[columnNum]).hide = !columns[columnNum].selected;
 		}
