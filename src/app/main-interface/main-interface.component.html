@@ -52,7 +52,7 @@
 			<label>Datasets > {{dataset.name}}</label>
 		</div>
 	</div>
-	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center;padding-bottom:5px;margin-top:-40px;width:100%;display:flex;justify-content:center;">
+	<div *ngIf="dataset!=undefined && dataset.status=='Classified'" class="row" style="text-align:center;margin-bottom:-20px;margin-top:-40px;width:100%;display:flex;justify-content:center;">
 		<div class="btn-group" data-toggle="buttons">
 			<label class="btn btn-primary" [class.active]="btnBarState.showBase">
 				<input type="checkbox" [(ngModel)]="btnBarState.showBase" (change)=toggleExt();> Extended Data
