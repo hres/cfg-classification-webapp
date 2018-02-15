@@ -18,7 +18,7 @@ const appRoutes:Routes =[
 	},
 	{
 		path:'main/:id',
-		component: MainInterfaceComponent,
+		component: MainInterfaceComponent
 	},
 	{
 		path: 'query',
@@ -42,8 +42,7 @@ const appRoutes:Routes =[
 
 @NgModule({
 	imports:[
-		RouterModule.forRoot(appRoutes, { enableTracing:true }),
-		RouterModule.forRoot(appRoutes)
+		RouterModule.forRoot(appRoutes, { enableTracing:true })
 	],
 	exports:[
 		RouterModule

@@ -54,6 +54,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	height=200;
+	width=25;
 	private validationMode:boolean = false;
 	private	dataset:any = {"name":null,status:'New'};
 	private btnBarState={
@@ -935,6 +936,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 		if(this.agGrid._nativeElement.querySelector('.ag-body-container')){
 			this.height = 67 + this.agGrid._nativeElement.querySelector('.ag-body-container').offsetHeight;
+			this.width = this.getGridWidth();
 		}
 
 		if(this.showMissingDiv.nativeElement.style.display=='inline' 
@@ -943,9 +945,33 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			footerActionButtonHeight = 35;
 		}
 
+		// correction for large vertical grid, set grid height to fit screen size, grid will show scroll bars
 		if((this.gridPlaceHolder.nativeElement.clientHeight - footerActionButtonHeight) < this.height){
 			this.height = this.gridPlaceHolder.nativeElement.clientHeight - footerActionButtonHeight;
 		}
+
+		// horizontal grid correction, grid is smaller than container
+		if(this.width < (this.gridPlaceHolder.nativeElement.clientWidth - 30)/*padding*/){
+			this.width = 2 + this.getGridWidth();   // The 2 here seems to prevent the scroll bar from appearing.
+		}
+	}
+
+	private getGridWidth():number
+	{
+		let gridWidth = 0;
+
+		for (let columnNum in this.gridOptions.columnDefs){
+			if((<any>this.gridOptions.columnDefs[columnNum]).hide == false || (<any>this.gridOptions.columnDefs[columnNum]).hide == undefined){
+				gridWidth += (<any>this.gridOptions.columnDefs[columnNum]).width;
+			}
+		}
+
+		// grid doesn't fit, use max container size
+		if((this.gridPlaceHolder.nativeElement.clientWidth - 30) < gridWidth){
+			gridWidth = this.gridPlaceHolder.nativeElement.clientWidth - 30/*padding*/;
+		}
+
+		return gridWidth;
 	}
 
 	private getExtendedCellStyle(params:any){
