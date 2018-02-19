@@ -15,6 +15,10 @@ Deploying this project requires:
 
 	-Apache2
 	
+Instructions for setting up Apache for HTTPS and some scripts for creating all the required certs can be found at:
+https://github.com/hres/cfg-classification-keycloak/tree/master/scripts/ssl#how-to-configure-apache  and
+https://github.com/hres/cfg-classification-keycloak/tree/master/scripts/ssl/apache2
+	
 ## Installing NodeJS and NPM
 
 	*Note:  If you are installing on a Debian or Ubuntu based distrobution you will need to update your repositories.
