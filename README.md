@@ -9,12 +9,11 @@ Building this project requires the following.
 
 	-git
 	-npm (see section Installing NodeJS and NPM below)
-	-angular CLI 1.0.0-rc.0
+	-angular CLI
 	
 Deploying this project requires:
 
 	-Apache2
-	-Tomcat
 	
 ## Installing NodeJS and NPM
 
@@ -41,7 +40,7 @@ Navigate to project root and run the following.
 	npm install
 
 ## Build CFG Classification Webapp
-Run `ng build -bh /cfg-classification-webapp/` to build the project. The build artifacts will be stored in the `dist/` directory.  The contents of this folder is what needs to be made available at https://lam-dev.hres.ca/cfg-classification-webapp/
+Run `ng build -bh /cfg-classification-webapp/` to build the project. The build artifacts will be stored in the `dist/` directory.  Move the contents of this folder into your Apache server so that it is available at https://lam-dev.canadaeast.cloudapp.azure.com/cfg-classification-webapp/
 
 **Note the build command to execute for a QA build is `ng build -bh /cfg-classification-webapp/ -e qa`
 
