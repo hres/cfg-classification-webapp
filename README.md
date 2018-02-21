@@ -37,6 +37,8 @@ https://github.com/hres/cfg-classification-keycloak/tree/master/scripts/ssl/apac
 ## Git the project
 
 	git clone https://github.com/hres/cfg-classification-webapp.git
+	
+	*** The latest code base is in the Keycloak branch ***
 
 ## Install package dependencies
 Navigate to project root and run the following.
@@ -47,4 +49,6 @@ Navigate to project root and run the following.
 Run `ng build -bh /cfg-classification-webapp/` to build the project. The build artifacts will be stored in the `dist/` directory.  Move the contents of this folder into your Apache server so that it is available at https://lam-dev.canadaeast.cloudapp.azure.com/cfg-classification-webapp/
 
 **Note the build command to execute for a QA build is `ng build -bh /cfg-classification-webapp/ -e qa`
+
+**     the build command to execute for a local use build is `ng build -bh /cfg-classification-webapp/ -e local`
 
