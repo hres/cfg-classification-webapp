@@ -19,6 +19,15 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	private gridOptions: GridOptions;
 	private height=200;
 
+	//wma test start
+	private showMessage = false;
+	static message: string = '';
+
+	get message() {
+		return ManageRulesetsComponent.message;
+	  }
+	//wma test end
+
 	constructor(private rulesetsService:RulesetsService) { 
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
@@ -64,6 +73,9 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 		this.rulesetsService.deleteRuleset(rulesetId).subscribe(
 			(res) => {
 				this.getRulesets();
+
+				this.showMessage = true;
+				ManageRulesetsComponent.message = res.message;
 			},
 			(err) => {
 				console.log(err);
@@ -75,6 +87,9 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 		this.rulesetsService.promoteRuleset(rulesetId).subscribe(
 			(res) => {
 				this.getRulesets();
+
+				this.showMessage = true;
+				ManageRulesetsComponent.message = res.message;
 			},
 			(err) => {
 				console.log(err);

@@ -1,5 +1,7 @@
 import { Component, OnInit, Directive } 	from '@angular/core';
-import { FileSelectDirective, FileUploader }from 'ng2-file-upload';
+//import { FileSelectDirective, FileUploader }from 'ng2-file-upload';
+import { FileSelectDirective, FileItem, FileUploaderOptions, ParsedResponseHeaders, FileUploader,}from 'ng2-file-upload';
+
 import { environment } 						from '../../environments/environment';
 import { FileUploaderCustom } 				from './file-uploader-custom';
 import { KeycloakService }					from '../keycloak-service/keycloak.service';
@@ -18,6 +20,29 @@ export class CreateRulesetComponent implements OnInit {
 
 	private rulesetName:string;
 	private authToken:string;
+	//wma test start
+	static showErrorMessage = false;
+	static showSuccessMessage = false;
+
+	static errorMessage: string = '';
+	static successMessage: string = '';
+
+	get showErrorMessage() {
+		return CreateRulesetComponent.showErrorMessage;
+	  }
+
+	get showSuccessMessage() {
+		return CreateRulesetComponent.showSuccessMessage;
+	  }
+
+	get errorMessage() {
+		return CreateRulesetComponent.errorMessage;
+	  }
+
+	get successMessage() {
+		return CreateRulesetComponent.successMessage;
+	  }
+	//wma test end
 
 	constructor(private keycloakService: KeycloakService) {
 		keycloakService.getToken().then((token)=>{
@@ -25,12 +50,21 @@ export class CreateRulesetComponent implements OnInit {
 		})
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		CreateRulesetComponent.showErrorMessage = false;
+		CreateRulesetComponent.showSuccessMessage = false;
+
+	}
 	
 	private uploadAll(){
+		
 		this.customUploader.options.additionalParameter={rulesetname:this.rulesetName};
 		this.customUploader.authToken="bearer " + this.authToken;
+		//this.customUploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
+		//this.customUploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
+		//CreateRulesetComponent.errorMessage = "Hello message!!";
+
 		this.customUploader.uploadAllFiles();
 	}
-
+	
 }

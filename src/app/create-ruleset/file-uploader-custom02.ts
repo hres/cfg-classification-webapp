@@ -1,5 +1,4 @@
-import {FileItem, FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
-import { CreateRulesetComponent } from './create-ruleset.component';
+import {FileItem, FileUploader, FileUploaderOptions} from 'ng2-file-upload';
 
 export class FileUploaderCustom extends FileUploader {
 
@@ -13,14 +12,7 @@ export class FileUploaderCustom extends FileUploader {
 		const fakeItem: FileItem = null;
 		this.onBuildItemForm(fakeItem, sendable);
 
-		CreateRulesetComponent.showErrorMessage = false;
-		CreateRulesetComponent.showSuccessMessage = false;
-		
-		if(this.queue[0] == undefined){
-			CreateRulesetComponent.errorMessage = "Please Select 6 upload files...";
-			CreateRulesetComponent.showErrorMessage = true;
-
-		}
+		console.log("get into uplodadAllFiles...01");
 
 		for (const item of this.queue) {
 			item.isReady = true;
@@ -32,10 +24,8 @@ export class FileUploaderCustom extends FileUploader {
 			item.progress = 0;
 
 			if (typeof item._file.size !== 'number') {
-				//return 'The file specified is no longer valid';
 				throw new TypeError('The file specified is no longer valid');
 			}
-
 
 			if(item === this.queue[0]){
 				sendable.append('refamt', item._file, item.file.name);
@@ -52,6 +42,7 @@ export class FileUploaderCustom extends FileUploader {
 			}
 		}
 
+		console.log("get into uplodadAllFiles...02");
 		if (this.options.additionalParameter !== undefined) {
 			Object.keys(this.options.additionalParameter).forEach((key) => {
 				sendable.append(key, this.options.additionalParameter[key]);
@@ -59,17 +50,13 @@ export class FileUploaderCustom extends FileUploader {
 		}
 
 		xhr.onerror = () => {
-			//this.onErrorItem(fakeItem, null, xhr.status, null);
-			this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
-		}
-		xhr.onloadend = () => {
-			//this.onErrorItem(fakeItem, null, xhr.status, null);
-			this.onCompleteItem = (fakeItem, response, status, headers) => this.onSuccessItem(null, response, xhr.status, null);
-			//this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
+			this.onErrorItem(fakeItem, null, xhr.status, null);
+			console.log("get into uplodadAllFiles...03" + xhr.status);
 		}
 
 		xhr.onabort = () => {
-			this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
+			console.log("get into uplodadAllFiles...04" + xhr.response);
+			this.onErrorItem(fakeItem, null, xhr.status, null);
 		}
 
 		xhr.open('POST', this.options.url, true);
@@ -92,28 +79,11 @@ export class FileUploaderCustom extends FileUploader {
 			for (const item of this.queue) {
 				this[method](item, response, xhr.status, headers);
 
-			};
-			
-			//this._onCompleteItem(this.queue[0], response, xhr.status, headers);
+			}
+			this._onCompleteItem(this.queue[0], response, xhr.status, headers);
 		}
 
-		xhr.send(sendable);	
-	}
-	//wma test
-	onSuccessItem(item: FileItem, response: string, status: number, headers: null): any {
-		let data = JSON.parse(response); //success server response	
-		CreateRulesetComponent.successMessage = response;
-		CreateRulesetComponent.showSuccessMessage = true;
-	}
-
-	onCompleteItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-		CreateRulesetComponent.errorMessage = response;
-	}
-
-	onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-		let error = JSON.parse(response); //error server response
-		CreateRulesetComponent.errorMessage = response;
-		CreateRulesetComponent.showErrorMessage = true;
-
+		xhr.send(sendable);
+		
 	}
 }
