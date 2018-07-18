@@ -1,13 +1,25 @@
 <div class="form-vertical">
 	<div style="text-align:center"><h1>Manage Rulesets</h1></div>
-	<!--
-	<div *ngIf="showMessage">
-		<p class="error_message">{{message}}</p>
+	
+	<div *ngIf="showMessage" class="alert alert-success alert-dismissible fade in">	
+		<span (click)="showMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+		<p class="text-success"><strong>Success!</strong>{{message}}</p>	
 	</div>
-	-->
+	  
+	  <!--
 	<div *ngIf="showMessage">
-		<!--
+		
 			<p class="error_message">{{message}}</p>
+			<p class="text-primary">.text-primary</p>
+			<p class="text-secondary">.text-secondary</p>
+			<p class="text-success">.text-success</p>
+			<p class="text-danger">.text-danger</p>
+			<p class="text-warning">.text-warning</p>
+			<p class="text-info">.text-info</p>
+			<p class="text-light bg-dark">.text-light</p>
+			<p class="text-dark">.text-dark</p>
+			<p class="text-muted">.text-muted</p>
+			<p class="text-white bg-dark">.text-white</p>
 			class="alert alert-warning"
 			class="alert alert-warning fade in"
 			class="alert alert-danger fade in"
@@ -18,9 +30,10 @@
         	<span class="close" data-dismiss="alert">&times;</span>
         	<strong>Error!</strong> A problem has been occurred while submitting your data.
     </div>
-		-->
+		
 		<p class="alert alert-success fade in">{{message}}</p>
 	</div>
+	-->
 	<div><i class="btn"></i></div>
 	<div style="margin:auto;max-width:400px">
 		<div>Create a new ruleset: 

@@ -13,6 +13,10 @@ const appRoutes:Routes =[
 		component: DatasetsComponent
 	},
 	{
+		path:'cfg-classification-webapp',
+		component: DatasetsComponent
+	},
+	{
 		path:'main',
 		component: MainInterfaceComponent
 	},

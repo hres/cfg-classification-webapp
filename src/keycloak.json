@@ -1,7 +1,8 @@
 {
   "realm": "cfg-classification",
-  "auth-server-url": "https://keycloak.canadaeast.cloudapp.azure.com/auth",
-  "ssl-required": "external",
+  "auth-server-url": "http://localhost:9080/auth",
+  "ssl-required": "none",
   "resource": "cfg-classification-webapp",
   "public-client": true
 }
+

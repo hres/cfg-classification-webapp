@@ -1,4 +1,4 @@
 export const environment = {
 	production: true,
-	servicesUrl: "https://java-prod.hres.ca/cfg-task-service/"
+	servicesUrl: "http://localhost:8080/cfg-task-service/"
 };
