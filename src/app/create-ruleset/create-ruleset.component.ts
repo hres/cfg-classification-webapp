@@ -19,7 +19,6 @@ export class CreateRulesetComponent implements OnInit {
 	public customUploader:FileUploaderCustom = new FileUploaderCustom({url: environment.servicesUrl + 'service/upload'});
 
 	public   staticReference = CreateRulesetComponent;
-
 	private rulesetName:string;
 	private authToken:string;
 	//wma test start
