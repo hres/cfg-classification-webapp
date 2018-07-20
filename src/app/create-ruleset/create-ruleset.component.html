@@ -1,49 +1,14 @@
 <form class="form-horizontal" role="form">
-	<!--
-		wma test begin
-	-->
-
-	<div class="alert alert-danger fade in" *ngIf="showErrorMessage">
-		<!--
-			<p class="error_message">{{message}}</p>
-			class="alert alert-warning"
-			class="alert alert-warning fade in"
-			class="alert alert-danger fade in"
-			class="alert alert-success fade in"
-			class="alert alert-info fade in"
-
-			<div class="alert alert-danger">
-        	<span class="close" data-dismiss="alert">&times;</span>
-        	<strong>Error!</strong> A problem has been occurred while submitting your data.
-    </div>
-		-->
-		<!--
-		<a href="/?23" class="close" data-dismiss="alert">&times;</a>
-		-->
-    	<strong>Error!</strong> {{errorMessage}}
+	
+	<div *ngIf="showErrorMessage" class="alert alert-danger alert-dismissible fade in">	
+		<span (click)="staticReference.showErrorMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+		<p class="text-danger"><strong>Error!</strong>{{errorMessage}}</p>	
 	</div>
-	<div class="alert alert-success fade in" *ngIf="showSuccessMessage">
-		<!--
-			<p class="error_message">{{message}}</p>
-			class="alert alert-warning"
-			class="alert alert-warning fade in"
-			class="alert alert-danger fade in"
-			class="alert alert-success fade in"
-			class="alert alert-info fade in"
-
-			<div class="alert alert-danger">
-        	<span class="close" data-dismiss="alert">&times;</span>
-        	<strong>Error!</strong> A problem has been occurred while submitting your data.
-    </div>
-		-->
-		<!--
-		<a href="/?23" class="close" data-dismiss="alert">&times;</a>
-		-->
-    	<strong>Success!</strong>{{successMessage}}	
+	<div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade in">	
+		<span (click)="staticReference.showSuccessMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+		<p class="text-success"><strong>Success!</strong>{{successMessage}}</p>	
 	</div>
-		  <!--
-			wma test end
-		-->
+	
 	<div class="form-group">
 		<div class="col-md-3">
 			<span class="fa-stack fa-2x">

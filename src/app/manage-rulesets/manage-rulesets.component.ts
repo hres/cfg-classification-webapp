@@ -21,6 +21,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 
 	//wma test start
 	private showMessage = false;
+	
 	static message: string = '';
 
 	get message() {
@@ -58,6 +59,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	private getRulesets(){
+		this.showMessage = false;
 		this.rulesetsService.getRulesets().subscribe(
 			(res) => {
 				this.gridOptions.api.setRowData(res.rulesets);
@@ -70,6 +72,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	private deleteRuleset(rulesetId:string){
+		this.showMessage = false;
 		this.rulesetsService.deleteRuleset(rulesetId).subscribe(
 			(res) => {
 				this.getRulesets();
@@ -84,6 +87,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	}
 
 	private promoteRuleset(rulesetId:string){
+		this.showMessage = false;
 		this.rulesetsService.promoteRuleset(rulesetId).subscribe(
 			(res) => {
 				this.getRulesets();

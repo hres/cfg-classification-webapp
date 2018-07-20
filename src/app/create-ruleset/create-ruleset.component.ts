@@ -18,11 +18,14 @@ export class CreateRulesetComponent implements OnInit {
 
 	public customUploader:FileUploaderCustom = new FileUploaderCustom({url: environment.servicesUrl + 'service/upload'});
 
+	public   staticReference = CreateRulesetComponent;
+
 	private rulesetName:string;
 	private authToken:string;
 	//wma test start
-	static showErrorMessage = false;
-	static showSuccessMessage = false;
+	
+	static showErrorMessage;
+	static showSuccessMessage;
 
 	static errorMessage: string = '';
 	static successMessage: string = '';
@@ -53,17 +56,13 @@ export class CreateRulesetComponent implements OnInit {
 	ngOnInit() {
 		CreateRulesetComponent.showErrorMessage = false;
 		CreateRulesetComponent.showSuccessMessage = false;
-
 	}
 	
 	private uploadAll(){
 		
 		this.customUploader.options.additionalParameter={rulesetname:this.rulesetName};
 		this.customUploader.authToken="bearer " + this.authToken;
-		//this.customUploader.onErrorItem = (item, response, status, headers) => this.onErrorItem(item, response, status, headers);
-		//this.customUploader.onSuccessItem = (item, response, status, headers) => this.onSuccessItem(item, response, status, headers);
-		//CreateRulesetComponent.errorMessage = "Hello message!!";
-
+		
 		this.customUploader.uploadAllFiles();
 	}
 	

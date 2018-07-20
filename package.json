@@ -25,6 +25,7 @@
     "@angular/router": "^5.0.0",
     "ag-grid": "^14.0.0",
     "ag-grid-angular": "^14.0.0",
+    "angular-page-visibility": "^4.0.11",
     "core-js": "^2.4.1",
     "moment": "^2.20.1",
     "ng2-file-upload": "^1.2.1",

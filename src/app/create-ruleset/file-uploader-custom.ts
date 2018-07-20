@@ -7,6 +7,7 @@ export class FileUploaderCustom extends FileUploader {
 		super(options);
 	}
 
+
 	uploadAllFiles(): void {
 		const xhr = new XMLHttpRequest();
 		const sendable = new FormData();
