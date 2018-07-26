@@ -14,15 +14,21 @@ export class FileUploaderCustom extends FileUploader {
 		const fakeItem: FileItem = null;
 		this.onBuildItemForm(fakeItem, sendable);
 
+
 		CreateRulesetComponent.showErrorMessage = false;
 		CreateRulesetComponent.showSuccessMessage = false;
+		CreateRulesetComponent.showStatusMessage = false;
 		
 		if(this.queue[0] == undefined){
 			CreateRulesetComponent.errorMessage = "Please Select 6 upload files...";
 			CreateRulesetComponent.showErrorMessage = true;
 
+		}else{
+			CreateRulesetComponent.statusMessage = "In Progresssing...";
+			CreateRulesetComponent.showStatusMessage = true;
 		}
 
+		
 		for (const item of this.queue) {
 			item.isReady = true;
 			item.isUploading = true;
@@ -32,24 +38,31 @@ export class FileUploaderCustom extends FileUploader {
 			item.isError = false;
 			item.progress = 0;
 
+			
+
 			if (typeof item._file.size !== 'number') {
 				//return 'The file specified is no longer valid';
 				throw new TypeError('The file specified is no longer valid');
 			}
 
-
 			if(item === this.queue[0]){
 				sendable.append('refamt', item._file, item.file.name);
+				console.log("item:0 refamt " + item._file + "name: " + item.file.name + "bind name: " + item.onBuildForm.bind.name);
 			}else if (item === this.queue[1]){
 				sendable.append('fop', item._file, item.file.name);
+				console.log("item:1 fop " + item._file + "name: " + item.file.name + "indexof item.name: " + item._onBuildForm.name);
 			}else if (item === this.queue[2]){
 				sendable.append('shortcut', item._file, item.file.name);
+				console.log("item:2 shortcut " + item + "name: " + item + "Item: ");
 			}else if (item === this.queue[3]){
 				sendable.append('thresholds', item._file, item.file.name);
+				console.log("item:3 thresholds " + item._file + "name: " + item.file.name + "index: ");
 			}else if (item === this.queue[4]){
 				sendable.append('init', item._file, item.file.name);
+				console.log("item:4 int " + item._file + "name: " + item.file.name + "index: " + item.index);
 			}else if (item === this.queue[5]){
 				sendable.append('tier', item._file, item.file.name);
+				console.log("item:5 tier " + item._file + "name: " + item.file.name + "headers: " + item.headers);
 			}
 		}
 
@@ -105,6 +118,8 @@ export class FileUploaderCustom extends FileUploader {
 		let data = JSON.parse(response); //success server response	
 		CreateRulesetComponent.successMessage = response;
 		CreateRulesetComponent.showSuccessMessage = true;
+		CreateRulesetComponent.showErrorMessage = false;
+		CreateRulesetComponent.showStatusMessage = false;
 	}
 
 	onCompleteItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
@@ -115,6 +130,7 @@ export class FileUploaderCustom extends FileUploader {
 		let error = JSON.parse(response); //error server response
 		CreateRulesetComponent.errorMessage = response;
 		CreateRulesetComponent.showErrorMessage = true;
-
+		CreateRulesetComponent.showSuccessMessage = false;
+		CreateRulesetComponent.showStatusMessage = false;
 	}
 }

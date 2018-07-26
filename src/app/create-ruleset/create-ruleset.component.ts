@@ -21,13 +21,14 @@ export class CreateRulesetComponent implements OnInit {
 	public   staticReference = CreateRulesetComponent;
 	private rulesetName:string;
 	private authToken:string;
-	//wma test start
 	
 	static showErrorMessage;
 	static showSuccessMessage;
+	static showStatusMessage;
 
 	static errorMessage: string = '';
 	static successMessage: string = '';
+	static statusMessage: string = '';
 
 	get showErrorMessage() {
 		return CreateRulesetComponent.showErrorMessage;
@@ -35,7 +36,11 @@ export class CreateRulesetComponent implements OnInit {
 
 	get showSuccessMessage() {
 		return CreateRulesetComponent.showSuccessMessage;
-	  }
+	}
+	
+	get showStatusMessage() {
+		return CreateRulesetComponent.showStatusMessage;
+		}
 
 	get errorMessage() {
 		return CreateRulesetComponent.errorMessage;
@@ -43,9 +48,12 @@ export class CreateRulesetComponent implements OnInit {
 
 	get successMessage() {
 		return CreateRulesetComponent.successMessage;
-	  }
-	//wma test end
+		}
 
+	get statusMessage() {
+		return CreateRulesetComponent.statusMessage;
+		}
+	
 	constructor(private keycloakService: KeycloakService) {
 		keycloakService.getToken().then((token)=>{
 			this.authToken=token;
@@ -60,8 +68,7 @@ export class CreateRulesetComponent implements OnInit {
 	private uploadAll(){
 		
 		this.customUploader.options.additionalParameter={rulesetname:this.rulesetName};
-		this.customUploader.authToken="bearer " + this.authToken;
-		
+		this.customUploader.authToken="bearer " + this.authToken;	
 		this.customUploader.uploadAllFiles();
 	}
 	

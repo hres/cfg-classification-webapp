@@ -8,6 +8,9 @@
 		<span (click)="staticReference.showSuccessMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
 		<p class="text-success"><strong>Success!</strong>{{successMessage}}</p>	
 	</div>
+	<div *ngIf="showStatusMessage" class="alert alert-success alert-dismissible fade in">	
+		<p class="text-success">{{statusMessage}}</p>	
+	</div>
 	
 	<div class="form-group">
 		<div class="col-md-3">
@@ -26,27 +29,27 @@
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Reference Amount Rules</label>
-		<input class="col-md-8" id="refamt" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="refamt" id="refamt" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Front of Pack Rules</label>
-		<input class="col-md-8" name="fop" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="fop" id="fop" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Shortcut Rules</label>
-		<input class="col-md-8" name="shortcut" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="shortcut" id="shortcut" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Threshold Rules</label>
-		<input class="col-md-8" name="thresholds" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="thresholds" id="thresholds" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Initial Rules</label>
-		<input class="col-md-8" name="init" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="init" id="init" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	<div class="form-group">
 		<label class="col-md-4 control-label">Tier Rules</label>
-		<input class="col-md-8" name="tier" type="file" ng2FileSelect [uploader]="customUploader" required=true>
+		<input class="col-md-8" name="tier" id="tier" type="file" ng2FileSelect [uploader]="customUploader" required=true>
 	</div>
 	
 	<div class="form-group">
