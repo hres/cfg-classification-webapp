@@ -47,22 +47,16 @@ export class FileUploaderCustom extends FileUploader {
 
 			if(item === this.queue[0]){
 				sendable.append('refamt', item._file, item.file.name);
-				console.log("item:0 refamt " + item._file + "name: " + item.file.name + "bind name: " + item.onBuildForm.bind.name);
 			}else if (item === this.queue[1]){
 				sendable.append('fop', item._file, item.file.name);
-				console.log("item:1 fop " + item._file + "name: " + item.file.name + "indexof item.name: " + item._onBuildForm.name);
 			}else if (item === this.queue[2]){
 				sendable.append('shortcut', item._file, item.file.name);
-				console.log("item:2 shortcut " + item + "name: " + item + "Item: ");
 			}else if (item === this.queue[3]){
 				sendable.append('thresholds', item._file, item.file.name);
-				console.log("item:3 thresholds " + item._file + "name: " + item.file.name + "index: ");
 			}else if (item === this.queue[4]){
 				sendable.append('init', item._file, item.file.name);
-				console.log("item:4 int " + item._file + "name: " + item.file.name + "index: " + item.index);
 			}else if (item === this.queue[5]){
 				sendable.append('tier', item._file, item.file.name);
-				console.log("item:5 tier " + item._file + "name: " + item.file.name + "headers: " + item.headers);
 			}
 		}
 
