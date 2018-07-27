@@ -9,6 +9,7 @@ import { OpenService } from '../services/open.service';
 import { RulesetsService } from '../services/rulesets.service';
 import { ClassifyService } from '../services/classify.service';
 import { CommitService } from '../services/commit.service';
+import { ExcelService } from '../services/excel.service';
 import { CfgModel }			from '../model/cfg.model';
 import { SaveViewComponent } from '../save-view/save-view.component';
 import { SpinnerComponent }			from '../spinner-component/spinner.component';
@@ -29,11 +30,12 @@ import { MissingBooleanFilter }		from './missing-boolean-filter/missing-boolean-
 import { FoodRecipeFilter }			from './custom-filters/food-recipe-filter/food-recipe-filter.component';
 import * as moment 			from 'moment';
 
+
 @Component({
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService, OpenService, ClassifyService, RulesetsService, CommitService]
+	providers: [SaveService, OpenService, ClassifyService, RulesetsService, CommitService, ExcelService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -78,6 +80,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private classifyService: ClassifyService,
 		private commitService: CommitService,
 		private rulesetsService: RulesetsService,
+		private excelService: ExcelService,
 		private dialog: MatDialog,
 		private route:ActivatedRoute,
 		private cfgModel:CfgModel,
@@ -1281,13 +1284,28 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			columnSeparator: "\t"
 		};
 
+		//let excelParams={
+		//	fileName: "classification_data.xls"	
+		//};
+
 		this.exportData();
-		this.gridOptions.api.exportDataAsCsv(params);
+		//current export csv implmentation
+		//this.gridOptions.api.exportDataAsCsv(params);
+		//current export excel implmentation
+		this.excelService.exportAsExcelFile(this.dataset.data, this.dataset.name);
+		//might need ag-grid enterprise
+		//this.gridOptions.api.exportDataAsExcel(excelParams);
 
 		//restore saved data
 		this.dataset.data = data;
 		this.setDataset(this.dataset);
 		this.gridOptions.api.refreshView();
+	}
+
+	
+
+	onExportAsXLSX(){
+		this.excelService.exportAsExcelFile(this.dataset.data, this.dataset.name);
 	}
 
 	onBackArrowClick(){

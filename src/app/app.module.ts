@@ -49,6 +49,7 @@ import { FoodRecipeFilter } from './main-interface/custom-filters/food-recipe-fi
 
 import { FileSelectDirective } from 'ng2-file-upload';
 import { FileUploaderCustom }  from './create-ruleset/file-uploader-custom';
+import { ExcelService } from './services/excel.service';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}
@@ -124,7 +125,8 @@ export function restangularConfigFactory(RestangularProvider){}
 	entryComponents: [SaveViewComponent, ColumnVisibilityComponent, PopupMessage, SpinnerComponent],
 	providers: [
 		KeycloakService,
-		KEYCLOAK_HTTP_PROVIDER
+		KEYCLOAK_HTTP_PROVIDER,
+		ExcelService
 	],
 	bootstrap: [AppComponent]
 })
