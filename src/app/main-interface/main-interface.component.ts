@@ -29,13 +29,15 @@ import { MissingStringFilter }		from './missing-string-filter/missing-string-fil
 import { MissingBooleanFilter }		from './missing-boolean-filter/missing-boolean-filter.component';
 import { FoodRecipeFilter }			from './custom-filters/food-recipe-filter/food-recipe-filter.component';
 import * as moment 			from 'moment';
+//import { KeycloakService }	from '../keycloak-service/keycloak.service';
 
 
 @Component({
 	selector: 'app-main-interface',
 	templateUrl: './main-interface.component.html',
 	styleUrls: ['./main-interface.component.css'],
-	providers: [SaveService, OpenService, ClassifyService, RulesetsService, CommitService, ExcelService]
+	//providers: [SaveService, OpenService, KeycloakService,ClassifyService, RulesetsService, CommitService, ExcelService]
+	providers: [SaveService, OpenService,ClassifyService, RulesetsService, CommitService, ExcelService]
 })
 
 export class MainInterfaceComponent implements OnInit, AfterContentChecked {
@@ -56,7 +58,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	height=200;
-	width=25;
+	width=25;	
 	private validationMode:boolean = false;
 	private	dataset:any = {"name":null,status:'New'};
 	private btnBarState={
@@ -73,10 +75,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	rulesets;
 	private modified:boolean=false;
 	private isSearchResult:boolean=false;
+	//private authToken:string;
 
 	constructor(private queryService: QueryService,
 		private saveService: SaveService,
 		private openService: OpenService,
+		//private keycloakService: KeycloakService,
 		private classifyService: ClassifyService,
 		private commitService: CommitService,
 		private rulesetsService: RulesetsService,
@@ -86,6 +90,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private cfgModel:CfgModel,
 		private element:ElementRef,
 		private router:Router) {
+
+		// keycloakService.getToken().then((token)=>{
+		// 	console.log("we are at main contructor @@@@@" + this.authToken);
+		// 		this.authToken=token;
+		// });
 
 		this.gridOptions={
 			context:{validationMode:this.validationMode,
@@ -1292,7 +1301,12 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		//current export csv implmentation
 		//this.gridOptions.api.exportDataAsCsv(params);
 		//current export excel implmentation
-		this.excelService.exportAsExcelFile(this.dataset.data, this.dataset.name);
+		let nameAffix: string = "Prod";
+		if(this.cfgModel.sandboxMode)
+		{
+			nameAffix= "Sandbox";
+		}
+		this.excelService.exportAsExcelFile(this.dataset.data, this.dataset.name + "_" + nameAffix);
 		//might need ag-grid enterprise
 		//this.gridOptions.api.exportDataAsExcel(excelParams);
 
