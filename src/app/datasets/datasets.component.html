@@ -1,4 +1,12 @@
 <div class="container">
+	<div *ngIf="showErrorMessage" class="alert alert-danger alert-dismissible fade in">	
+			<span (click)="staticReference.showErrorMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+			<p class="text-danger"><strong>Error!</strong>{{errorMessage}}</p>	
+	</div>
+	<div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade in">	
+			<span (click)="showSuccessMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+			<p class="text-success"><strong>Success!</strong>{{successMessage}}</p>	
+		</div>
 	<div class="form-horizontal" *ngIf="cfgModel.isCfgAdmin||cfgModel.isAnalyst">
 		<div class="col-sm-8" style="padding-left:0;">
 			<label>Show:</label>

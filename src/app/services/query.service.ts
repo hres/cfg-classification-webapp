@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
+//import { Restangular } from 'ngx-restangular';
 import { CfgRequest } from '../dtos/cfg-request';
 import { environment } from '../../environments/environment';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 @Injectable()
 export class QueryService {
 
 	cfgRequest:CfgRequest;
 
-	constructor(private restangular:Restangular){ }
+	constructor(private http:Http){ }
 
 	search(){
 		let queryString = "service/datasets/search?";
@@ -81,9 +82,11 @@ export class QueryService {
 		}
 
 		queryString = queryString.replace(/\?\&/g, "?");
+		let url = environment.servicesUrl + queryString;
+		return this.http.get(url)
+            .map(response => response.json());
 
-		let element = this.restangular.oneUrl('query', environment.servicesUrl + queryString).get();
+		//let element = this.restangular.oneUrl('query', environment.servicesUrl + queryString).get();
 
-		return element;
 	}
 }

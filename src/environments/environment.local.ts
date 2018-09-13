@@ -5,5 +5,8 @@
 
 export const environment = {
 	production: false,
-	servicesUrl: "https://java-dev.canadaeast.cloudapp.azure.com:8443/cfg-task-service/"
+	servicesUrl: "http://localhost:8080/cfg-task-service/",
+	KEYCLOAK_URL: 'http://localhost:9080/auth',
+	KEYCLOAK_REALM: 'cfg-classification',
+	KEYCLOAK_CLIENTID: 'cfg-classification-webapp'
 };

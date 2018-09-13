@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef  } from '@angular/core';
+import { Router, ActivatedRoute} from '@angular/router';
 
 import { GridOptions } from 'ag-grid';
 
@@ -57,6 +57,14 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	width=25;
 	private validationMode:boolean = false;
 	private	dataset:any = {"name":null,status:'New'};
+
+	private showErrorMessage:boolean;
+	private showSuccessMessage:boolean = false;
+	private showStatusMessage:boolean = false;
+	
+	private errorMessage: string = '';
+	private successMessage: string = '';
+
 	private btnBarState={
 		"showBase":false,
 		"showRa":false,
@@ -83,7 +91,6 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		private cfgModel:CfgModel,
 		private element:ElementRef,
 		private router:Router) {
-
 		this.gridOptions={
 			context:{validationMode:this.validationMode,
 					 mainInterface:this
@@ -97,7 +104,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			rowSelection: 'multiple',
 			suppressRowClickSelection: true,
 		};
-
+		
 		this.gridOptions.debug = true;
 		this.gridOptions.columnDefs=[
 			{
@@ -115,6 +122,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 			///////////////
 			//BASE ITEM DATA
 			///////////////
+			
 			{
 				headerName: "Food / Recipe Code",
 				cellRendererFramework: NoSelectionRendererComponent,
@@ -791,6 +799,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				width: 118
 			}
 		];
+
 	}
 
 	ngOnInit() {
@@ -811,7 +820,7 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				}
 			}
 		)
-
+		
 		if(this.cfgModel.datasetId != undefined){
 			this.openService.open(this.cfgModel.datasetId).subscribe(
 				(res) => {
@@ -824,7 +833,11 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 		}else{
 			this.isSearchResult = true;
 			this.search();
-		}	
+		}
+		
+		this.successMessage = "";
+		this.showErrorMessage = false;
+		this.showSuccessMessage = false;
 	}
 
 	search():void{
@@ -841,7 +854,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 	private	setDataset(dataset:any){
 		this.dataset=dataset;
 		this.modified = false;
+		
 		this.gridOptions.api.setRowData(dataset.data);
+		
 		
 		if(dataset.status == 'Review'){
 			this.showAllDiv.nativeElement.style.display = "inline";
@@ -1194,9 +1209,18 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				(res) => {
 					this.setBaseClassified();
 					this.setDataset(res);
+
+					
+					this.successMessage = "Classify dataset successfully.";
+					this.showErrorMessage = false;
+					this.showSuccessMessage = true;
 				},
 				(err) => {
 					console.log(err);
+					this.errorMessage = "Classify Error.  Check dataset with rule..." + err;
+					this.showErrorMessage = true;
+					this.showSuccessMessage = false;
+				
 				},
 				() => {
 					dialogRef.close();
@@ -1207,9 +1231,17 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				(res) => {
 					this.setBaseClassified();
 					this.setDataset(res);
+
+					this.successMessage = "Classify dataset sandbox successfully.";
+					this.showErrorMessage = false;
+					this.showSuccessMessage = true;
 				},
 				(err) => {
 					console.log(err);
+
+					this.errorMessage = "Classify Sandbox Error.  Check dataset with rule..." + err;
+					this.showErrorMessage = true;
+					this.showSuccessMessage = false;
 				},
 				() => {
 					dialogRef.close();
@@ -1233,6 +1265,9 @@ export class MainInterfaceComponent implements OnInit, AfterContentChecked {
 				console.log(err);
 			}
 		)
+
+		this.showSuccessMessage = false;
+		this.showErrorMessage = false;
 	}
 
 	onSendForReviewClick(){

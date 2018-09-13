@@ -17,6 +17,10 @@ const appRoutes:Routes =[
 		component: DatasetsComponent
 	},
 	{
+		path:'service',
+		component: DatasetsComponent
+	},
+	{
 		path:'main',
 		component: MainInterfaceComponent
 	},

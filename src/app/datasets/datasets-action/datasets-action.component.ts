@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICellRendererAngularComp } from "ag-grid-angular/main";
+import { ICellRendererAngularComp } from "ag-grid-angular";
 
 @Component({
 	selector: 'datasets-action',

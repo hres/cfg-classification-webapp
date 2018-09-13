@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
-import { GridOptions } 			from 'ag-grid';
+import { GridOptions } 			from 'ag-grid'; 
 
 import { RulesetsService }		from '../services/rulesets.service';
 
@@ -18,9 +18,11 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 
 	private gridOptions: GridOptions;
 	private height=200;
+	
 
 	//wma test start
 	private showMessage = false;
+	private deleteRulesetId: string = '';
 	
 	static message: string = '';
 
@@ -29,7 +31,7 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 	  }
 	//wma test end
 
-	constructor(private rulesetsService:RulesetsService) { 
+	constructor(private rulesetsService:RulesetsService, private element:ElementRef) { 
 		this.gridOptions = <GridOptions>{
 			context:{componentParent:this},
 			suppressCellSelection: true
@@ -73,7 +75,23 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 
 	private deleteRuleset(rulesetId:string){
 		this.showMessage = false;
-		this.rulesetsService.deleteRuleset(rulesetId).subscribe(
+		this.deleteRulesetId = rulesetId;
+
+		this.element.nativeElement.dispatchEvent(new CustomEvent('popup', {
+			detail:{message: "Are you sure you want to permanently delete ruleset?",
+				showYesButton: true,
+				showNoButton: true,
+				callback: this.deleteRulesetConfirmed},
+			bubbles:true
+		}));
+		
+	}
+
+	
+
+	//wma test
+	private deleteRulesetConfirmed = () => {
+		this.rulesetsService.deleteRuleset(this.deleteRulesetId).subscribe(
 			(res) => {
 				this.getRulesets();
 
@@ -86,6 +104,25 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 		)
 	}
 
+	
+	
+	
+	/*
+	private deleteRuleset(rulesetId:string){
+		this.showMessage = false;
+		this.rulesetsService.deleteRuleset(rulesetId).subscribe(
+			(res) => {
+				this.getRulesets();
+
+				this.showMessage = true;
+				ManageRulesetsComponent.message = res.message;
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
+	}
+	*/
 	private promoteRuleset(rulesetId:string){
 		this.showMessage = false;
 		this.rulesetsService.promoteRuleset(rulesetId).subscribe(
@@ -93,6 +130,22 @@ export class ManageRulesetsComponent implements OnInit, AfterContentChecked {
 				this.getRulesets();
 
 				this.showMessage = true;
+				ManageRulesetsComponent.message = res.message;
+			},
+			(err) => {
+				console.log(err);
+			}
+		)
+	}
+
+	private viewRuleset(rulesetId:string){
+		this.showMessage = false;
+		this.rulesetsService.viewRuleset(rulesetId).subscribe(
+			(res) => {
+				//this.getRulesets();
+
+				this.showMessage = true;
+				console.log("veiw massage: " + res.message);
 				ManageRulesetsComponent.message = res.message;
 			},
 			(err) => {

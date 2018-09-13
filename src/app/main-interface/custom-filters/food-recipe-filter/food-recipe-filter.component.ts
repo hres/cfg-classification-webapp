@@ -1,6 +1,6 @@
 import { Component }							from '@angular/core';
-import { AgFilterComponent }					from 'ag-grid-angular/main';
-import { IFilterParams, IDoesFilterPassParams }	from 'ag-grid/main';
+import { AgFilterComponent }					from 'ag-grid-angular';
+import { IFilterParams, IDoesFilterPassParams }	from 'ag-grid';
 
 @Component({
 	selector: 'app-food-recipe-filter',

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked, ElementRef, NgZone } from '@angular/core';
 import { GridOptions } from 'ag-grid';
 import { Dataset } from '../dtos/dataset';
 
@@ -37,11 +37,19 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 	private ownersList:string[] = [];
 	private statusList:string[] = [];
 
+	private showErrorMessage:boolean;
+	private showSuccessMessage:boolean = false;
+	private showStatusMessage:boolean = false;
+	
+	private errorMessage: string = '';
+	private successMessage: string = '';
+
 	constructor(private datasetsService: DatasetsService,
 				private router:Router,
 				private deleteService:DeleteService,
 				private cfgModel:CfgModel,
 				private saveService:SaveService,
+				private ngZone:NgZone,
 				private element:ElementRef) {
 
 		this.gridOptions ={
@@ -153,9 +161,19 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 				this.gridOptions.api.sizeColumnsToFit();
 				this.buildOwnersList();
 				this.buildStatusList();
+
+				if(this.successMessage.length < 5)
+					this.successMessage = "Successful load datasets.";
+				this.showErrorMessage = false;
+				this.showSuccessMessage = true;
+
 			},
 			(err) => {
-				console.log(err);
+				this.errorMessage = "Load dataset Error.  Check taskservice or keycloak role permittion/.." + err;
+				this.showErrorMessage = true;
+				this.showSuccessMessage = false;
+				this.showStatusMessage = false;
+				
 			});
 	}
 
@@ -167,7 +185,10 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 			body.setAttribute("style","background-color:#dff0d8");
 		}
 
-		this.router.navigate(['/main', datasetId]);
+		//this.router.navigate(['/main', datasetId]);
+		this.ngZone.run(() => {
+			this.router.navigate(['/main', datasetId]);
+		  });
 	}
 
 	private deleteId:string;
@@ -186,9 +207,15 @@ export class DatasetsComponent implements OnInit, AfterContentChecked {
 		this.deleteService.delete(this.deleteId).subscribe(
 			(res) => {
 				this.getDatasets();
+				this.successMessage = "Delete dataset successfully with Id: " + this.deleteId;
+				this.showErrorMessage = false;
+				this.showSuccessMessage = true;
 			},
 			(err) => {
 				console.log(err);
+				this.errorMessage = "Delete dataset Error with Id: " + this.deleteId + "  " + err;
+				this.showErrorMessage = true;
+				this.showSuccessMessage = false;
 			}
 		)
 	}

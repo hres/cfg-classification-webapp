@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
-import { ICellEditorAngularComp } from 'ag-grid-angular/main';
+import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { MatTooltip } 				from '@angular/material';
 
 @Component({

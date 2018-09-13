@@ -5,14 +5,15 @@ export class FileUploaderCustom extends FileUploader {
 
 	constructor(options: FileUploaderOptions) {
 		super(options);
-	}
 
+	}
 
 	uploadAllFiles(): void {
 		const xhr = new XMLHttpRequest();
 		const sendable = new FormData();
 		const fakeItem: FileItem = null;
 		this.onBuildItemForm(fakeItem, sendable);
+		
 
 
 		CreateRulesetComponent.showErrorMessage = false;
@@ -37,6 +38,7 @@ export class FileUploaderCustom extends FileUploader {
 			item.isCancel = false;
 			item.isError = false;
 			item.progress = 0;
+			
 
 			
 
@@ -47,6 +49,7 @@ export class FileUploaderCustom extends FileUploader {
 
 			if(item === this.queue[0]){
 				sendable.append('refamt', item._file, item.file.name);
+			
 			}else if (item === this.queue[1]){
 				sendable.append('fop', item._file, item.file.name);
 			}else if (item === this.queue[2]){
@@ -64,33 +67,39 @@ export class FileUploaderCustom extends FileUploader {
 			Object.keys(this.options.additionalParameter).forEach((key) => {
 				sendable.append(key, this.options.additionalParameter[key]);
 			})
-		}
+		};
 
-		xhr.onerror = () => {
+		//xhr.onerror = () => {
 			//this.onErrorItem(fakeItem, null, xhr.status, null);
-			this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
-		}
+			//this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
+		//};
+		
 		xhr.onloadend = () => {
 			//this.onErrorItem(fakeItem, null, xhr.status, null);
-			this.onCompleteItem = (fakeItem, response, status, headers) => this.onSuccessItem(null, response, xhr.status, null);
+			//this.onCompleteItem = (fakeItem, response, status, headers) => this.onCompleteItem(fakeItem, response, xhr.status, headers);
 			//this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
-		}
+		};
+
+		//xhr.onloadstart = () => (fakeItem, response, status, headers) => this.onLoadItem(fakeItem, response, xhr.status, headers);
 
 		xhr.onabort = () => {
-			this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
-		}
+			//this.onErrorItem = (fakeItem, response, status, headers) => this.onErrorItem(fakeItem, response, xhr.status, headers);
+		};
 
+		
 		xhr.open('POST', this.options.url, true);
 		xhr.withCredentials = true;
+
 		if (this.options.headers) {
 			for (let _i = 0, _a = this.options.headers; _i < _a.length; _i++) {
 				const header = _a[_i];
 				xhr.setRequestHeader(header.name, header.value);
 			}
-		}
+		};
+		
 		if (this.authToken) {
 			xhr.setRequestHeader(this.authTokenHeader, this.authToken);
-		}
+		};
 
 		xhr.onload = () => {
 			const headers = this._parseHeaders(xhr.getAllResponseHeaders());
@@ -101,30 +110,63 @@ export class FileUploaderCustom extends FileUploader {
 				this[method](item, response, xhr.status, headers);
 
 			};
-			
+			//this.onLoadItem = (fakeItem, response, status, headers) => this.onLoadItem(fakeItem, response, xhr.status, headers);
 			//this._onCompleteItem(this.queue[0], response, xhr.status, headers);
 		}
 
 		xhr.send(sendable);	
+	
+		//keycloak error catched here
+		xhr.onerror = () => {
+			if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log("The upload Successful");
+                } else if (xhr.status == 0) {
+					
+                    CreateRulesetComponent.errorMessage = "The upload process failed during connect with CFG-Task-Service Rest API.";
+					CreateRulesetComponent.showErrorMessage = true;
+					CreateRulesetComponent.showSuccessMessage = false;
+					CreateRulesetComponent.showStatusMessage = false;
+                }
+            }
+
+		}
+ 
+		
 	}
-	//wma test
+	
 	onSuccessItem(item: FileItem, response: string, status: number, headers: null): any {
 		let data = JSON.parse(response); //success server response	
 		CreateRulesetComponent.successMessage = response;
 		CreateRulesetComponent.showSuccessMessage = true;
 		CreateRulesetComponent.showErrorMessage = false;
 		CreateRulesetComponent.showStatusMessage = false;
+
 	}
 
 	onCompleteItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-		CreateRulesetComponent.errorMessage = response;
+
+		item.formData =   [{ firstParamId:  (<HTMLInputElement>window.document.getElementById('id'))
+		 }];
+
+		 console.log("formdata name======: " + item.formData.get("firstParamId"));
+		 console.log("formdata name======: " + item.formData);
 	}
 
-	onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+	onLoadItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+
+		item.formData =   [{ firstParamId:  (<HTMLInputElement>window.document.getElementById('id'))
+		 }, { secondParamName:  (<HTMLInputElement>window.document.getElementById('name'))
+		}];
+
+	}
+	
+	onErrorItem(item: FileItem, response: string, status: number, headers: ParsedResponseHeaders){
 		let error = JSON.parse(response); //error server response
 		CreateRulesetComponent.errorMessage = response;
 		CreateRulesetComponent.showErrorMessage = true;
 		CreateRulesetComponent.showSuccessMessage = false;
 		CreateRulesetComponent.showStatusMessage = false;
+		
 	}
 }

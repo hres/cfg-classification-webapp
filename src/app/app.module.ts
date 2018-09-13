@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { AgGridModule } from "ag-grid-angular/main";
+import { AgGridModule } from "ag-grid-angular";
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -48,7 +48,8 @@ import { StatusFilter } from './datasets/custom-filters/status-filter/status-fil
 import { FoodRecipeFilter } from './main-interface/custom-filters/food-recipe-filter/food-recipe-filter.component';
 
 import { FileSelectDirective } from 'ng2-file-upload';
-import { FileUploaderCustom }  from './create-ruleset/file-uploader-custom';
+//wma comment out
+//import { FileUploaderCustom }  from './create-ruleset/file-uploader-custom';
 
 // Do your Restangular default settings here
 export function restangularConfigFactory(RestangularProvider){}

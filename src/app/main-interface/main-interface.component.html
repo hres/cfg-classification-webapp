@@ -1,4 +1,12 @@
 <div class="container-fluid" style="height: 100%;">
+	<div *ngIf="showErrorMessage" class="alert alert-danger alert-dismissible fade in">	
+		<span (click)="staticReference.showErrorMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+		<p class="text-danger"><strong>Error!</strong>{{errorMessage}}</p>	
+	</div>
+	<div *ngIf="showSuccessMessage" class="alert alert-success alert-dismissible fade in">	
+		<span (click)="staticReference.showSuccessMessage = false" class="close" data-dismiss="alert" aria-label="close">&times;</span>
+		<p class="text-success"><strong>Success!</strong>{{successMessage}}</p>	
+	</div>
 	<div style="height: 40px;" class="row">
 		<div class="col-md-4">
 			<span class="fa-stack fa-lg" style="margin-left:-8px">

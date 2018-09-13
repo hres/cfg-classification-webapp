@@ -3,13 +3,15 @@ import { QueryService } 		from './services/query.service';
 import { CfgModel } 			from './model/cfg.model';
 import { KeycloakService } 	from './keycloak-service/keycloak.service';
 import { PopupMessage }			from './popup-message/popup-message';
-import { MatDialog, MatDialogConfig, MatDialogRef }from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+
+import { KeycloakHttp } 	from './keycloak-service/keycloak.http';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css'],
-	providers: [QueryService, CfgModel]
+	providers: [QueryService, CfgModel, KeycloakHttp]
 })
 
 export class AppComponent implements OnInit {

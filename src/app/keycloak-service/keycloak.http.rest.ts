@@ -25,21 +25,22 @@
 
 import {Injectable} from '@angular/core';
 import {Http, Request, XHRBackend, ConnectionBackend, RequestOptions, RequestOptionsArgs, Response, Headers} from '@angular/http';
-
+import { Restangular, RestangularHttp } from 'ngx-restangular';
 import {KeycloakService} from './keycloak.service';
 import {Observable} from 'rxjs';
 
 /**
  * This provides a wrapper over the ng2 Http class that insures tokens are refreshed on each request.
  */
+/*
 @Injectable()
-export class KeycloakHttp extends Http {
-  constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService) {
-    super(_backend, _defaultOptions);
+export class KeycloakHttp extends Restangular {
+  constructor(_backend: ConnectionBackend, _defaultOptions: RequestOptions, private _keycloakService: KeycloakService, private _restangularHttp: RestangularHttp) {
+    super(_backend, null, _restangularHttp);
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-    if (!this._keycloakService.authenticated()) return super.request(url, options);
+    if (!this._keycloakService.authenticated()) return super.getRequestedUrl(url, options);
 
     const tokenPromise: Promise<string> = this._keycloakService.getToken();
     const tokenObservable: Observable<string> = Observable.fromPromise(tokenPromise);
@@ -47,19 +48,21 @@ export class KeycloakHttp extends Http {
     if (typeof url === 'string') {
       return tokenObservable.map(token => {
         const authOptions = new RequestOptions({headers: new Headers({'Authorization': 'Bearer ' + token})});
+        console.log("got into http interceptor if====" + token);
         return new RequestOptions().merge(options).merge(authOptions);
-      }).concatMap(opts => super.request(url, opts));
+      }).concatMap(opts => super.getRequestedUrl(url, opts));
     } else if (url instanceof Request) {
       return tokenObservable.map(token => {
         url.headers.set('Authorization', 'Bearer ' + token);
+        console.log("got into http interceptor else====" + token);
         return url;
-      }).concatMap(request => super.request(request));
+      }).concatMap(request => super.getRequestedUrl(request));
     }
   }
 }
 
-export function keycloakHttpFactory(backend: XHRBackend, defaultOptions: RequestOptions, keycloakService: KeycloakService) {
-  return new KeycloakHttp(backend, defaultOptions, keycloakService);
+export function keycloakHttpFactory(backend: XHRBackend, defaultOptions: RequestOptions, keycloakService: KeycloakService,  restangularHttp: RestangularHttp) {
+  return new KeycloakHttp(backend, defaultOptions, keycloakService, restangularHttp );
 }
 
 export const KEYCLOAK_HTTP_PROVIDER = {
@@ -67,3 +70,5 @@ export const KEYCLOAK_HTTP_PROVIDER = {
   useFactory: keycloakHttpFactory,
   deps: [XHRBackend, RequestOptions, KeycloakService]
 };
+
+*/

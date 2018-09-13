@@ -16,13 +16,10 @@
  */
 
 /// <reference path="keycloak.d.ts"/>
-
 import {Injectable} from '@angular/core';
 //type LogoutOptions = Keycloak.LogoutOptions;
-
 var Keycloak = require("./keycloak"); // load keycloak.js locally
 type KeycloakClient = Keycloak.KeycloakInstance;//Client;
-
 @Injectable()
 export class KeycloakService {
 	static keycloakAuth: KeycloakClient = Keycloak();
@@ -50,7 +47,6 @@ export class KeycloakService {
 	logout() {
 		//let logoutOptions:LogoutOptions;
 		//logoutOptions.redirectUri = KeycloakService.keycloakAuth.createLogoutUrl();
-
 		KeycloakService.keycloakAuth.logout();//logoutOptions);
 	}
 
